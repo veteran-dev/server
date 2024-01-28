@@ -1676,6 +1676,325 @@ const docTemplate = `{
                 }
             }
         },
+        "/carc/createCarCombination": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarCombination"
+                ],
+                "summary": "创建车型组",
+                "parameters": [
+                    {
+                        "description": "创建车型组",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/carCombination.CarCombination"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/carc/deleteCarCombination": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarCombination"
+                ],
+                "summary": "删除车型组",
+                "parameters": [
+                    {
+                        "description": "删除车型组",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/carCombination.CarCombination"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/carc/deleteCarCombinationByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarCombination"
+                ],
+                "summary": "批量删除车型组",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/carc/findCarCombination": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarCombination"
+                ],
+                "summary": "用id查询车型组",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "ID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "儿童座椅数目",
+                        "name": "childSeats",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "车型组标题",
+                        "name": "combinationTitle",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createdBy",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "deletedBy",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "24寸以上的箱包数量",
+                        "name": "largeLuggage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "车型级别",
+                        "name": "level",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "24寸以下箱包数目",
+                        "name": "luggage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "汽车车型",
+                        "name": "modelName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "座位数量",
+                        "name": "seats",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "车型组状态",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updatedBy",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/carc/getCarCombinationList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarCombination"
+                ],
+                "summary": "分页获取车型组列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/carc/updateCarCombination": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarCombination"
+                ],
+                "summary": "更新车型组",
+                "parameters": [
+                    {
+                        "description": "更新车型组",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/carCombination.CarCombination"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/casbin/UpdateCasbin": {
             "post": {
                 "security": [
@@ -1779,139 +2098,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/customer/customer": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ExaCustomer"
-                ],
-                "summary": "获取单一客户信息",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "ID",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "客户名",
-                        "name": "customerName",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "客户手机号",
-                        "name": "customerPhoneData",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "管理角色ID",
-                        "name": "sysUserAuthorityID",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "管理ID",
-                        "name": "sysUserId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "获取单一客户信息,返回包括客户详情",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/response.ExaCustomerResponse"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ExaCustomer"
-                ],
-                "summary": "更新客户信息",
-                "parameters": [
-                    {
-                        "description": "客户ID, 客户信息",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/example.ExaCustomer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "更新客户信息",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
+        "/ccc/createCityCarCombination": {
             "post": {
                 "security": [
                     {
@@ -1925,41 +2112,31 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "ExaCustomer"
+                    "CityCarCombination"
                 ],
-                "summary": "创建客户",
+                "summary": "创建车型城市组合",
                 "parameters": [
                     {
-                        "description": "客户用户名, 客户手机号码",
+                        "description": "创建车型城市组合",
                         "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/example.ExaCustomer"
+                            "$ref": "#/definitions/cityCarCombination.CityCarCombination"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "创建客户",
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
+                            "type": "string"
                         }
                     }
                 }
-            },
+            }
+        },
+        "/ccc/deleteCityCarCombination": {
             "delete": {
                 "security": [
                     {
@@ -1973,43 +2150,58 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "ExaCustomer"
+                    "CityCarCombination"
                 ],
-                "summary": "删除客户",
+                "summary": "删除车型城市组合",
                 "parameters": [
                     {
-                        "description": "客户ID",
+                        "description": "删除车型城市组合",
                         "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/example.ExaCustomer"
+                            "$ref": "#/definitions/cityCarCombination.CityCarCombination"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "删除客户",
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
+                            "type": "string"
                         }
                     }
                 }
             }
         },
-        "/customer/customerList": {
+        "/ccc/deleteCityCarCombinationByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CityCarCombination"
+                ],
+                "summary": "批量删除车型城市组合",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/ccc/findCityCarCombination": {
             "get": {
                 "security": [
                     {
@@ -2023,10 +2215,111 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "ExaCustomer"
+                    "CityCarCombination"
                 ],
-                "summary": "分页获取权限客户列表",
+                "summary": "用id查询车型城市组合",
                 "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "ID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "城市车型组合价格",
+                        "name": "basePrice",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "车型ID",
+                        "name": "car",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createdBy",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "deletedBy",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "出发城市",
+                        "name": "from",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "组合状态",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "到达城市",
+                        "name": "to",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updatedBy",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/ccc/getCityCarCombinationList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CityCarCombination"
+                ],
+                "summary": "分页获取车型城市组合列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
                     {
                         "type": "string",
                         "description": "关键字",
@@ -2044,28 +2337,362 @@ const docTemplate = `{
                         "description": "每页大小",
                         "name": "pageSize",
                         "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "分页获取权限客户列表,返回包括列表,总数,页码,每页数量",
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/response.PageResult"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/ccc/updateCityCarCombination": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CityCarCombination"
+                ],
+                "summary": "更新车型城市组合",
+                "parameters": [
+                    {
+                        "description": "更新车型城市组合",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cityCarCombination.CityCarCombination"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/cd/createCityData": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CityData"
+                ],
+                "summary": "创建城市数据",
+                "parameters": [
+                    {
+                        "description": "创建城市数据",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/city.CityData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/cd/deleteCityData": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CityData"
+                ],
+                "summary": "删除城市数据",
+                "parameters": [
+                    {
+                        "description": "删除城市数据",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/city.CityData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/cd/deleteCityDataByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CityData"
+                ],
+                "summary": "批量删除城市数据",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/cd/findCityData": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CityData"
+                ],
+                "summary": "用id查询城市数据",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "ID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "首字母",
+                        "name": "alphabet",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createdBy",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "deletedBy",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "推荐",
+                        "name": "hot",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "description": "经纬度",
+                        "name": "latitude",
+                        "in": "query"
+                    },
+                    {
+                        "type": "number",
+                        "description": "经纬度",
+                        "name": "longitude",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "城市名称",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "城市名拼音",
+                        "name": "pinyin",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updatedBy",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/cd/getCityDataList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CityData"
+                ],
+                "summary": "分页获取城市数据列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/cd/updateCityData": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CityData"
+                ],
+                "summary": "更新城市数据",
+                "parameters": [
+                    {
+                        "description": "更新城市数据",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/city.CityData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -2130,154 +2757,8 @@ const docTemplate = `{
                 }
             }
         },
-        "/fileUploadAndDownload/breakpointContinue": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "multipart/form-data"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ExaFileUploadAndDownload"
-                ],
-                "summary": "断点续传到服务器",
-                "parameters": [
-                    {
-                        "type": "file",
-                        "description": "an example for breakpoint resume, 断点续传示例",
-                        "name": "file",
-                        "in": "formData",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "断点续传到服务器",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/fileUploadAndDownload/deleteFile": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ExaFileUploadAndDownload"
-                ],
-                "summary": "删除文件",
-                "parameters": [
-                    {
-                        "description": "传入文件里面id即可",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/example.ExaFileUploadAndDownload"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "删除文件",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/fileUploadAndDownload/findFile": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "multipart/form-data"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ExaFileUploadAndDownload"
-                ],
-                "summary": "创建文件",
-                "parameters": [
-                    {
-                        "type": "file",
-                        "description": "上传文件完成",
-                        "name": "file",
-                        "in": "formData",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "创建文件,返回包括文件路径",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/response.FilePathResponse"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/fileUploadAndDownload/getFileList": {
-            "post": {
+        "/general/carList": {
+            "get": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -2290,139 +2771,41 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "ExaFileUploadAndDownload"
+                    "GeneralData"
                 ],
-                "summary": "分页文件列表",
-                "parameters": [
-                    {
-                        "description": "页码, 每页大小",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.PageInfo"
-                        }
-                    }
-                ],
+                "summary": "获取车型组数据列表",
                 "responses": {
                     "200": {
-                        "description": "分页文件列表,返回包括列表,总数,页码,每页数量",
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/response.PageResult"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
+                            "type": "string"
                         }
                     }
                 }
             }
         },
-        "/fileUploadAndDownload/removeChunk": {
-            "post": {
+        "/general/cityList": {
+            "get": {
                 "security": [
                     {
                         "ApiKeyAuth": []
                     }
                 ],
                 "consumes": [
-                    "multipart/form-data"
+                    "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "ExaFileUploadAndDownload"
+                    "GeneralData"
                 ],
-                "summary": "删除切片",
-                "parameters": [
-                    {
-                        "type": "file",
-                        "description": "删除缓存切片",
-                        "name": "file",
-                        "in": "formData",
-                        "required": true
-                    }
-                ],
+                "summary": "获取城市数据列表",
                 "responses": {
                     "200": {
-                        "description": "删除切片",
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/fileUploadAndDownload/upload": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "multipart/form-data"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "ExaFileUploadAndDownload"
-                ],
-                "summary": "上传文件示例",
-                "parameters": [
-                    {
-                        "type": "file",
-                        "description": "上传文件示例",
-                        "name": "file",
-                        "in": "formData",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "上传文件示例,返回包括文件详情",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/response.ExaFileResponse"
-                                        },
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
+                            "type": "string"
                         }
                     }
                 }
@@ -2999,6 +3382,348 @@ const docTemplate = `{
                                     }
                                 }
                             ]
+                        }
+                    }
+                }
+            }
+        },
+        "/o/createOrder": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "创建订单",
+                "parameters": [
+                    {
+                        "description": "创建订单",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/order.Order"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/o/deleteOrder": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "删除订单",
+                "parameters": [
+                    {
+                        "description": "删除订单",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/order.Order"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/o/deleteOrderByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "批量删除订单",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/o/findOrder": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "用id查询订单",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "ID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "预约时间",
+                        "name": "appointment",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "取消原因",
+                        "name": "cancelReason",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "车型组",
+                        "name": "carModel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "createdBy",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "deletedBy",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "开始地点",
+                        "name": "fromArea",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "开始城市id",
+                        "name": "fromCity",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "订单编号",
+                        "name": "orderSerial",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "乘车人",
+                        "name": "passenger",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "乘车人联系",
+                        "name": "passengerMobile",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "订单金额",
+                        "name": "price",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "订单状态",
+                        "name": "status",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "抵达区域",
+                        "name": "toArea",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "抵达城市ID",
+                        "name": "toCity",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "updatedBy",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/o/getOrderList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "分页获取订单列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/o/updateOrder": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "更新订单",
+                "parameters": [
+                    {
+                        "description": "更新订单",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/order.Order"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -3643,6 +4368,368 @@ const docTemplate = `{
                                     }
                                 }
                             ]
+                        }
+                    }
+                }
+            }
+        },
+        "/sysExportTemplate/createSysExportTemplate": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysExportTemplate"
+                ],
+                "summary": "创建导出模板",
+                "parameters": [
+                    {
+                        "description": "创建导出模板",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysExportTemplate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/sysExportTemplate/deleteSysExportTemplate": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysExportTemplate"
+                ],
+                "summary": "删除导出模板",
+                "parameters": [
+                    {
+                        "description": "删除导出模板",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysExportTemplate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/sysExportTemplate/deleteSysExportTemplateByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysExportTemplate"
+                ],
+                "summary": "批量删除导出模板",
+                "parameters": [
+                    {
+                        "description": "批量删除导出模板",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/sysExportTemplate/exportExcel": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysExportTemplate"
+                ],
+                "summary": "导出表格模板",
+                "responses": {}
+            }
+        },
+        "/sysExportTemplate/findSysExportTemplate": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysExportTemplate"
+                ],
+                "summary": "用id查询导出模板",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "ID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "模板名称",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "表名称",
+                        "name": "tableName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "模板标识",
+                        "name": "templateID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "模板信息",
+                        "name": "templateInfo",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/sysExportTemplate/getSysExportTemplateList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysExportTemplate"
+                ],
+                "summary": "分页获取导出模板列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "ID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "模板名称",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "表名称",
+                        "name": "tableName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "模板标识",
+                        "name": "templateID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "模板信息",
+                        "name": "templateInfo",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/sysExportTemplate/importExcel": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysImportTemplate"
+                ],
+                "summary": "导入表格",
+                "responses": {}
+            }
+        },
+        "/sysExportTemplate/updateSysExportTemplate": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysExportTemplate"
+                ],
+                "summary": "更新导出模板",
+                "parameters": [
+                    {
+                        "description": "更新导出模板",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysExportTemplate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -4718,6 +5805,169 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "carCombination.CarCombination": {
+            "type": "object",
+            "required": [
+                "combinationTitle"
+            ],
+            "properties": {
+                "ID": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "childSeats": {
+                    "description": "儿童座椅数目",
+                    "type": "integer"
+                },
+                "combinationTitle": {
+                    "description": "车型组标题",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "createdBy": {
+                    "type": "integer"
+                },
+                "deletedBy": {
+                    "type": "integer"
+                },
+                "largeLuggage": {
+                    "description": "24寸以上的箱包数量",
+                    "type": "integer"
+                },
+                "level": {
+                    "description": "车型级别",
+                    "type": "string"
+                },
+                "luggage": {
+                    "description": "24寸以下箱包数目",
+                    "type": "integer"
+                },
+                "modelName": {
+                    "description": "汽车车型",
+                    "type": "string"
+                },
+                "seats": {
+                    "description": "座位数量",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "车型组状态",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "updatedBy": {
+                    "type": "integer"
+                }
+            }
+        },
+        "city.CityData": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "alphabet": {
+                    "description": "首字母",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "createdBy": {
+                    "type": "integer"
+                },
+                "deletedBy": {
+                    "type": "integer"
+                },
+                "hot": {
+                    "description": "推荐",
+                    "type": "boolean"
+                },
+                "latitude": {
+                    "description": "经纬度",
+                    "type": "number"
+                },
+                "longitude": {
+                    "description": "经纬度",
+                    "type": "number"
+                },
+                "name": {
+                    "description": "城市名称",
+                    "type": "string"
+                },
+                "pinyin": {
+                    "description": "城市名拼音",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "updatedBy": {
+                    "type": "integer"
+                }
+            }
+        },
+        "cityCarCombination.CityCarCombination": {
+            "type": "object",
+            "required": [
+                "basePrice",
+                "car",
+                "from",
+                "to"
+            ],
+            "properties": {
+                "ID": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "basePrice": {
+                    "description": "城市车型组合价格",
+                    "type": "integer"
+                },
+                "car": {
+                    "description": "车型ID",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "createdBy": {
+                    "type": "integer"
+                },
+                "deletedBy": {
+                    "type": "integer"
+                },
+                "from": {
+                    "description": "出发城市",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "组合状态",
+                    "type": "integer"
+                },
+                "to": {
+                    "description": "到达城市",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "updatedBy": {
+                    "type": "integer"
+                }
+            }
+        },
         "config.AliyunOSS": {
             "type": "object",
             "properties": {
@@ -4944,6 +6194,10 @@ const docTemplate = `{
         "config.Mongo": {
             "type": "object",
             "properties": {
+                "auth-source": {
+                    "description": "验证数据库",
+                    "type": "string"
+                },
                 "coll": {
                     "description": "collection name",
                     "type": "string"
@@ -5311,7 +6565,7 @@ const docTemplate = `{
                     }
                 },
                 "email": {
-                    "$ref": "#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.Email"
+                    "$ref": "#/definitions/github_com_5asp_gin-vue-admin_server_config.Email"
                 },
                 "excel": {
                     "$ref": "#/definitions/config.Excel"
@@ -5518,7 +6772,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "use-mongo": {
-                    "description": "使用redis",
+                    "description": "使用mongo",
                     "type": "boolean"
                 },
                 "use-multipoint": {
@@ -5595,145 +6849,7 @@ const docTemplate = `{
                 }
             }
         },
-        "example.ExaCustomer": {
-            "type": "object",
-            "properties": {
-                "ID": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "customerName": {
-                    "description": "客户名",
-                    "type": "string"
-                },
-                "customerPhoneData": {
-                    "description": "客户手机号",
-                    "type": "string"
-                },
-                "sysUser": {
-                    "description": "管理详情",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/system.SysUser"
-                        }
-                    ]
-                },
-                "sysUserAuthorityID": {
-                    "description": "管理角色ID",
-                    "type": "integer"
-                },
-                "sysUserId": {
-                    "description": "管理ID",
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                }
-            }
-        },
-        "example.ExaFile": {
-            "type": "object",
-            "properties": {
-                "ID": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "chunkTotal": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "exaFileChunk": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/example.ExaFileChunk"
-                    }
-                },
-                "fileMd5": {
-                    "type": "string"
-                },
-                "fileName": {
-                    "type": "string"
-                },
-                "filePath": {
-                    "type": "string"
-                },
-                "isFinish": {
-                    "type": "boolean"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                }
-            }
-        },
-        "example.ExaFileChunk": {
-            "type": "object",
-            "properties": {
-                "ID": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "exaFileID": {
-                    "type": "integer"
-                },
-                "fileChunkNumber": {
-                    "type": "integer"
-                },
-                "fileChunkPath": {
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                }
-            }
-        },
-        "example.ExaFileUploadAndDownload": {
-            "type": "object",
-            "properties": {
-                "ID": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "key": {
-                    "description": "编号",
-                    "type": "string"
-                },
-                "name": {
-                    "description": "文件名",
-                    "type": "string"
-                },
-                "tag": {
-                    "description": "文件标签",
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "url": {
-                    "description": "文件地址",
-                    "type": "string"
-                }
-            }
-        },
-        "github_com_flipped-aurora_gin-vue-admin_server_config.Email": {
+        "github_com_5asp_gin-vue-admin_server_config.Email": {
             "type": "object",
             "properties": {
                 "from": {
@@ -5763,6 +6879,80 @@ const docTemplate = `{
                 "to": {
                     "description": "收件人:多个以英文逗号分隔 例：a@qq.com b@qq.com 正式开发中请把此项目作为参数使用",
                     "type": "string"
+                }
+            }
+        },
+        "order.Order": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "appointment": {
+                    "description": "预约时间",
+                    "type": "string"
+                },
+                "cancelReason": {
+                    "description": "取消原因",
+                    "type": "integer"
+                },
+                "carModel": {
+                    "description": "车型组",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "createdBy": {
+                    "type": "integer"
+                },
+                "deletedBy": {
+                    "type": "integer"
+                },
+                "fromArea": {
+                    "description": "开始地点",
+                    "type": "string"
+                },
+                "fromCity": {
+                    "description": "开始城市id",
+                    "type": "integer"
+                },
+                "orderSerial": {
+                    "description": "订单编号",
+                    "type": "integer"
+                },
+                "passenger": {
+                    "description": "乘车人",
+                    "type": "string"
+                },
+                "passengerMobile": {
+                    "description": "乘车人联系",
+                    "type": "string"
+                },
+                "price": {
+                    "description": "订单金额",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "订单状态",
+                    "type": "integer"
+                },
+                "toArea": {
+                    "description": "抵达区域",
+                    "type": "string"
+                },
+                "toCity": {
+                    "description": "抵达城市ID",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "updatedBy": {
+                    "type": "integer"
                 }
             }
         },
@@ -6110,38 +7300,6 @@ const docTemplate = `{
                 }
             }
         },
-        "response.ExaCustomerResponse": {
-            "type": "object",
-            "properties": {
-                "customer": {
-                    "$ref": "#/definitions/example.ExaCustomer"
-                }
-            }
-        },
-        "response.ExaFileResponse": {
-            "type": "object",
-            "properties": {
-                "file": {
-                    "$ref": "#/definitions/example.ExaFileUploadAndDownload"
-                }
-            }
-        },
-        "response.FilePathResponse": {
-            "type": "object",
-            "properties": {
-                "filePath": {
-                    "type": "string"
-                }
-            }
-        },
-        "response.FileResponse": {
-            "type": "object",
-            "properties": {
-                "file": {
-                    "$ref": "#/definitions/example.ExaFile"
-                }
-            }
-        },
         "response.LoginResponse": {
             "type": "object",
             "properties": {
@@ -6340,7 +7498,8 @@ const docTemplate = `{
                         "$ref": "#/definitions/system.Field"
                     }
                 },
-                "hasTimer": {
+                "gvaModel": {
+                    "description": "是否使用gva默认Model",
                     "type": "boolean"
                 },
                 "humpPackageName": {
@@ -6353,6 +7512,9 @@ const docTemplate = `{
                 "packageName": {
                     "description": "文件名称",
                     "type": "string"
+                },
+                "primaryField": {
+                    "$ref": "#/definitions/system.Field"
                 },
                 "structName": {
                     "description": "Struct名称",
@@ -6410,6 +7572,10 @@ const docTemplate = `{
                 "fieldType": {
                     "description": "Field数据类型",
                     "type": "string"
+                },
+                "primaryKey": {
+                    "description": "是否主键",
+                    "type": "boolean"
                 },
                 "require": {
                     "description": "是否必填",
@@ -6766,6 +7932,39 @@ const docTemplate = `{
                 "value": {
                     "description": "字典值",
                     "type": "integer"
+                }
+            }
+        },
+        "system.SysExportTemplate": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "模板名称",
+                    "type": "string"
+                },
+                "tableName": {
+                    "description": "表名称",
+                    "type": "string"
+                },
+                "templateID": {
+                    "description": "模板标识",
+                    "type": "string"
+                },
+                "templateInfo": {
+                    "description": "模板信息",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 }
             }
         },

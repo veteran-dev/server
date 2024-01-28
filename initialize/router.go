@@ -45,6 +45,14 @@ func Routers() *gin.Engine {
 		systemRouter.InitBaseRouter(PublicGroup)
 		systemRouter.InitInitRouter(PublicGroup)
 	}
+
+	GeneralGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)
+	GeneralGroup.Use(middleware.JWTAuth())
+	{
+		generalRouter := router.RouterGroupApp.General
+		generalRouter.InitGeneralRouter(GeneralGroup)
+	}
+
 	PrivateGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)
 	PrivateGroup.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
 	{
@@ -69,19 +77,16 @@ func Routers() *gin.Engine {
 		cityRouter.InitCityDataRouter(PrivateGroup)
 	}
 	{
-
-	}
-	{
 		orderRouter := router.RouterGroupApp.Order
 		orderRouter.InitOrderRouter(PrivateGroup)
 	}
 	{
-		modelGroupRouter := router.RouterGroupApp.ModelGroup
-		modelGroupRouter.InitModelGroupRouter(PrivateGroup)
+		carCombinationRouter := router.RouterGroupApp.CarCombination
+		carCombinationRouter.InitCarCombinationRouter(PrivateGroup)
 	}
 	{
-		combinationRouter := router.RouterGroupApp.Combination
-		combinationRouter.InitCombinationRouter(PrivateGroup)
+		cityCarCombinationRouter := router.RouterGroupApp.CityCarCombination
+		cityCarCombinationRouter.InitCityCarCombinationRouter(PrivateGroup)
 	}
 
 	global.GVA_LOG.Info("router register success")

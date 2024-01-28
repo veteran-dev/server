@@ -1,4 +1,122 @@
 definitions:
+  carCombination.CarCombination:
+    properties:
+      ID:
+        description: 主键ID
+        type: integer
+      childSeats:
+        description: 儿童座椅数目
+        type: integer
+      combinationTitle:
+        description: 车型组标题
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      createdBy:
+        type: integer
+      deletedBy:
+        type: integer
+      largeLuggage:
+        description: 24寸以上的箱包数量
+        type: integer
+      level:
+        description: 车型级别
+        type: string
+      luggage:
+        description: 24寸以下箱包数目
+        type: integer
+      modelName:
+        description: 汽车车型
+        type: string
+      seats:
+        description: 座位数量
+        type: integer
+      status:
+        description: 车型组状态
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      updatedBy:
+        type: integer
+    required:
+    - combinationTitle
+    type: object
+  city.CityData:
+    properties:
+      ID:
+        description: 主键ID
+        type: integer
+      alphabet:
+        description: 首字母
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      createdBy:
+        type: integer
+      deletedBy:
+        type: integer
+      hot:
+        description: 推荐
+        type: boolean
+      latitude:
+        description: 经纬度
+        type: number
+      longitude:
+        description: 经纬度
+        type: number
+      name:
+        description: 城市名称
+        type: string
+      pinyin:
+        description: 城市名拼音
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+      updatedBy:
+        type: integer
+    type: object
+  cityCarCombination.CityCarCombination:
+    properties:
+      ID:
+        description: 主键ID
+        type: integer
+      basePrice:
+        description: 城市车型组合价格
+        type: integer
+      car:
+        description: 车型ID
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      createdBy:
+        type: integer
+      deletedBy:
+        type: integer
+      from:
+        description: 出发城市
+        type: integer
+      status:
+        description: 组合状态
+        type: integer
+      to:
+        description: 到达城市
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      updatedBy:
+        type: integer
+    required:
+    - basePrice
+    - car
+    - from
+    - to
+    type: object
   config.AliyunOSS:
     properties:
       access-key-id:
@@ -150,6 +268,9 @@ definitions:
     type: object
   config.Mongo:
     properties:
+      auth-source:
+        description: 验证数据库
+        type: string
       coll:
         description: collection name
         type: string
@@ -412,7 +533,7 @@ definitions:
           $ref: '#/definitions/config.SpecializedDB'
         type: array
       email:
-        $ref: '#/definitions/github_com_flipped-aurora_gin-vue-admin_server_config.Email'
+        $ref: '#/definitions/github_com_5asp_gin-vue-admin_server_config.Email'
       excel:
         $ref: '#/definitions/config.Excel'
       hua-wei-obs:
@@ -555,7 +676,7 @@ definitions:
       router-prefix:
         type: string
       use-mongo:
-        description: 使用redis
+        description: 使用mongo
         type: boolean
       use-multipoint:
         description: 多点登录拦截
@@ -609,103 +730,7 @@ definitions:
         description: 栈名
         type: string
     type: object
-  example.ExaCustomer:
-    properties:
-      ID:
-        description: 主键ID
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      customerName:
-        description: 客户名
-        type: string
-      customerPhoneData:
-        description: 客户手机号
-        type: string
-      sysUser:
-        allOf:
-        - $ref: '#/definitions/system.SysUser'
-        description: 管理详情
-      sysUserAuthorityID:
-        description: 管理角色ID
-        type: integer
-      sysUserId:
-        description: 管理ID
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
-  example.ExaFile:
-    properties:
-      ID:
-        description: 主键ID
-        type: integer
-      chunkTotal:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      exaFileChunk:
-        items:
-          $ref: '#/definitions/example.ExaFileChunk'
-        type: array
-      fileMd5:
-        type: string
-      fileName:
-        type: string
-      filePath:
-        type: string
-      isFinish:
-        type: boolean
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
-  example.ExaFileChunk:
-    properties:
-      ID:
-        description: 主键ID
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      exaFileID:
-        type: integer
-      fileChunkNumber:
-        type: integer
-      fileChunkPath:
-        type: string
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
-  example.ExaFileUploadAndDownload:
-    properties:
-      ID:
-        description: 主键ID
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      key:
-        description: 编号
-        type: string
-      name:
-        description: 文件名
-        type: string
-      tag:
-        description: 文件标签
-        type: string
-      updatedAt:
-        description: 更新时间
-        type: string
-      url:
-        description: 文件地址
-        type: string
-    type: object
-  github_com_flipped-aurora_gin-vue-admin_server_config.Email:
+  github_com_5asp_gin-vue-admin_server_config.Email:
     properties:
       from:
         description: 发件人  你自己要发邮件的邮箱
@@ -728,6 +753,60 @@ definitions:
       to:
         description: 收件人:多个以英文逗号分隔 例：a@qq.com b@qq.com 正式开发中请把此项目作为参数使用
         type: string
+    type: object
+  order.Order:
+    properties:
+      ID:
+        description: 主键ID
+        type: integer
+      appointment:
+        description: 预约时间
+        type: string
+      cancelReason:
+        description: 取消原因
+        type: integer
+      carModel:
+        description: 车型组
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      createdBy:
+        type: integer
+      deletedBy:
+        type: integer
+      fromArea:
+        description: 开始地点
+        type: string
+      fromCity:
+        description: 开始城市id
+        type: integer
+      orderSerial:
+        description: 订单编号
+        type: integer
+      passenger:
+        description: 乘车人
+        type: string
+      passengerMobile:
+        description: 乘车人联系
+        type: string
+      price:
+        description: 订单金额
+        type: integer
+      status:
+        description: 订单状态
+        type: integer
+      toArea:
+        description: 抵达区域
+        type: string
+      toCity:
+        description: 抵达城市ID
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      updatedBy:
+        type: integer
     type: object
   request.AddMenuAuthorityInfo:
     properties:
@@ -970,26 +1049,6 @@ definitions:
         description: 邮件发送给谁
         type: string
     type: object
-  response.ExaCustomerResponse:
-    properties:
-      customer:
-        $ref: '#/definitions/example.ExaCustomer'
-    type: object
-  response.ExaFileResponse:
-    properties:
-      file:
-        $ref: '#/definitions/example.ExaFileUploadAndDownload'
-    type: object
-  response.FilePathResponse:
-    properties:
-      filePath:
-        type: string
-    type: object
-  response.FileResponse:
-    properties:
-      file:
-        $ref: '#/definitions/example.ExaFile'
-    type: object
   response.LoginResponse:
     properties:
       expiresAt:
@@ -1120,7 +1179,8 @@ definitions:
         items:
           $ref: '#/definitions/system.Field'
         type: array
-      hasTimer:
+      gvaModel:
+        description: 是否使用gva默认Model
         type: boolean
       humpPackageName:
         description: go文件名称
@@ -1130,6 +1190,8 @@ definitions:
       packageName:
         description: 文件名称
         type: string
+      primaryField:
+        $ref: '#/definitions/system.Field'
       structName:
         description: Struct名称
         type: string
@@ -1172,6 +1234,9 @@ definitions:
       fieldType:
         description: Field数据类型
         type: string
+      primaryKey:
+        description: 是否主键
+        type: boolean
       require:
         description: 是否必填
         type: boolean
@@ -1424,6 +1489,30 @@ definitions:
       value:
         description: 字典值
         type: integer
+    type: object
+  system.SysExportTemplate:
+    properties:
+      ID:
+        description: 主键ID
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      name:
+        description: 模板名称
+        type: string
+      tableName:
+        description: 表名称
+        type: string
+      templateID:
+        description: 模板标识
+        type: string
+      templateInfo:
+        description: 模板信息
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
     type: object
   system.SysMenu:
     properties:
@@ -2525,6 +2614,203 @@ paths:
       summary: 用户登录
       tags:
       - Base
+  /carc/createCarCombination:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建车型组
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/carCombination.CarCombination'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建车型组
+      tags:
+      - CarCombination
+  /carc/deleteCarCombination:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除车型组
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/carCombination.CarCombination'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除车型组
+      tags:
+      - CarCombination
+  /carc/deleteCarCombinationByIds:
+    delete:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除车型组
+      tags:
+      - CarCombination
+  /carc/findCarCombination:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 主键ID
+        in: query
+        name: ID
+        type: integer
+      - description: 儿童座椅数目
+        in: query
+        name: childSeats
+        type: integer
+      - description: 车型组标题
+        in: query
+        name: combinationTitle
+        required: true
+        type: string
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: createdBy
+        type: integer
+      - in: query
+        name: deletedBy
+        type: integer
+      - description: 24寸以上的箱包数量
+        in: query
+        name: largeLuggage
+        type: integer
+      - description: 车型级别
+        in: query
+        name: level
+        type: string
+      - description: 24寸以下箱包数目
+        in: query
+        name: luggage
+        type: integer
+      - description: 汽车车型
+        in: query
+        name: modelName
+        type: string
+      - description: 座位数量
+        in: query
+        name: seats
+        type: integer
+      - description: 车型组状态
+        in: query
+        name: status
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: updatedBy
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询车型组
+      tags:
+      - CarCombination
+  /carc/getCarCombinationList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: order
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: sort
+        type: string
+      - in: query
+        name: startCreatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取车型组列表
+      tags:
+      - CarCombination
+  /carc/updateCarCombination:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新车型组
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/carCombination.CarCombination'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新车型组
+      tags:
+      - CarCombination
   /casbin/UpdateCasbin:
     post:
       consumes:
@@ -2583,34 +2869,69 @@ paths:
       summary: 获取权限列表
       tags:
       - Casbin
-  /customer/customer:
-    delete:
+  /ccc/createCityCarCombination:
+    post:
       consumes:
       - application/json
       parameters:
-      - description: 客户ID
+      - description: 创建车型城市组合
         in: body
         name: data
         required: true
         schema:
-          $ref: '#/definitions/example.ExaCustomer'
+          $ref: '#/definitions/cityCarCombination.CityCarCombination'
       produces:
       - application/json
       responses:
         "200":
-          description: 删除客户
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                msg:
-                  type: string
-              type: object
+            type: string
       security:
       - ApiKeyAuth: []
-      summary: 删除客户
+      summary: 创建车型城市组合
       tags:
-      - ExaCustomer
+      - CityCarCombination
+  /ccc/deleteCityCarCombination:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除车型城市组合
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/cityCarCombination.CityCarCombination'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除车型城市组合
+      tags:
+      - CityCarCombination
+  /ccc/deleteCityCarCombinationByIds:
+    delete:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除车型城市组合
+      tags:
+      - CityCarCombination
+  /ccc/findCityCarCombination:
     get:
       consumes:
       - application/json
@@ -2619,108 +2940,67 @@ paths:
         in: query
         name: ID
         type: integer
+      - description: 城市车型组合价格
+        in: query
+        name: basePrice
+        required: true
+        type: integer
+      - description: 车型ID
+        in: query
+        name: car
+        required: true
+        type: integer
       - description: 创建时间
         in: query
         name: createdAt
         type: string
-      - description: 客户名
-        in: query
-        name: customerName
-        type: string
-      - description: 客户手机号
-        in: query
-        name: customerPhoneData
-        type: string
-      - description: 管理角色ID
-        in: query
-        name: sysUserAuthorityID
+      - in: query
+        name: createdBy
         type: integer
-      - description: 管理ID
+      - in: query
+        name: deletedBy
+        type: integer
+      - description: 出发城市
         in: query
-        name: sysUserId
+        name: from
+        required: true
+        type: integer
+      - description: 组合状态
+        in: query
+        name: status
+        type: integer
+      - description: 到达城市
+        in: query
+        name: to
+        required: true
         type: integer
       - description: 更新时间
         in: query
         name: updatedAt
         type: string
+      - in: query
+        name: updatedBy
+        type: integer
       produces:
       - application/json
       responses:
         "200":
-          description: 获取单一客户信息,返回包括客户详情
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/response.ExaCustomerResponse'
-                msg:
-                  type: string
-              type: object
+            type: string
       security:
       - ApiKeyAuth: []
-      summary: 获取单一客户信息
+      summary: 用id查询车型城市组合
       tags:
-      - ExaCustomer
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 客户用户名, 客户手机号码
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/example.ExaCustomer'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 创建客户
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 创建客户
-      tags:
-      - ExaCustomer
-    put:
-      consumes:
-      - application/json
-      parameters:
-      - description: 客户ID, 客户信息
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/example.ExaCustomer'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 更新客户信息
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 更新客户信息
-      tags:
-      - ExaCustomer
-  /customer/customerList:
+      - CityCarCombination
+  /ccc/getCityCarCombinationList:
     get:
       consumes:
       - application/json
       parameters:
+      - in: query
+        name: endCreatedAt
+        type: string
       - description: 关键字
         in: query
         name: keyword
@@ -2733,25 +3013,232 @@ paths:
         in: query
         name: pageSize
         type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
       produces:
       - application/json
       responses:
         "200":
-          description: 分页获取权限客户列表,返回包括列表,总数,页码,每页数量
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/response.PageResult'
-                msg:
-                  type: string
-              type: object
+            type: string
       security:
       - ApiKeyAuth: []
-      summary: 分页获取权限客户列表
+      summary: 分页获取车型城市组合列表
       tags:
-      - ExaCustomer
+      - CityCarCombination
+  /ccc/updateCityCarCombination:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新车型城市组合
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/cityCarCombination.CityCarCombination'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新车型城市组合
+      tags:
+      - CityCarCombination
+  /cd/createCityData:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建城市数据
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/city.CityData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建城市数据
+      tags:
+      - CityData
+  /cd/deleteCityData:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除城市数据
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/city.CityData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除城市数据
+      tags:
+      - CityData
+  /cd/deleteCityDataByIds:
+    delete:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除城市数据
+      tags:
+      - CityData
+  /cd/findCityData:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 主键ID
+        in: query
+        name: ID
+        type: integer
+      - description: 首字母
+        in: query
+        name: alphabet
+        type: string
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: createdBy
+        type: integer
+      - in: query
+        name: deletedBy
+        type: integer
+      - description: 推荐
+        in: query
+        name: hot
+        type: boolean
+      - description: 经纬度
+        in: query
+        name: latitude
+        type: number
+      - description: 经纬度
+        in: query
+        name: longitude
+        type: number
+      - description: 城市名称
+        in: query
+        name: name
+        type: string
+      - description: 城市名拼音
+        in: query
+        name: pinyin
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: updatedBy
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询城市数据
+      tags:
+      - CityData
+  /cd/getCityDataList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: order
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: sort
+        type: string
+      - in: query
+        name: startCreatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取城市数据列表
+      tags:
+      - CityData
+  /cd/updateCityData:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新城市数据
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/city.CityData'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新城市数据
+      tags:
+      - CityData
   /email/emailTest:
     post:
       produces:
@@ -2787,174 +3274,38 @@ paths:
       summary: 发送邮件
       tags:
       - System
-  /fileUploadAndDownload/breakpointContinue:
-    post:
-      consumes:
-      - multipart/form-data
-      parameters:
-      - description: an example for breakpoint resume, 断点续传示例
-        in: formData
-        name: file
-        required: true
-        type: file
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 断点续传到服务器
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 断点续传到服务器
-      tags:
-      - ExaFileUploadAndDownload
-  /fileUploadAndDownload/deleteFile:
-    post:
-      parameters:
-      - description: 传入文件里面id即可
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/example.ExaFileUploadAndDownload'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 删除文件
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 删除文件
-      tags:
-      - ExaFileUploadAndDownload
-  /fileUploadAndDownload/findFile:
-    post:
-      consumes:
-      - multipart/form-data
-      parameters:
-      - description: 上传文件完成
-        in: formData
-        name: file
-        required: true
-        type: file
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 创建文件,返回包括文件路径
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/response.FilePathResponse'
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 创建文件
-      tags:
-      - ExaFileUploadAndDownload
-  /fileUploadAndDownload/getFileList:
-    post:
+  /general/carList:
+    get:
       consumes:
       - application/json
-      parameters:
-      - description: 页码, 每页大小
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.PageInfo'
       produces:
       - application/json
       responses:
         "200":
-          description: 分页文件列表,返回包括列表,总数,页码,每页数量
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/response.PageResult'
-                msg:
-                  type: string
-              type: object
+            type: string
       security:
       - ApiKeyAuth: []
-      summary: 分页文件列表
+      summary: 获取车型组数据列表
       tags:
-      - ExaFileUploadAndDownload
-  /fileUploadAndDownload/removeChunk:
-    post:
+      - GeneralData
+  /general/cityList:
+    get:
       consumes:
-      - multipart/form-data
-      parameters:
-      - description: 删除缓存切片
-        in: formData
-        name: file
-        required: true
-        type: file
+      - application/json
       produces:
       - application/json
       responses:
         "200":
-          description: 删除切片
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
           schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                msg:
-                  type: string
-              type: object
+            type: string
       security:
       - ApiKeyAuth: []
-      summary: 删除切片
+      summary: 获取城市数据列表
       tags:
-      - ExaFileUploadAndDownload
-  /fileUploadAndDownload/upload:
-    post:
-      consumes:
-      - multipart/form-data
-      parameters:
-      - description: 上传文件示例
-        in: formData
-        name: file
-        required: true
-        type: file
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 上传文件示例,返回包括文件详情
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/response.ExaFileResponse'
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 上传文件示例
-      tags:
-      - ExaFileUploadAndDownload
+      - GeneralData
   /init/checkdb:
     post:
       produces:
@@ -3279,6 +3630,218 @@ paths:
       summary: 更新菜单
       tags:
       - Menu
+  /o/createOrder:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建订单
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/order.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建订单
+      tags:
+      - Order
+  /o/deleteOrder:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除订单
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/order.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除订单
+      tags:
+      - Order
+  /o/deleteOrderByIds:
+    delete:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除订单
+      tags:
+      - Order
+  /o/findOrder:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 主键ID
+        in: query
+        name: ID
+        type: integer
+      - description: 预约时间
+        in: query
+        name: appointment
+        type: string
+      - description: 取消原因
+        in: query
+        name: cancelReason
+        type: integer
+      - description: 车型组
+        in: query
+        name: carModel
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: createdBy
+        type: integer
+      - in: query
+        name: deletedBy
+        type: integer
+      - description: 开始地点
+        in: query
+        name: fromArea
+        type: string
+      - description: 开始城市id
+        in: query
+        name: fromCity
+        type: integer
+      - description: 订单编号
+        in: query
+        name: orderSerial
+        type: integer
+      - description: 乘车人
+        in: query
+        name: passenger
+        type: string
+      - description: 乘车人联系
+        in: query
+        name: passengerMobile
+        type: string
+      - description: 订单金额
+        in: query
+        name: price
+        type: integer
+      - description: 订单状态
+        in: query
+        name: status
+        type: integer
+      - description: 抵达区域
+        in: query
+        name: toArea
+        type: string
+      - description: 抵达城市ID
+        in: query
+        name: toCity
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: updatedBy
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询订单
+      tags:
+      - Order
+  /o/getOrderList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: order
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: sort
+        type: string
+      - in: query
+        name: startCreatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取订单列表
+      tags:
+      - Order
+  /o/updateOrder:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新订单
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/order.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新订单
+      tags:
+      - Order
   /sysDictionary/createSysDictionary:
     post:
       consumes:
@@ -3656,6 +4219,230 @@ paths:
       summary: 更新SysDictionaryDetail
       tags:
       - SysDictionaryDetail
+  /sysExportTemplate/createSysExportTemplate:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建导出模板
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysExportTemplate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建导出模板
+      tags:
+      - SysExportTemplate
+  /sysExportTemplate/deleteSysExportTemplate:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除导出模板
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysExportTemplate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除导出模板
+      tags:
+      - SysExportTemplate
+  /sysExportTemplate/deleteSysExportTemplateByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除导出模板
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除导出模板
+      tags:
+      - SysExportTemplate
+  /sysExportTemplate/exportExcel:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: 导出表格模板
+      tags:
+      - SysExportTemplate
+  /sysExportTemplate/findSysExportTemplate:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 主键ID
+        in: query
+        name: ID
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 模板名称
+        in: query
+        name: name
+        type: string
+      - description: 表名称
+        in: query
+        name: tableName
+        type: string
+      - description: 模板标识
+        in: query
+        name: templateID
+        type: string
+      - description: 模板信息
+        in: query
+        name: templateInfo
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询导出模板
+      tags:
+      - SysExportTemplate
+  /sysExportTemplate/getSysExportTemplateList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 主键ID
+        in: query
+        name: ID
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 模板名称
+        in: query
+        name: name
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      - description: 表名称
+        in: query
+        name: tableName
+        type: string
+      - description: 模板标识
+        in: query
+        name: templateID
+        type: string
+      - description: 模板信息
+        in: query
+        name: templateInfo
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取导出模板列表
+      tags:
+      - SysExportTemplate
+  /sysExportTemplate/importExcel:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: 导入表格
+      tags:
+      - SysImportTemplate
+  /sysExportTemplate/updateSysExportTemplate:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新导出模板
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysExportTemplate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新导出模板
+      tags:
+      - SysExportTemplate
   /sysOperationRecord/createSysOperationRecord:
     post:
       consumes:

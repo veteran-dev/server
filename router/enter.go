@@ -1,6 +1,7 @@
 package router
 
 import (
+	"github.com/5asp/gin-vue-admin/server/router/app"
 	"github.com/5asp/gin-vue-admin/server/router/carCombination"
 	"github.com/5asp/gin-vue-admin/server/router/city"
 	"github.com/5asp/gin-vue-admin/server/router/cityCarCombination"
@@ -18,6 +19,7 @@ type RouterGroup struct {
 	CarCombination     carCombination.RouterGroup
 	CityCarCombination cityCarCombination.RouterGroup
 	General            general.GeneralRouter
+	App                app.AppRouter
 }
 
 var RouterGroupApp = new(RouterGroup)

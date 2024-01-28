@@ -111,3 +111,18 @@ func (cdService *CityDataService) GetCityList() (result map[uint]string, err err
 	}
 	return result, err
 }
+
+func (cdService *CityDataService) City() (result map[uint]string, err error) {
+	// 创建db
+	db := global.GVA_DB.Model(&city.CityData{})
+	var cds []city.CityData
+
+	err = db.Find(&cds).Error
+	if len(cds) > 0 {
+		result = make(map[uint]string)
+		for _, v := range cds {
+			result[v.ID] = v.Name
+		}
+	}
+	return result, err
+}

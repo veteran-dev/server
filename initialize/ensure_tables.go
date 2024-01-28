@@ -3,7 +3,6 @@ package initialize
 import (
 	"context"
 
-	"github.com/5asp/gin-vue-admin/server/model/example"
 	sysModel "github.com/5asp/gin-vue-admin/server/model/system"
 	"github.com/5asp/gin-vue-admin/server/service/system"
 	adapter "github.com/casbin/gorm-adapter/v3"
@@ -52,11 +51,6 @@ func (e *ensureTables) MigrateTable(ctx context.Context) (context.Context, error
 		sysModel.SysExportTemplate{},
 
 		adapter.CasbinRule{},
-
-		example.ExaFile{},
-		example.ExaCustomer{},
-		example.ExaFileChunk{},
-		example.ExaFileUploadAndDownload{},
 	}
 	for _, t := range tables {
 		_ = db.AutoMigrate(&t)
@@ -88,11 +82,6 @@ func (e *ensureTables) TableCreated(ctx context.Context) bool {
 		sysModel.SysExportTemplate{},
 
 		adapter.CasbinRule{},
-
-		example.ExaFile{},
-		example.ExaCustomer{},
-		example.ExaFileChunk{},
-		example.ExaFileUploadAndDownload{},
 	}
 	yes := true
 	for _, t := range tables {

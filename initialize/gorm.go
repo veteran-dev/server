@@ -4,11 +4,14 @@ import (
 	"os"
 
 	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/example"
 	"github.com/5asp/gin-vue-admin/server/model/system"
 
 	"go.uber.org/zap"
 	"gorm.io/gorm"
+	"github.com/5asp/gin-vue-admin/server/model/city"
+	"github.com/5asp/gin-vue-admin/server/model/order"
+	"github.com/5asp/gin-vue-admin/server/model/modelGroup"
+	"github.com/5asp/gin-vue-admin/server/model/combination"
 )
 
 func Gorm() *gorm.DB {
@@ -45,12 +48,7 @@ func RegisterTables() {
 		system.SysBaseMenuBtn{},
 		system.SysAuthorityBtn{},
 		system.SysAutoCode{},
-		system.SysExportTemplate{},
-
-		example.ExaFile{},
-		example.ExaCustomer{},
-		example.ExaFileChunk{},
-		example.ExaFileUploadAndDownload{},
+		system.SysExportTemplate{}, city.CityData{}, order.Order{}, modelGroup.ModelGroup{}, combination.Combination{},
 	)
 	if err != nil {
 		global.GVA_LOG.Error("register table failed", zap.Error(err))

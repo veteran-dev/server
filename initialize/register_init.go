@@ -1,7 +1,6 @@
 package initialize
 
 import (
-	_ "github.com/5asp/gin-vue-admin/server/source/example"
 	_ "github.com/5asp/gin-vue-admin/server/source/system"
 )
 

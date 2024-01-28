@@ -1,8 +1,8 @@
 package system
 
 import (
+	v1 "github.com/5asp/gin-vue-admin/server/api/v1"
 	"github.com/5asp/gin-vue-admin/server/middleware"
-	v1 "github.com/flipped-aurora/gin-vue-admin/server/api/v1"
 	"github.com/gin-gonic/gin"
 )
 

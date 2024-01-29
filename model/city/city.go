@@ -23,3 +23,21 @@ type CityData struct {
 func (CityData) TableName() string {
 	return "prev_city"
 }
+
+type CityList struct {
+	Alphabet  []string `json:"alphabet"`
+	Recommend []Cities
+	CityList  []struct {
+		Idx    string `json:"idx"`
+		Cities []Cities
+	} `json:"cityList"`
+}
+
+type Cities struct {
+	ID        int     `json:"id"`
+	Name      string  `json:"name"`
+	Pinyin    string  `json:"pinyin"`
+	Latitude  float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
+	Hot       int     `json:"hot"`
+}

@@ -34,11 +34,11 @@ func Routers() *gin.Engine {
 	Router.GET(global.GVA_CONFIG.System.RouterPrefix+"/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	global.GVA_LOG.Info("register swagger handler")
 
-	AppGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)
-	AppGroup.Use(middleware.JWTAuth())
+	WebGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)
+	WebGroup.Use(middleware.JWTAuth())
 	{
-		appRouter := router.RouterGroupApp.App
-		appRouter.InitAppRouter(AppGroup)
+		webRouter := router.RouterGroupApp.Web
+		webRouter.InitWebRouter(WebGroup)
 	}
 
 	PublicGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)

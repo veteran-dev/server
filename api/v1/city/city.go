@@ -171,20 +171,3 @@ func (cdApi *CityDataApi) GetCityList(c *gin.Context) {
 		response.OkWithData(gin.H{"list": result}, c)
 	}
 }
-
-// GetCityList 获取城市数据列表键值对
-// @Tags AppData
-// @Summary 获取城市数据列表
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /general/cityList [get]
-func (cdApi *CityDataApi) Citys(c *gin.Context) {
-	if result, err := cdService.City(); err != nil {
-		global.GVA_LOG.Error("获取失败!", zap.Error(err))
-		response.FailWithMessage("获取失败", c)
-	} else {
-		response.OkWithData(gin.H{"list": result}, c)
-	}
-}

@@ -1,11 +1,11 @@
-package app
+package web
 
 import (
 	v1 "github.com/5asp/gin-vue-admin/server/api/v1"
 	"github.com/gin-gonic/gin"
 )
 
-type AppRouter struct {
+type WebRouter struct {
 }
 
 // TODO
@@ -15,14 +15,19 @@ type AppRouter struct {
 // 提交订单接口
 
 // InitAppRouter 初始化 前台接口信息
-func (s *AppRouter) InitAppRouter(Router *gin.RouterGroup) {
-	gRouter := Router.Group("api")
-	var cApi = v1.ApiGroupApp.CityApiGroup.CityDataApi
+func (s *WebRouter) InitWebRouter(Router *gin.RouterGroup) {
+	gRouter := Router.Group("web")
+	var wApi = v1.ApiGroupApp.WebApiGroup.WebApi
 	{
-		gRouter.GET("citys", cApi.Citys) // 城市列表
+		gRouter.GET("city/list", wApi.GetCityList) // 城市列表
+
 	}
-	var carcApi = v1.ApiGroupApp.CarCombinationApiGroup.CarCombinationApi
-	{
-		gRouter.GET("getCarList", carcApi.GetCarList) //
-	}
+	// var cApi = v1.ApiGroupApp.CityApiGroup.CityDataApi
+	// {
+	// 	gRouter.GET("citys", cApi.Citys) // 城市列表
+	// }
+	// var carcApi = v1.ApiGroupApp.CarCombinationApiGroup.CarCombinationApi
+	// {
+	// 	gRouter.GET("getCarList", carcApi.GetCarList) //
+	// }
 }

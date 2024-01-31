@@ -1,5 +1,5 @@
-package app
+package web
 
 type RouterGroup struct {
-	AppRouter
+	WebRouter
 }

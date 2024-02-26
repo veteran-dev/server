@@ -34,10 +34,10 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/veteran-dev/server:latest .
-          docker tag ghcr.io/veteran-dev/server:latest ghcr.io/veteran-dev/server:${{ steps.version.outputs.version }}
+          docker build -t ghcr.io/5asp/server:latest .
+          docker tag ghcr.io/5asp/server:latest ghcr.io/5asp/server:${{ steps.version.outputs.version }}
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/veteran-dev/server:latest
-          docker push ghcr.io/veteran-dev/server:${{ steps.version.outputs.version }}
+          docker push ghcr.io/5asp/server:latest
+          docker push ghcr.io/5asp/server:${{ steps.version.outputs.version }}

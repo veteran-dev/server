@@ -4,7 +4,7 @@ WORKDIR /go/src/github.com/veteran-dev/server
 COPY . .
 
 RUN go env -w GO111MODULE=on \
-    && go env -w GOPROXY=https://goproxy.cn,direct \
+    # && go env -w GOPROXY=https://goproxy.cn,direct 非中国
     && go env -w CGO_ENABLED=0 \
     && go env \
     && go mod tidy \

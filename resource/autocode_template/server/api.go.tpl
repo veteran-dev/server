@@ -1,15 +1,15 @@
 package {{.Package}}
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
-    "github.com/5asp/gin-vue-admin/server/model/{{.Package}}"
-    {{.Package}}Req "github.com/5asp/gin-vue-admin/server/model/{{.Package}}/request"
-    "github.com/5asp/gin-vue-admin/server/model/common/response"
-    "github.com/5asp/gin-vue-admin/server/service"
+	"github.com/veteran-dev/server/global"
+    "github.com/veteran-dev/server/model/{{.Package}}"
+    {{.Package}}Req "github.com/veteran-dev/server/model/{{.Package}}/request"
+    "github.com/veteran-dev/server/model/common/response"
+    "github.com/veteran-dev/server/service"
     "github.com/gin-gonic/gin"
     "go.uber.org/zap"
     {{- if .AutoCreateResource}}
-    "github.com/5asp/gin-vue-admin/server/utils"
+    "github.com/veteran-dev/server/utils"
     {{- end }}
 )
 

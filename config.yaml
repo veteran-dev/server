@@ -27,7 +27,7 @@ aws-s3:
     secret-id: your-secret-id
     secret-key: your-secret-key
     base-url: https://gin.vue.admin
-    path-prefix: github.com/5asp/gin-vue-admin/server
+    path-prefix: github.com/veteran-dev/server
     s3-force-path-style: false
     disable-ssl: false
 captcha:
@@ -204,10 +204,10 @@ tencent-cos:
     secret-id: your-secret-id
     secret-key: your-secret-key
     base-url: https://gin.vue.admin
-    path-prefix: github.com/5asp/gin-vue-admin/server
+    path-prefix: github.com/veteran-dev/server
 zap:
     level: info
-    prefix: '[github.com/5asp/gin-vue-admin/server]'
+    prefix: '[github.com/veteran-dev/server]'
     format: console
     director: log
     encode-level: LowercaseColorLevelEncoder

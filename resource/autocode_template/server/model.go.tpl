@@ -2,7 +2,7 @@
 package {{.Package}}
 
 import (
-	{{ if .GvaModel }}"github.com/5asp/gin-vue-admin/server/global"{{ end }}
+	{{ if .GvaModel }}"github.com/veteran-dev/server/global"{{ end }}
 	{{ if or .HasTimer }}"time"{{ end }}
 	{{ if .NeedJSON }}"gorm.io/datatypes"{{ end }}
 )

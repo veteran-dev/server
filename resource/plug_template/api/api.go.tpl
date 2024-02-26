@@ -1,10 +1,10 @@
 package api
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/common/response"
-{{ if .NeedModel }}	"github.com/5asp/gin-vue-admin/server/plugin/{{ .Snake}}/model" {{ end }}
-	"github.com/5asp/gin-vue-admin/server/plugin/{{ .Snake}}/service"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/common/response"
+{{ if .NeedModel }}	"github.com/veteran-dev/server/plugin/{{ .Snake}}/model" {{ end }}
+	"github.com/veteran-dev/server/plugin/{{ .Snake}}/service"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )

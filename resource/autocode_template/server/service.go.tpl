@@ -1,9 +1,9 @@
 package {{.Package}}
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/{{.Package}}"
-    {{.Package}}Req "github.com/5asp/gin-vue-admin/server/model/{{.Package}}/request"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/{{.Package}}"
+    {{.Package}}Req "github.com/veteran-dev/server/model/{{.Package}}/request"
     {{- if .AutoCreateResource }}
     "gorm.io/gorm"
     {{- end}}

@@ -2,9 +2,9 @@ package {{ .Snake}}
 
 import (
 {{- if .HasGlobal }}
-	"github.com/5asp/gin-vue-admin/server/plugin/{{ .Snake}}/global"
+	"github.com/veteran-dev/server/plugin/{{ .Snake}}/global"
 {{- end }}
-	"github.com/5asp/gin-vue-admin/server/plugin/{{ .Snake}}/router"
+	"github.com/veteran-dev/server/plugin/{{ .Snake}}/router"
 	"github.com/gin-gonic/gin"
 )
 

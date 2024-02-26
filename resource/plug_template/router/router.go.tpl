@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/5asp/gin-vue-admin/server/plugin/{{ .Snake}}/api"
+	"github.com/veteran-dev/server/plugin/{{ .Snake}}/api"
 	"github.com/gin-gonic/gin"
 )
 

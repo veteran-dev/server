@@ -1,7 +1,7 @@
 package request
 
 import (
-	"github.com/5asp/gin-vue-admin/server/model/common/request"
+	"github.com/veteran-dev/server/model/common/request"
 	{{ if or .HasSearchTimer .GvaModel}}"time"{{ end }}
 	{{ if .NeedJSON }}"gorm.io/datatypes"{{ end }}
 )

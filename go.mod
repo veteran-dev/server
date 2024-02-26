@@ -1,4 +1,4 @@
-module github.com/5asp/gin-vue-admin/server
+module github.com/veteran-dev/server
 
 go 1.20
 

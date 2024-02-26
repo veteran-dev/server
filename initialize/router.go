@@ -35,7 +35,7 @@ func Routers() *gin.Engine {
 	global.GVA_LOG.Info("register swagger handler")
 
 	WebGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)
-	WebGroup.Use(middleware.JWTAuth())
+	// WebGroup.Use(middleware.JWTAuth())
 	{
 		webRouter := router.RouterGroupApp.Web
 		webRouter.InitWebRouter(WebGroup)

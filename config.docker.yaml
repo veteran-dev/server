@@ -20,8 +20,8 @@ zap:
 # redis configuration
 redis:
   db: 0
-  addr: 177.7.0.14:6379
-  password: ""
+  addr: redis-master.redis.svc.cluster.local:6379
+  password: "XKcOj62Cod"
 
 # mongo configuration
 mongo:
@@ -74,12 +74,12 @@ captcha:
 # mysql connect configuration
 # 未初始化之前请勿手动修改数据库信息！！！如果一定要手动初始化请看（https://gin-vue-admin.com/docs/first_master）
 mysql:
-  path: ""
-  port: ""
+  path: "maria-mariadb.db.svc.cluster.local"
+  port: "3306"
   config: ""
-  db-name: ""
-  username: ""
-  password: ""
+  db-name: "nendb"
+  username: "root"
+  password: "yZPmO5ooSk"
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: ""

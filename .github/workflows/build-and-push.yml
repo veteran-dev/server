@@ -1,0 +1,43 @@
+name: Build and Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.20'
+
+      - name: Build app
+        run: go build -o app
+
+      - name: Generate version
+        id: version
+        run: echo "::set-output name=version::$(git rev-parse --short HEAD)"
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/veteran-dev/server:latest .
+          docker tag ghcr.io/veteran-dev/server:latest ghcr.io/veteran-dev/server:${{ steps.version.outputs.version }}
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/veteran-dev/server:latest
+          docker push ghcr.io/veteran-dev/server:${{ steps.version.outputs.version }}

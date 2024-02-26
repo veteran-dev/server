@@ -3,9 +3,9 @@ package upload
 import (
 	"mime/multipart"
 
-	"github.com/5asp/gin-vue-admin/server/global"
 	"github.com/huaweicloud/huaweicloud-sdk-go-obs/obs"
 	"github.com/pkg/errors"
+	"github.com/veteran-dev/server/global"
 )
 
 var HuaWeiObs = new(Obs)

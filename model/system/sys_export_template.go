@@ -2,7 +2,7 @@
 package system
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
+	"github.com/veteran-dev/server/global"
 )
 
 // 导出模板 结构体  SysExportTemplate

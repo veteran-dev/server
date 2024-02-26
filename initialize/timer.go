@@ -3,11 +3,11 @@ package initialize
 import (
 	"fmt"
 
-	"github.com/5asp/gin-vue-admin/server/task"
+	"github.com/veteran-dev/server/task"
 
 	"github.com/robfig/cron/v3"
 
-	"github.com/5asp/gin-vue-admin/server/global"
+	"github.com/veteran-dev/server/global"
 )
 
 func Timer() {

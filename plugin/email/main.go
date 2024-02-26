@@ -1,9 +1,9 @@
 package email
 
 import (
-	"github.com/5asp/gin-vue-admin/server/plugin/email/global"
-	"github.com/5asp/gin-vue-admin/server/plugin/email/router"
 	"github.com/gin-gonic/gin"
+	"github.com/veteran-dev/server/plugin/email/global"
+	"github.com/veteran-dev/server/plugin/email/router"
 )
 
 type emailPlugin struct{}

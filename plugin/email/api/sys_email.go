@@ -1,11 +1,11 @@
 package api
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/common/response"
-	email_response "github.com/5asp/gin-vue-admin/server/plugin/email/model/response"
-	"github.com/5asp/gin-vue-admin/server/plugin/email/service"
 	"github.com/gin-gonic/gin"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/common/response"
+	email_response "github.com/veteran-dev/server/plugin/email/model/response"
+	"github.com/veteran-dev/server/plugin/email/service"
 	"go.uber.org/zap"
 )
 

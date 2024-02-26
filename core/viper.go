@@ -6,14 +6,14 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/5asp/gin-vue-admin/server/core/internal"
 	"github.com/gin-gonic/gin"
+	"github.com/veteran-dev/server/core/internal"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	_ "github.com/5asp/gin-vue-admin/server/packfile"
+	"github.com/veteran-dev/server/global"
+	_ "github.com/veteran-dev/server/packfile"
 )
 
 // Viper //

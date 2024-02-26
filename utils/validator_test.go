@@ -3,7 +3,7 @@ package utils
 import (
 	"testing"
 
-	"github.com/5asp/gin-vue-admin/server/model/common/request"
+	"github.com/veteran-dev/server/model/common/request"
 )
 
 type PageInfoTest struct {

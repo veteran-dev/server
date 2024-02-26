@@ -1,7 +1,7 @@
 package initialize
 
 import (
-	_ "github.com/5asp/gin-vue-admin/server/source/system"
+	_ "github.com/veteran-dev/server/source/system"
 )
 
 func init() {

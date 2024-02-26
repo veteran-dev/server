@@ -1,8 +1,8 @@
 package system
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
 	"github.com/gofrs/uuid/v5"
+	"github.com/veteran-dev/server/global"
 )
 
 type SysUser struct {

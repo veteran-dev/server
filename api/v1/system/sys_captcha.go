@@ -3,11 +3,11 @@ package system
 import (
 	"time"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/common/response"
-	systemRes "github.com/5asp/gin-vue-admin/server/model/system/response"
 	"github.com/gin-gonic/gin"
 	"github.com/mojocn/base64Captcha"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/common/response"
+	systemRes "github.com/veteran-dev/server/model/system/response"
 	"go.uber.org/zap"
 )
 

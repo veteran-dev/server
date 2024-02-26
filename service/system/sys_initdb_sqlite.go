@@ -5,13 +5,13 @@ import (
 	"errors"
 	"path/filepath"
 
-	"github.com/5asp/gin-vue-admin/server/config"
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/system/request"
-	"github.com/5asp/gin-vue-admin/server/utils"
 	"github.com/glebarez/sqlite"
 	"github.com/gofrs/uuid/v5"
 	"github.com/gookit/color"
+	"github.com/veteran-dev/server/config"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/system/request"
+	"github.com/veteran-dev/server/utils"
 	"gorm.io/gorm"
 )
 

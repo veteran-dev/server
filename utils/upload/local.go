@@ -9,8 +9,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/utils"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/utils"
 	"go.uber.org/zap"
 )
 

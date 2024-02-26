@@ -3,10 +3,10 @@ package system
 import (
 	"errors"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/system"
-	"github.com/5asp/gin-vue-admin/server/model/system/request"
-	"github.com/5asp/gin-vue-admin/server/model/system/response"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/system"
+	"github.com/veteran-dev/server/model/system/request"
+	"github.com/veteran-dev/server/model/system/response"
 	"gorm.io/gorm"
 )
 

@@ -1,10 +1,10 @@
 package system
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/common/request"
-	"github.com/5asp/gin-vue-admin/server/model/system"
-	systemReq "github.com/5asp/gin-vue-admin/server/model/system/request"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/common/request"
+	"github.com/veteran-dev/server/model/system"
+	systemReq "github.com/veteran-dev/server/model/system/request"
 )
 
 //@author: [granty1](https://github.com/granty1)

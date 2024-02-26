@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/5asp/gin-vue-admin/server/plugin/email/utils"
+	"github.com/veteran-dev/server/plugin/email/utils"
 )
 
 type EmailService struct{}

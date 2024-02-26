@@ -1,9 +1,9 @@
 package city
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/city"
-	cityReq "github.com/5asp/gin-vue-admin/server/model/city/request"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/city"
+	cityReq "github.com/veteran-dev/server/model/city/request"
 	"gorm.io/gorm"
 )
 

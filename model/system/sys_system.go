@@ -1,7 +1,7 @@
 package system
 
 import (
-	"github.com/5asp/gin-vue-admin/server/config"
+	"github.com/veteran-dev/server/config"
 )
 
 // 配置文件结构体

@@ -5,7 +5,7 @@ import (
 	"go/token"
 	"strings"
 
-	"github.com/5asp/gin-vue-admin/server/global"
+	"github.com/veteran-dev/server/global"
 )
 
 // AutoCodeStruct 初始版本自动化代码工具

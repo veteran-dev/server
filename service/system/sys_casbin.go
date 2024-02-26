@@ -7,12 +7,12 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/system/request"
 	"github.com/casbin/casbin/v2"
 	"github.com/casbin/casbin/v2/model"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/system/request"
 	"go.uber.org/zap"
 )
 

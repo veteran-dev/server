@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/initialize"
-	"github.com/5asp/gin-vue-admin/server/service/system"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/initialize"
+	"github.com/veteran-dev/server/service/system"
 	"go.uber.org/zap"
 )
 

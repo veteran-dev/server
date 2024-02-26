@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/system/request"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/system/request"
 	"gorm.io/gorm"
 )
 

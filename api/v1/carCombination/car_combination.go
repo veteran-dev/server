@@ -1,13 +1,13 @@
 package carCombination
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/carCombination"
-	carCombinationReq "github.com/5asp/gin-vue-admin/server/model/carCombination/request"
-	"github.com/5asp/gin-vue-admin/server/model/common/response"
-	"github.com/5asp/gin-vue-admin/server/service"
-	"github.com/5asp/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/carCombination"
+	carCombinationReq "github.com/veteran-dev/server/model/carCombination/request"
+	"github.com/veteran-dev/server/model/common/response"
+	"github.com/veteran-dev/server/service"
+	"github.com/veteran-dev/server/utils"
 	"go.uber.org/zap"
 )
 

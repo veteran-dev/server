@@ -1,8 +1,8 @@
 package request
 
 import (
-	"github.com/5asp/gin-vue-admin/server/model/common/request"
-	"github.com/5asp/gin-vue-admin/server/model/system"
+	"github.com/veteran-dev/server/model/common/request"
+	"github.com/veteran-dev/server/model/system"
 )
 
 type SysOperationRecordSearch struct {

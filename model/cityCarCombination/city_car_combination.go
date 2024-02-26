@@ -2,7 +2,7 @@
 package cityCarCombination
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
+	"github.com/veteran-dev/server/global"
 )
 
 // 车型城市组合 结构体  CityCarCombination

@@ -1,7 +1,7 @@
 package response
 
 import (
-	"github.com/5asp/gin-vue-admin/server/model/system/request"
+	"github.com/veteran-dev/server/model/system/request"
 )
 
 type PolicyPathResponse struct {

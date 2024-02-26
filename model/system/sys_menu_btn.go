@@ -1,6 +1,6 @@
 package system
 
-import "github.com/5asp/gin-vue-admin/server/global"
+import "github.com/veteran-dev/server/global"
 
 type SysBaseMenuBtn struct {
 	global.GVA_MODEL

@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/common/request"
-	"github.com/5asp/gin-vue-admin/server/model/system"
-	"github.com/5asp/gin-vue-admin/server/utils"
 	"github.com/gofrs/uuid/v5"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/common/request"
+	"github.com/veteran-dev/server/model/system"
+	"github.com/veteran-dev/server/utils"
 	"gorm.io/gorm"
 )
 

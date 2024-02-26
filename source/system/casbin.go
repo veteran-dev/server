@@ -3,9 +3,9 @@ package system
 import (
 	"context"
 
-	"github.com/5asp/gin-vue-admin/server/service/system"
 	adapter "github.com/casbin/gorm-adapter/v3"
 	"github.com/pkg/errors"
+	"github.com/veteran-dev/server/service/system"
 	"gorm.io/gorm"
 )
 

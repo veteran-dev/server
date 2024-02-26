@@ -5,14 +5,14 @@ import (
 
 	"github.com/qiniu/qmgo"
 
-	"github.com/5asp/gin-vue-admin/server/utils/timer"
 	"github.com/songzhibin97/gkit/cache/local_cache"
+	"github.com/veteran-dev/server/utils/timer"
 
 	"golang.org/x/sync/singleflight"
 
 	"go.uber.org/zap"
 
-	"github.com/5asp/gin-vue-admin/server/config"
+	"github.com/veteran-dev/server/config"
 
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"

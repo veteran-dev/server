@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/5asp/gin-vue-admin/server/model/common"
+	"github.com/veteran-dev/server/model/common"
 
 	"gorm.io/gorm"
 )

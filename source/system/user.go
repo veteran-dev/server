@@ -3,11 +3,11 @@ package system
 import (
 	"context"
 
-	sysModel "github.com/5asp/gin-vue-admin/server/model/system"
-	"github.com/5asp/gin-vue-admin/server/service/system"
-	"github.com/5asp/gin-vue-admin/server/utils"
 	"github.com/gofrs/uuid/v5"
 	"github.com/pkg/errors"
+	sysModel "github.com/veteran-dev/server/model/system"
+	"github.com/veteran-dev/server/service/system"
+	"github.com/veteran-dev/server/utils"
 	"gorm.io/gorm"
 )
 

@@ -1,9 +1,9 @@
 package order
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/order"
-	orderReq "github.com/5asp/gin-vue-admin/server/model/order/request"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/order"
+	orderReq "github.com/veteran-dev/server/model/order/request"
 	"gorm.io/gorm"
 )
 

@@ -1,8 +1,8 @@
 package general
 
 import (
-	v1 "github.com/5asp/gin-vue-admin/server/api/v1"
 	"github.com/gin-gonic/gin"
+	v1 "github.com/veteran-dev/server/api/v1"
 )
 
 type GeneralRouter struct {

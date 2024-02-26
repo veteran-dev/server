@@ -3,9 +3,9 @@ package main
 import (
 	"go.uber.org/zap"
 
-	"github.com/5asp/gin-vue-admin/server/core"
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/initialize"
+	"github.com/veteran-dev/server/core"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/initialize"
 )
 
 //go:generate go env -w GO111MODULE=on

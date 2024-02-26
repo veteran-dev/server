@@ -4,11 +4,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/common/response"
-	"github.com/5asp/gin-vue-admin/server/service"
-	"github.com/5asp/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/common/response"
+	"github.com/veteran-dev/server/service"
+	"github.com/veteran-dev/server/utils"
 )
 
 var casbinService = service.ServiceGroupApp.SystemServiceGroup.CasbinService

@@ -7,7 +7,7 @@ import (
 
 	"gorm.io/gorm/schema"
 
-	"github.com/5asp/gin-vue-admin/server/global"
+	"github.com/veteran-dev/server/global"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )

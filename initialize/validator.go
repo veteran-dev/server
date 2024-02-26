@@ -1,6 +1,6 @@
 package initialize
 
-import "github.com/5asp/gin-vue-admin/server/utils"
+import "github.com/veteran-dev/server/utils"
 
 func init() {
 	_ = utils.RegisterRule("PageVerify",

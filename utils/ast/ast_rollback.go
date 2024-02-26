@@ -10,7 +10,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/5asp/gin-vue-admin/server/global"
+	"github.com/veteran-dev/server/global"
 )
 
 func RollBackAst(pk, model string) {
@@ -71,7 +71,7 @@ func RollGormBack(pk, model string) {
 			if gen, ok := node.(*ast.GenDecl); ok {
 				for i := range gen.Specs {
 					if imspec, ok := gen.Specs[i].(*ast.ImportSpec); ok {
-						if imspec.Path.Value == "\"github.com/5asp/gin-vue-admin/server/model/"+pk+"\"" {
+						if imspec.Path.Value == "\"github.com/veteran-dev/server/model/"+pk+"\"" {
 							gp = gen
 							imI = i
 							return false

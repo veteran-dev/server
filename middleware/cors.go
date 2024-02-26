@@ -3,9 +3,9 @@ package middleware
 import (
 	"net/http"
 
-	"github.com/5asp/gin-vue-admin/server/config"
-	"github.com/5asp/gin-vue-admin/server/global"
 	"github.com/gin-gonic/gin"
+	"github.com/veteran-dev/server/config"
+	"github.com/veteran-dev/server/global"
 )
 
 // Cors 直接放行所有跨域请求并放行所有 OPTIONS 方法

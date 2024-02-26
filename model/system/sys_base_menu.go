@@ -1,7 +1,7 @@
 package system
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
+	"github.com/veteran-dev/server/global"
 )
 
 type SysBaseMenu struct {

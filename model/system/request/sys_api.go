@@ -1,8 +1,8 @@
 package request
 
 import (
-	"github.com/5asp/gin-vue-admin/server/model/common/request"
-	"github.com/5asp/gin-vue-admin/server/model/system"
+	"github.com/veteran-dev/server/model/common/request"
+	"github.com/veteran-dev/server/model/system"
 )
 
 // api分页条件查询及排序结构体

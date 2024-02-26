@@ -1,21 +1,20 @@
 package cityCarCombination
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
-    "github.com/5asp/gin-vue-admin/server/model/cityCarCombination"
-    cityCarCombinationReq "github.com/5asp/gin-vue-admin/server/model/cityCarCombination/request"
-    "github.com/5asp/gin-vue-admin/server/model/common/response"
-    "github.com/5asp/gin-vue-admin/server/service"
-    "github.com/gin-gonic/gin"
-    "go.uber.org/zap"
-    "github.com/5asp/gin-vue-admin/server/utils"
+	"github.com/gin-gonic/gin"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/cityCarCombination"
+	cityCarCombinationReq "github.com/veteran-dev/server/model/cityCarCombination/request"
+	"github.com/veteran-dev/server/model/common/response"
+	"github.com/veteran-dev/server/service"
+	"github.com/veteran-dev/server/utils"
+	"go.uber.org/zap"
 )
 
 type CityCarCombinationApi struct {
 }
 
 var cccService = service.ServiceGroupApp.CityCarCombinationServiceGroup.CityCarCombinationService
-
 
 // CreateCityCarCombination 创建车型城市组合
 // @Tags CityCarCombination
@@ -33,10 +32,10 @@ func (cccApi *CityCarCombinationApi) CreateCityCarCombination(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-    ccc.CreatedBy = utils.GetUserID(c)
+	ccc.CreatedBy = utils.GetUserID(c)
 
 	if err := cccService.CreateCityCarCombination(&ccc); err != nil {
-        global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
 		response.OkWithMessage("创建成功", c)
@@ -54,9 +53,9 @@ func (cccApi *CityCarCombinationApi) CreateCityCarCombination(c *gin.Context) {
 // @Router /ccc/deleteCityCarCombination [delete]
 func (cccApi *CityCarCombinationApi) DeleteCityCarCombination(c *gin.Context) {
 	ID := c.Query("ID")
-    	userID := utils.GetUserID(c)
-	if err := cccService.DeleteCityCarCombination(ID,userID); err != nil {
-        global.GVA_LOG.Error("删除失败!", zap.Error(err))
+	userID := utils.GetUserID(c)
+	if err := cccService.DeleteCityCarCombination(ID, userID); err != nil {
+		global.GVA_LOG.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {
 		response.OkWithMessage("删除成功", c)
@@ -73,9 +72,9 @@ func (cccApi *CityCarCombinationApi) DeleteCityCarCombination(c *gin.Context) {
 // @Router /ccc/deleteCityCarCombinationByIds [delete]
 func (cccApi *CityCarCombinationApi) DeleteCityCarCombinationByIds(c *gin.Context) {
 	IDs := c.QueryArray("IDs[]")
-    userID := utils.GetUserID(c)
-	if err := cccService.DeleteCityCarCombinationByIds(IDs,userID); err != nil {
-        global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
+	userID := utils.GetUserID(c)
+	if err := cccService.DeleteCityCarCombinationByIds(IDs, userID); err != nil {
+		global.GVA_LOG.Error("批量删除失败!", zap.Error(err))
 		response.FailWithMessage("批量删除失败", c)
 	} else {
 		response.OkWithMessage("批量删除成功", c)
@@ -98,10 +97,10 @@ func (cccApi *CityCarCombinationApi) UpdateCityCarCombination(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-    ccc.UpdatedBy = utils.GetUserID(c)
+	ccc.UpdatedBy = utils.GetUserID(c)
 
 	if err := cccService.UpdateCityCarCombination(ccc); err != nil {
-        global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
 		response.OkWithMessage("更新成功", c)
@@ -120,7 +119,7 @@ func (cccApi *CityCarCombinationApi) UpdateCityCarCombination(c *gin.Context) {
 func (cccApi *CityCarCombinationApi) FindCityCarCombination(c *gin.Context) {
 	ID := c.Query("ID")
 	if reccc, err := cccService.GetCityCarCombination(ID); err != nil {
-        global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
 		response.OkWithData(gin.H{"reccc": reccc}, c)
@@ -144,14 +143,14 @@ func (cccApi *CityCarCombinationApi) GetCityCarCombinationList(c *gin.Context) {
 		return
 	}
 	if list, total, err := cccService.GetCityCarCombinationInfoList(pageInfo); err != nil {
-	    global.GVA_LOG.Error("获取失败!", zap.Error(err))
-        response.FailWithMessage("获取失败", c)
-    } else {
-        response.OkWithDetailed(response.PageResult{
-            List:     list,
-            Total:    total,
-            Page:     pageInfo.Page,
-            PageSize: pageInfo.PageSize,
-        }, "获取成功", c)
-    }
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
 }

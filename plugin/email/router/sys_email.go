@@ -1,9 +1,9 @@
 package router
 
 import (
-	"github.com/5asp/gin-vue-admin/server/middleware"
-	"github.com/5asp/gin-vue-admin/server/plugin/email/api"
 	"github.com/gin-gonic/gin"
+	"github.com/veteran-dev/server/middleware"
+	"github.com/veteran-dev/server/plugin/email/api"
 )
 
 type EmailRouter struct{}

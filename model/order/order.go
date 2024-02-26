@@ -4,7 +4,7 @@ package order
 import (
 	"time"
 
-	"github.com/5asp/gin-vue-admin/server/global"
+	"github.com/veteran-dev/server/global"
 )
 
 // 订单 结构体  Order

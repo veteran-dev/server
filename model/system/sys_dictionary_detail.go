@@ -2,7 +2,7 @@
 package system
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
+	"github.com/veteran-dev/server/global"
 )
 
 // 如果含有time.Time 请自行import time包

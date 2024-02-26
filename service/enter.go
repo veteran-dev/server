@@ -1,12 +1,12 @@
 package service
 
 import (
-	"github.com/5asp/gin-vue-admin/server/service/carCombination"
-	"github.com/5asp/gin-vue-admin/server/service/city"
-	"github.com/5asp/gin-vue-admin/server/service/cityCarCombination"
-	"github.com/5asp/gin-vue-admin/server/service/order"
-	"github.com/5asp/gin-vue-admin/server/service/system"
-	"github.com/5asp/gin-vue-admin/server/service/user"
+	"github.com/veteran-dev/server/service/carCombination"
+	"github.com/veteran-dev/server/service/city"
+	"github.com/veteran-dev/server/service/cityCarCombination"
+	"github.com/veteran-dev/server/service/order"
+	"github.com/veteran-dev/server/service/system"
+	"github.com/veteran-dev/server/service/user"
 )
 
 type ServiceGroup struct {

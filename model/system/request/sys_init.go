@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/5asp/gin-vue-admin/server/config"
+	"github.com/veteran-dev/server/config"
 )
 
 type InitDB struct {

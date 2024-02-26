@@ -3,9 +3,9 @@ package system
 import (
 	"context"
 
-	sysModel "github.com/5asp/gin-vue-admin/server/model/system"
-	"github.com/5asp/gin-vue-admin/server/service/system"
 	"github.com/pkg/errors"
+	sysModel "github.com/veteran-dev/server/model/system"
+	"github.com/veteran-dev/server/service/system"
 	"gorm.io/gorm"
 )
 

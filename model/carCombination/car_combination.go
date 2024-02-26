@@ -2,7 +2,7 @@
 package carCombination
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
+	"github.com/veteran-dev/server/global"
 )
 
 // 车型组 结构体  CarCombination

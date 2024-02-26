@@ -5,9 +5,9 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/system"
-	"github.com/5asp/gin-vue-admin/server/utils"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/system"
+	"github.com/veteran-dev/server/utils"
 )
 
 type JwtService struct{}

@@ -8,15 +8,15 @@ import (
 	"strings"
 	"time"
 
-	systemReq "github.com/5asp/gin-vue-admin/server/model/system/request"
-	"github.com/5asp/gin-vue-admin/server/utils/ast"
+	systemReq "github.com/veteran-dev/server/model/system/request"
+	"github.com/veteran-dev/server/utils/ast"
 
-	"github.com/5asp/gin-vue-admin/server/model/system/response"
+	"github.com/veteran-dev/server/model/system/response"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/common/request"
-	"github.com/5asp/gin-vue-admin/server/model/system"
-	"github.com/5asp/gin-vue-admin/server/utils"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/common/request"
+	"github.com/veteran-dev/server/model/system"
+	"github.com/veteran-dev/server/utils"
 
 	"go.uber.org/zap"
 )

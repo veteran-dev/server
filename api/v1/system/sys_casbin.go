@@ -1,12 +1,12 @@
 package system
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/common/response"
-	"github.com/5asp/gin-vue-admin/server/model/system/request"
-	systemRes "github.com/5asp/gin-vue-admin/server/model/system/response"
-	"github.com/5asp/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/common/response"
+	"github.com/veteran-dev/server/model/system/request"
+	systemRes "github.com/veteran-dev/server/model/system/response"
+	"github.com/veteran-dev/server/utils"
 	"go.uber.org/zap"
 )
 

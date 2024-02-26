@@ -4,8 +4,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/common/request"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/common/request"
 )
 
 // SysAutoCodeHistory 自动迁移代码记录,用于回滚,重放使用

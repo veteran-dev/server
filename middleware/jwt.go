@@ -5,14 +5,14 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/system"
-	"github.com/5asp/gin-vue-admin/server/utils"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/system"
+	"github.com/veteran-dev/server/utils"
 	"go.uber.org/zap"
 
-	"github.com/5asp/gin-vue-admin/server/model/common/response"
-	"github.com/5asp/gin-vue-admin/server/service"
+	"github.com/veteran-dev/server/model/common/response"
+	"github.com/veteran-dev/server/service"
 
 	"github.com/gin-gonic/gin"
 )

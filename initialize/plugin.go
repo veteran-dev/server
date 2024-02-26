@@ -3,11 +3,11 @@ package initialize
 import (
 	"fmt"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/middleware"
-	"github.com/5asp/gin-vue-admin/server/plugin/email"
-	"github.com/5asp/gin-vue-admin/server/utils/plugin"
 	"github.com/gin-gonic/gin"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/middleware"
+	"github.com/veteran-dev/server/plugin/email"
+	"github.com/veteran-dev/server/utils/plugin"
 )
 
 func PluginInit(group *gin.RouterGroup, Plugin ...plugin.Plugin) {

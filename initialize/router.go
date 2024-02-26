@@ -5,12 +5,12 @@ import (
 
 	swaggerFiles "github.com/swaggo/files"
 
-	"github.com/5asp/gin-vue-admin/server/docs"
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/middleware"
-	"github.com/5asp/gin-vue-admin/server/router"
 	"github.com/gin-gonic/gin"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/veteran-dev/server/docs"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/middleware"
+	"github.com/veteran-dev/server/router"
 )
 
 func Routers() *gin.Engine {

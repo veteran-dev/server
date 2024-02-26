@@ -1,9 +1,9 @@
 package cityCarCombination
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/cityCarCombination"
-	cityCarCombinationReq "github.com/5asp/gin-vue-admin/server/model/cityCarCombination/request"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/cityCarCombination"
+	cityCarCombinationReq "github.com/veteran-dev/server/model/cityCarCombination/request"
 	"gorm.io/gorm"
 )
 

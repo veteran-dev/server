@@ -1,7 +1,7 @@
 package request
 
 import (
-	"github.com/5asp/gin-vue-admin/server/model/system"
+	"github.com/veteran-dev/server/model/system"
 )
 
 // Register User register structure

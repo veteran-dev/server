@@ -1,8 +1,8 @@
 package system
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/system/response"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/system/response"
 )
 
 var AutoCodePgsql = new(autoCodePgsql)

@@ -3,16 +3,16 @@ package initialize
 import (
 	"os"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/system"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/system"
 
+	"github.com/veteran-dev/server/model/city"
+	"github.com/veteran-dev/server/model/order"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
-	"github.com/5asp/gin-vue-admin/server/model/city"
-	"github.com/5asp/gin-vue-admin/server/model/order"
 
-	"github.com/5asp/gin-vue-admin/server/model/carCombination"
-	"github.com/5asp/gin-vue-admin/server/model/cityCarCombination"
+	"github.com/veteran-dev/server/model/carCombination"
+	"github.com/veteran-dev/server/model/cityCarCombination"
 )
 
 func Gorm() *gorm.DB {

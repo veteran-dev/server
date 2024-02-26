@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/5asp/gin-vue-admin/server/core/internal"
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/utils"
+	"github.com/veteran-dev/server/core/internal"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )

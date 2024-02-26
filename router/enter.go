@@ -1,14 +1,14 @@
 package router
 
 import (
-	"github.com/5asp/gin-vue-admin/server/router/carCombination"
-	"github.com/5asp/gin-vue-admin/server/router/city"
-	"github.com/5asp/gin-vue-admin/server/router/cityCarCombination"
-	"github.com/5asp/gin-vue-admin/server/router/general"
-	"github.com/5asp/gin-vue-admin/server/router/order"
-	"github.com/5asp/gin-vue-admin/server/router/system"
-	"github.com/5asp/gin-vue-admin/server/router/user"
-	"github.com/5asp/gin-vue-admin/server/router/web"
+	"github.com/veteran-dev/server/router/carCombination"
+	"github.com/veteran-dev/server/router/city"
+	"github.com/veteran-dev/server/router/cityCarCombination"
+	"github.com/veteran-dev/server/router/general"
+	"github.com/veteran-dev/server/router/order"
+	"github.com/veteran-dev/server/router/system"
+	"github.com/veteran-dev/server/router/user"
+	"github.com/veteran-dev/server/router/web"
 )
 
 type RouterGroup struct {

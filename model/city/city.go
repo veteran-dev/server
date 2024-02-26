@@ -2,7 +2,7 @@
 package city
 
 import (
-	"github.com/5asp/gin-vue-admin/server/global"
+	"github.com/veteran-dev/server/global"
 )
 
 // 城市数据 结构体  CityData

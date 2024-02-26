@@ -6,13 +6,13 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/5asp/gin-vue-admin/server/plugin/email/utils"
-	utils2 "github.com/5asp/gin-vue-admin/server/utils"
+	"github.com/veteran-dev/server/plugin/email/utils"
+	utils2 "github.com/veteran-dev/server/utils"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/system"
-	"github.com/5asp/gin-vue-admin/server/service"
 	"github.com/gin-gonic/gin"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/system"
+	"github.com/veteran-dev/server/service"
 	"go.uber.org/zap"
 )
 

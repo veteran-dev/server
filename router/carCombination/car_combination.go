@@ -1,9 +1,9 @@
 package carCombination
 
 import (
-	v1 "github.com/5asp/gin-vue-admin/server/api/v1"
-	"github.com/5asp/gin-vue-admin/server/middleware"
 	"github.com/gin-gonic/gin"
+	v1 "github.com/veteran-dev/server/api/v1"
+	"github.com/veteran-dev/server/middleware"
 )
 
 type CarCombinationRouter struct {

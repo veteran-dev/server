@@ -1,10 +1,10 @@
 package initialize
 
 import (
-	"github.com/5asp/gin-vue-admin/server/config"
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/initialize/internal"
 	"github.com/glebarez/sqlite"
+	"github.com/veteran-dev/server/config"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/initialize/internal"
 	"gorm.io/gorm"
 )
 

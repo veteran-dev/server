@@ -6,12 +6,12 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/initialize/internal"
-	"github.com/5asp/gin-vue-admin/server/utils"
 	"github.com/pkg/errors"
 	"github.com/qiniu/qmgo"
 	"github.com/qiniu/qmgo/options"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/initialize/internal"
+	"github.com/veteran-dev/server/utils"
 	"go.mongodb.org/mongo-driver/bson"
 	option "go.mongodb.org/mongo-driver/mongo/options"
 )

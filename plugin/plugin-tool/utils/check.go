@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/5asp/gin-vue-admin/server/global"
-	"github.com/5asp/gin-vue-admin/server/model/system"
+	"github.com/veteran-dev/server/global"
+	"github.com/veteran-dev/server/model/system"
 )
 
 func RegisterApis(apis ...system.SysApi) {

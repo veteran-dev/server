@@ -3,7 +3,7 @@ package internal
 import (
 	"os"
 
-	"github.com/5asp/gin-vue-admin/server/global"
+	"github.com/veteran-dev/server/global"
 	"go.uber.org/zap/zapcore"
 )
 

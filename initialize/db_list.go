@@ -1,8 +1,8 @@
 package initialize
 
 import (
-	"github.com/5asp/gin-vue-admin/server/config"
-	"github.com/5asp/gin-vue-admin/server/global"
+	"github.com/veteran-dev/server/config"
+	"github.com/veteran-dev/server/global"
 	"gorm.io/gorm"
 )
 

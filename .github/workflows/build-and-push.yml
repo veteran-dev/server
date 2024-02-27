@@ -23,7 +23,8 @@ jobs:
 
       - name: Generate version
         id: version
-        run: echo "::set-output name=version::$(git rev-parse --short HEAD)"
+        run: echo "{version}=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+        # run: echo "::set-output name=version::$(git rev-parse --short HEAD)"
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3

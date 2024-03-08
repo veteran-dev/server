@@ -1,6 +1,8 @@
 package city
 
 import (
+	"sort"
+
 	"github.com/veteran-dev/server/global"
 	"github.com/veteran-dev/server/model/city"
 	cityReq "github.com/veteran-dev/server/model/city/request"
@@ -111,18 +113,56 @@ func (cdService *CityDataService) GetCityList() (result map[uint]string, err err
 	}
 	return result, err
 }
-
-func (cdService *CityDataService) City() (result map[uint]string, err error) {
+func (cdService *CityDataService) City() (result interface{}, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&city.CityData{})
 	var cds []city.CityData
-
 	err = db.Find(&cds).Error
 	if len(cds) > 0 {
-		result = make(map[uint]string)
+		cityDataListMap := make(map[string][]city.Cities)
+		alphabetList := make([]string, 0)
+		recommends := make([]city.Cities, 0)
 		for _, v := range cds {
-			result[v.ID] = v.Name
+			if v.Alphabet != "" {
+				if _, ok := cityDataListMap[v.Alphabet]; !ok {
+					alphabetList = append(alphabetList, v.Alphabet)
+				}
+				if *v.Hot == true {
+					recommends = append(recommends, city.Cities{
+						ID:        int(v.ID),
+						Name:      v.Name,
+						Pinyin:    v.Pinyin,
+						Latitude:  *v.Latitude,
+						Longitude: *v.Longitude,
+					})
+				}
+				cityDataListMap[v.Alphabet] = append(cityDataListMap[v.Alphabet], city.Cities{
+					ID:        int(v.ID),
+					Name:      v.Name,
+					Pinyin:    v.Pinyin,
+					Latitude:  *v.Latitude,
+					Longitude: *v.Longitude,
+				})
+			}
 		}
+		sort.Strings(alphabetList)
+
+		cityListResult := make([]city.CityList, 0)
+
+		for _, alphabet := range alphabetList {
+			cityListResult = append(cityListResult, city.CityList{
+				Idx:    alphabet,
+				Cities: cityDataListMap[alphabet],
+			})
+		}
+
+		cityDataListResult := city.CityDataList{
+			Alphabet:  alphabetList,
+			Recommend: recommends,
+			CityList:  cityListResult,
+		}
+
+		return cityDataListResult, nil
 	}
-	return result, err
+	return nil, err
 }

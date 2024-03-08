@@ -85,3 +85,43 @@ func (cccService *CityCarCombinationService) GetCityCarCombinationInfoList(info 
 	err = db.Find(&cccs).Error
 	return cccs, total, err
 }
+
+func (cccService *CityCarCombinationService) ModelDetail(req cityCarCombinationReq.GetCarReq) (ccc cityCarCombination.CityCarCombination, err error) {
+	err = global.GVA_DB.Model(&cityCarCombination.CityCarCombination{}).Debug().Preload("CarCombination").First(&ccc).Error
+	return
+}
+
+func (cccService *CityCarCombinationService) GetModel(req cityCarCombinationReq.GetCarListReq) (list []cityCarCombination.CityCarCombination, total int64, err error) {
+	limit := req.PageSize
+	offset := req.PageSize * (req.Page - 1)
+	db := global.GVA_DB.Model(&cityCarCombination.CityCarCombination{}).Debug().Preload("CarCombination")
+	// 如果有条件搜索 下方会自动创建搜索语句
+	if req.To > 0 && req.From > 0 {
+		db = db.Where("`prev_city_car_combination`.`to` = ? AND `prev_city_car_combination`.`from` = ?", req.To, req.From)
+	}
+
+	if req.Child > 0 {
+		db = db.Where("`prev_city_car_combination`.`child_seats` >= ? ?", req.Child)
+	}
+
+	if req.Aldult > 0 {
+		seat := req.Aldult + req.Child
+		db = db.Where("`prev_city_car_combination`.`seat` >= ?", seat)
+	}
+
+	if req.Luggage > 0 {
+		db = db.Where("`prev_city_car_combination`.`luggage` >= ? ?", req.Luggage)
+	}
+
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+
+	if limit != 0 {
+		db = db.Limit(limit).Offset(offset)
+	}
+
+	err = db.Find(&list).Error
+	return
+}

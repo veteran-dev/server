@@ -3,7 +3,6 @@ package web
 import (
 	"github.com/gin-gonic/gin"
 	v1 "github.com/veteran-dev/server/api/v1"
-	"github.com/veteran-dev/server/middleware"
 )
 
 type WebRouter struct {
@@ -23,18 +22,19 @@ func (s *WebRouter) InitWebRouter(Router *gin.RouterGroup) {
 		lRouter.GET("login", lApi.Login)
 	}
 
-	gRouter := Router.Group("web").Use(middleware.UserJWT())
+	gRouter := Router.Group("web")
+	// Use(middleware.UserJWT())
 
 	var wApi = v1.ApiGroupApp.WebApiGroup.WebApi
 	{
-		gRouter.POST("city/list", wApi.GetCityList)        // 城市列表
-		gRouter.GET("car/list", wApi.GetCarList)           //车型组列表
-		gRouter.GET("car/detail", wApi.CarDetail)          //车型组详情
-		gRouter.POST("car/quote", wApi.CarQuote)           //车型组报价
-		gRouter.POST("order/complete", wApi.OrderComplete) //订单提交
-		gRouter.GET("order/detail", wApi.OrderDetail)      //订单详情
-		gRouter.POST("order/update", wApi.OrderUpdate)     //订单修改
-		gRouter.POST("order/cancel", wApi.OrderCancel)     //订单取消
-	}
 
+		gRouter.POST("city/list", wApi.GetCityList) // 城市列表
+		gRouter.POST("car/list", wApi.GetCarList)   // 选车
+		// gRouter.POST("quote/pricing/rules", wApi.PriceRules) // 资费规则
+		gRouter.POST("order/create", wApi.OrderComplete) //下单
+		gRouter.GET("order/detail", wApi.OrderDetail)    //订单详情
+		gRouter.POST("order/update", wApi.OrderUpdate)   //订单修改
+		gRouter.POST("order/cancel", wApi.OrderCancel)   //订单取消
+		gRouter.GET("car/detail", wApi.CarDetail)        //车型组详情
+	}
 }

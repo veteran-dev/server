@@ -11,6 +11,7 @@ type Car struct {
 }
 
 type CarDetail struct {
+	ID           int64  `json:"id"`
 	Title        string `json:"title"` //商务级别
 	Seats        int64  `json:"seats"` //座位数
 	Brand        string `json:"brand"` //车型
@@ -19,6 +20,12 @@ type CarDetail struct {
 	LargeLuggage int64  `json:"largeLuggage"` //24寸以上行李数
 	ChildSeats   int64  `json:"childSeats"`   //儿童座椅数
 
-	Price int64 `json:"price"` //单价根据时间段计算变动的价格
-	To int64 
+}
+type PricePreviewResp struct {
+	Price     int64  `json:"price"` //单价根据时间段计算变动的价格
+	BasePrice int64  `json:"basePrice"`
+	SubPrice  int64  `json:"subPrice"`
+	StartTime string `json:"startTime"` //出发时间
+	To        string `json:"to"`
+	From      string `json:"from"`
 }

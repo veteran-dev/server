@@ -113,35 +113,34 @@ func (cdService *CityDataService) GetCityList() (result map[uint]string, err err
 	}
 	return result, err
 }
-func (cdService *CityDataService) City() (result interface{}, err error) {
+func (cdService *CityDataService) City(req cityReq.CityDataReq) (result interface{}, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&city.CityData{})
+	db = db.Where("parent_id = ?", req.ParentID)
 	var cds []city.CityData
-	err = db.Find(&cds).Error
+	err = db.Debug().Find(&cds).Error
 	if len(cds) > 0 {
 		cityDataListMap := make(map[string][]city.Cities)
 		alphabetList := make([]string, 0)
 		recommends := make([]city.Cities, 0)
 		for _, v := range cds {
-			if v.Alphabet != "" {
-				if _, ok := cityDataListMap[v.Alphabet]; !ok {
-					alphabetList = append(alphabetList, v.Alphabet)
+			if v.Initial != "" {
+				if _, ok := cityDataListMap[v.Initial]; !ok {
+					alphabetList = append(alphabetList, v.Initial)
 				}
 				if *v.Hot == true {
 					recommends = append(recommends, city.Cities{
-						ID:        int(v.ID),
-						Name:      v.Name,
-						Pinyin:    v.Pinyin,
-						Latitude:  *v.Latitude,
-						Longitude: *v.Longitude,
+						ID:       int(v.ID),
+						Name:     v.Name,
+						Pinyin:   v.Pinyin,
+						ParentID: v.ParentID,
 					})
 				}
-				cityDataListMap[v.Alphabet] = append(cityDataListMap[v.Alphabet], city.Cities{
-					ID:        int(v.ID),
-					Name:      v.Name,
-					Pinyin:    v.Pinyin,
-					Latitude:  *v.Latitude,
-					Longitude: *v.Longitude,
+				cityDataListMap[v.Initial] = append(cityDataListMap[v.Initial], city.Cities{
+					ID:       int(v.ID),
+					Name:     v.Name,
+					Pinyin:   v.Pinyin,
+					ParentID: v.ParentID,
 				})
 			}
 		}
@@ -165,4 +164,28 @@ func (cdService *CityDataService) City() (result interface{}, err error) {
 		return cityDataListResult, nil
 	}
 	return nil, err
+}
+
+func (cdService *CityDataService) GetParentCity(Pid int64) (cityName string) {
+
+	db := global.GVA_DB.Model(&city.CityData{})
+	db = db.Where("parent_id = ?", 0)
+	var cds []city.CityData
+	db.Debug().Find(&cds)
+	cityMap := make(map[int64]string)
+	if len(cds) != 0 {
+		for _, v := range cds {
+			cityMap[int64(v.ID)] = v.Name
+		}
+
+		if value, ok := cityMap[Pid]; ok {
+			return value
+		} else {
+			top := &city.CityData{}
+			db.Where("id = ?", Pid).First(top)
+			return
+		}
+	}
+
+	return
 }

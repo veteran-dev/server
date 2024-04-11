@@ -464,6 +464,9 @@ func (wApi *WebApi) Login(c *gin.Context) {
 		global.GVA_LOG.Error("读取失败!", zap.Error(err))
 		return
 	}
+	global.GVA_LOG.Debug("打印登录请求返回")
+	fmt.Println(body)
+	global.GVA_LOG.Debug("-------------===Login---==============")
 	var res LoginResp
 	json.Unmarshal(body, res)
 	if res.UserId == 0 {

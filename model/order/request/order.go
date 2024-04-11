@@ -41,15 +41,15 @@ type PayCode struct {
 }
 
 type OrderDetail struct {
-	OrderSerial string `json:"orderSerial"`
+	OrderSerial string `json:"orderSerial"` //订单号
 }
 
 type OrderUpdate struct {
 	Passenger       string `json:"passenger"`       //乘车人
 	PassengerMobile string `json:"passengerMobile"` //乘车人联系
-	OrderSerial     string `json:"orderSerial"`
+	OrderSerial     string `json:"orderSerial"`     //订单号
 }
 type OrderCancelReq struct {
-	OrderSerial string `json:"orderSerial"`
-	CancelReson int    `json:"cancelReason"`
+	OrderSerial string `json:"orderSerial"`  //订单号
+	CancelReson int    `json:"cancelReason"` //取消原因
 }

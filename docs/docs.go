@@ -5893,7 +5893,7 @@ const docTemplate = `{
             }
         },
         "/web/car/list": {
-            "get": {
+            "post": {
                 "consumes": [
                     "application/json"
                 ],
@@ -5903,7 +5903,7 @@ const docTemplate = `{
                 "tags": [
                     "WebApi"
                 ],
-                "summary": "获取车刑列表",
+                "summary": "获取车型列表",
                 "parameters": [
                     {
                         "type": "integer",
@@ -5969,7 +5969,7 @@ const docTemplate = `{
             }
         },
         "/web/city/list": {
-            "get": {
+            "post": {
                 "consumes": [
                     "application/json"
                 ],
@@ -6020,7 +6020,7 @@ const docTemplate = `{
             }
         },
         "/web/order/cancel": {
-            "get": {
+            "post": {
                 "consumes": [
                     "application/json"
                 ],
@@ -6034,11 +6034,13 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "取消原因",
                         "name": "cancelReason",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "订单号",
                         "name": "orderSerial",
                         "in": "query"
                     }
@@ -6053,8 +6055,8 @@ const docTemplate = `{
                 }
             }
         },
-        "/web/order/detail": {
-            "get": {
+        "/web/order/complete": {
+            "post": {
                 "consumes": [
                     "application/json"
                 ],
@@ -6064,14 +6066,111 @@ const docTemplate = `{
                 "tags": [
                     "WebApi"
                 ],
-                "summary": "订单详情",
+                "summary": "提交订单",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "description": "成人",
+                        "name": "aldult",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "车型组ID",
+                        "name": "carId",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
-                        "name": "orderSerial",
+                        "name": "channelCode",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "小孩",
+                        "name": "child",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "code",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "fromArea",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一级父id",
+                        "name": "fromId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一级父id",
+                        "name": "fromPid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "行李",
+                        "name": "luggage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "乘车人",
+                        "name": "passenger",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "乘车人联系",
+                        "name": "passengerMobile",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "价格",
+                        "name": "price",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "出发时间",
+                        "name": "startTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "toArea",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "toId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "toPid",
                         "in": "query"
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/response.OrderCompleteResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/web/order/detail": {
+            "get": {
                 "responses": {
                     "200": {
                         "description": "成功",
@@ -6090,9 +6189,39 @@ const docTemplate = `{
         },
         "/web/order/update": {
             "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebApi"
+                ],
+                "summary": "修改订单",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "订单号",
+                        "name": "orderSerial",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "乘车人",
+                        "name": "passenger",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "乘车人联系",
+                        "name": "passengerMobile",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更改成功\"}",
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"取消成功\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -7619,6 +7748,14 @@ const docTemplate = `{
                 },
                 "user": {
                     "$ref": "#/definitions/system.SysUser"
+                }
+            }
+        },
+        "response.OrderCompleteResp": {
+            "type": "object",
+            "properties": {
+                "order_serial": {
+                    "type": "string"
                 }
             }
         },

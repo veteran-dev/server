@@ -33,9 +33,9 @@ func (s *WebRouter) InitWebRouter(Router *gin.RouterGroup) {
 		gRouter.POST("car/list", wApi.GetCarList)   // 选车
 		gRouter.GET("car/detail", wApi.CarDetail)   //车型组详情
 		// gRouter.POST("quote/pricing/rules", wApi.PriceRules) // 资费规则
-		gRouter.POST("order/create", wApi.OrderComplete) //下单
-		gRouter.GET("order/detail", wApi.OrderDetail)    //订单详情
-		gRouter.POST("order/update", wApi.OrderUpdate)   //订单修改
-		gRouter.POST("order/cancel", wApi.OrderCancel)   //订单取消
+		gRouter.POST("order/complete", wApi.OrderComplete) //下单
+		gRouter.GET("order/detail", wApi.OrderDetail)      //订单详情
+		gRouter.POST("order/update", wApi.OrderUpdate)     //订单修改
+		gRouter.POST("order/cancel", wApi.OrderCancel)     //订单取消
 	}
 }

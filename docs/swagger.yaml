@@ -1065,6 +1065,11 @@ definitions:
       user:
         $ref: '#/definitions/system.SysUser'
     type: object
+  response.OrderCompleteResp:
+    properties:
+      order_serial:
+        type: string
+    type: object
   response.OrderDetailResp:
     properties:
       car:
@@ -5129,7 +5134,7 @@ paths:
       tags:
       - WebApi
   /web/car/list:
-    get:
+    post:
       consumes:
       - application/json
       parameters:
@@ -5174,11 +5179,11 @@ paths:
           description: '{"success":true,"data":{},"msg":"获取成功"}'
           schema:
             type: string
-      summary: 获取车刑列表
+      summary: 获取车型列表
       tags:
       - WebApi
   /web/city/list:
-    get:
+    post:
       consumes:
       - application/json
       parameters:
@@ -5210,14 +5215,16 @@ paths:
       tags:
       - WebApi
   /web/order/cancel:
-    get:
+    post:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 取消原因
+        in: query
         name: cancelReason
         type: integer
-      - in: query
+      - description: 订单号
+        in: query
         name: orderSerial
         type: string
       produces:
@@ -5230,16 +5237,81 @@ paths:
       summary: 取消订单
       tags:
       - WebApi
-  /web/order/detail:
-    get:
+  /web/order/complete:
+    post:
       consumes:
       - application/json
       parameters:
+      - description: 成人
+        in: query
+        name: aldult
+        type: integer
+      - description: 车型组ID
+        in: query
+        name: carId
+        type: integer
       - in: query
-        name: orderSerial
+        name: channelCode
         type: string
+      - description: 小孩
+        in: query
+        name: child
+        type: integer
+      - in: query
+        name: code
+        type: string
+      - in: query
+        name: fromArea
+        type: string
+      - description: 一级父id
+        in: query
+        name: fromId
+        type: integer
+      - description: 一级父id
+        in: query
+        name: fromPid
+        type: integer
+      - description: 行李
+        in: query
+        name: luggage
+        type: integer
+      - description: 乘车人
+        in: query
+        name: passenger
+        type: string
+      - description: 乘车人联系
+        in: query
+        name: passengerMobile
+        type: string
+      - description: 价格
+        in: query
+        name: price
+        type: integer
+      - description: 出发时间
+        in: query
+        name: startTime
+        type: string
+      - in: query
+        name: toArea
+        type: string
+      - in: query
+        name: toId
+        type: integer
+      - in: query
+        name: toPid
+        type: integer
       produces:
       - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/response.OrderCompleteResp'
+      summary: 提交订单
+      tags:
+      - WebApi
+  /web/order/detail:
+    get:
       responses:
         "200":
           description: 成功
@@ -5249,16 +5321,33 @@ paths:
           description: '{"msg":"获取失败"}'
           schema:
             type: string
-      summary: 订单详情
-      tags:
-      - WebApi
   /web/order/update:
     post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 订单号
+        in: query
+        name: orderSerial
+        type: string
+      - description: 乘车人
+        in: query
+        name: passenger
+        type: string
+      - description: 乘车人联系
+        in: query
+        name: passengerMobile
+        type: string
+      produces:
+      - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"更改成功"}'
+          description: '{"success":true,"data":{},"msg":"取消成功"}'
           schema:
             type: string
+      summary: 修改订单
+      tags:
+      - WebApi
 securityDefinitions:
   ApiKeyAuth:
     in: header

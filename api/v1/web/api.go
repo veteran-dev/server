@@ -28,6 +28,9 @@ type WebApi struct {
 }
 
 var cityService = service.ServiceGroupApp.CityServiceGroup.CityDataService
+var orderService = service.ServiceGroupApp.OrderServiceGroup
+var carService = service.ServiceGroupApp.CityCarCombinationServiceGroup
+var carModelService = service.ServiceGroupApp.CarCombinationServiceGroup.CarCombinationService
 
 // GetCityList Web获取城市列表
 //
@@ -37,7 +40,7 @@ var cityService = service.ServiceGroupApp.CityServiceGroup.CityDataService
 //	@Produce	application/json
 //	@Param		data	query		cityReq.CityDataReq	true	"用id查询城市"
 //	@Success	200		{string}	string				"{"success":true,"data":{},"msg":"获取成功"}"
-//	@Router		/web/city/list [get]
+//	@Router		/web/city/list [post]
 func (wApi *WebApi) GetCityList(c *gin.Context) {
 	var req cityReq.CityDataReq
 	err := c.ShouldBindJSON(&req)
@@ -54,17 +57,15 @@ func (wApi *WebApi) GetCityList(c *gin.Context) {
 	}
 }
 
-var carService = service.ServiceGroupApp.CityCarCombinationServiceGroup
-
-// GetCityList Web获取车刑列表
+// GetCityList Web获取车型列表
 //
 //	@Tags		WebApi
-//	@Summary	获取车刑列表
+//	@Summary	获取车型列表
 //	@accept		application/json
 //	@Produce	application/json
 //	@Param		data	query		cityCarCombinationReq.GetCarListReq	true	"用id查询订单"
 //	@Success	200		{string}	string							"{"success":true,"data":{},"msg":"获取成功"}"
-//	@Router		/web/car/list [get]
+//	@Router		/web/car/list [post]
 func (wApi *WebApi) GetCarList(c *gin.Context) {
 
 	var req cityCarCombinationReq.GetCarListReq
@@ -136,13 +137,12 @@ func Charge(timeStr string) int {
 }
 
 // CarDetail 车型详情
-//
-//	@Tags		WebApi
-//	@Summary	车型详情
-//	@accept		application/json
-//	@Produce	application/json
-//	@Param		data	query		cityCarCombinationReq.GetCarReq	true	"用id查询订单"
-//
+
+// @Tags		WebApi
+// @Summary	车型详情
+// @accept		application/json
+// @Produce	application/json
+// @Param		data	query		cityCarCombinationReq.GetCarReq	true	"用id查询订单"
 // @Success	200	{string}	string	"{"success":true,"data":{},"msg":"获取成功"}"
 // @Router		/web/car/detail [get]
 func (wApi *WebApi) CarDetail(c *gin.Context) {
@@ -185,44 +185,15 @@ func (wApi *WebApi) CarDetail(c *gin.Context) {
 	}
 }
 
-// CarQuote 获取报价
-//
-//	@Tags		WebApi
-//	@Summary	获取报价
-//	@accept		application/json
-//	@Produce	application/json
-//	@Success	200	{string}	string	"{"success":true,"data":{},"msg":"获取成功"}"
-//	@Router		/web/car/quote [get]
-// func (wApi *WebApi) CarQuote(c *gin.Context) {
+// OrderCancel 提交订单
 
-// 	var req cityCarCombinationReq.GetCarListReq
-// 	err := c.ShouldBindJSON(&req)
-// 	if err != nil {
-// 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
-// 		response.FailWithMessage("获取失败", c)
-// 		return
-// 	}
-
-// 	if result, _, err := carService.GetModel(req); err != nil {
-// 		global.GVA_LOG.Error("获取数据失败!", zap.Error(err))
-// 		response.FailWithMessage("获取数据失败", c)
-// 	} else {
-// 		response.OkWithData(gin.H{"list": result}, c)
-// 	}
-// }
-
-// OrderComplete 提交订单
-//
-//	@Tags		WebApi
-//	@Summary	提交订单
-//	@accept		application/json
-//	@Produce	application/json
-//	@Param		data	query	orderReq.OrderComplete	true	"参数插入"
-//
-// @Success 200 {object} orderResp.OrderCompleteResp	"成功"
+// @Tags		WebApi
+// @Summary	提交订单
+// @accept		application/json
+// @Produce	application/json
+// @Param		data	query	orderReq.OrderComplete	true	"插入数据"
+// @Success 200 {object} orderResp.OrderCompleteResp "成功"
 // @Router		/web/order/complete [post]
-var orderService = service.ServiceGroupApp.OrderServiceGroup
-
 func (wApi *WebApi) OrderComplete(c *gin.Context) {
 	var req orderReq.OrderComplete
 	err := c.ShouldBindJSON(&req)
@@ -322,16 +293,14 @@ func generateOrderNumber() string {
 	return orderNumber
 }
 
-var carModelService = service.ServiceGroupApp.CarCombinationServiceGroup.CarCombinationService
-
 // OrderDetail 订单详情
-//
-//	@Tags		WebApi
-//	@Summary	订单详情
-//	@accept		application/json
-//	@Produce	application/json
-//	@Param		data	query	orderReq.OrderDetail	true	"ID查询"
-//
+
+// @Tags		WebApi
+// @Summary	订单详情
+// @accept		application/json
+// @Produce	application/json
+// @Param		data	query	orderReq.OrderDetail	true	"ID查询"
+
 // @Success 200 {object} orderResp.OrderDetailResp "成功"
 // @Failure 400	{string}	string	"{"msg":"获取失败"}"
 // @Router		/web/order/detail [get]
@@ -360,14 +329,13 @@ func (wApi *WebApi) OrderDetail(c *gin.Context) {
 }
 
 // OrderUpdate 修改订单
-//
-//	@Tags		WebApi
-//	@Summary	修改订单
-//	@accept		application/json
-//	@Produce	application/json
-//	@Param		data	query	orderReq.OrderUpdate	true	"查询"
 
-// @Success	200	{string}	string	"{"success":true,"data":{},"msg":"更改成功"}"
+// @Tags		WebApi
+// @Summary	修改订单
+// @accept		application/json
+// @Produce	application/json
+// @Param		data	query	orderReq.OrderUpdate	true	"更改数据"
+// @Success	200	{string}	string	"{"success":true,"data":{},"msg":"取消成功"}"
 // @Router		/web/order/update [post]
 func (wApi *WebApi) OrderUpdate(c *gin.Context) {
 	var req orderReq.OrderUpdate
@@ -397,7 +365,7 @@ func (wApi *WebApi) OrderUpdate(c *gin.Context) {
 //	@Produce	application/json
 //	@Param		data	query	orderReq.OrderCancelReq	true	"插入数据"
 //	@Success	200	{string}	string	"{"success":true,"data":{},"msg":"取消成功"}"
-//	@Router		/web/order/cancel [get]
+//	@Router		/web/order/cancel [post]
 func (wApi *WebApi) OrderCancel(c *gin.Context) {
 	var req orderReq.OrderCancelReq
 	err := c.ShouldBindJSON(&req)

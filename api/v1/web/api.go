@@ -49,7 +49,8 @@ func (wApi *WebApi) GetCityList(c *gin.Context) {
 		response.FailWithMessage("获取失败", c)
 		return
 	}
-	if result, err := cityService.City(req); err != nil {
+	result, err := cityService.City(req)
+	if err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -153,8 +154,8 @@ func (wApi *WebApi) CarDetail(c *gin.Context) {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	}
-
-	if result, err := carService.ModelDetail(req); err != nil {
+	result, err := carService.ModelDetail(req)
+	if err != nil {
 		global.GVA_LOG.Error("获取数据失败!", zap.Error(err))
 		response.FailWithMessage("获取数据失败", c)
 	} else {

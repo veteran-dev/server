@@ -1689,6 +1689,12 @@ definitions:
       config:
         $ref: '#/definitions/config.Server'
     type: object
+  web.RespLogin:
+    properties:
+      x-token:
+        description: 请求Token
+        type: string
+    type: object
 info:
   contact: {}
   description: 使用gin+vue进行极速开发的全栈开发基础平台
@@ -5204,13 +5210,18 @@ paths:
     get:
       consumes:
       - application/json
+      parameters:
+      - description: 授权Code
+        in: query
+        name: code
+        type: string
       produces:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 成功
           schema:
-            type: string
+            $ref: '#/definitions/web.RespLogin'
       summary: 登录Token
       tags:
       - WebApi
@@ -5312,15 +5323,23 @@ paths:
       - WebApi
   /web/order/detail:
     get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 订单号
+        in: query
+        name: orderSerial
+        type: string
+      produces:
+      - application/json
       responses:
         "200":
           description: 成功
           schema:
             $ref: '#/definitions/response.OrderDetailResp'
-        "400":
-          description: '{"msg":"获取失败"}'
-          schema:
-            type: string
+      summary: 订单详情
+      tags:
+      - WebApi
   /web/order/update:
     post:
       consumes:

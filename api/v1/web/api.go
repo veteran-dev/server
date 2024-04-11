@@ -293,16 +293,14 @@ func generateOrderNumber() string {
 	return orderNumber
 }
 
-// OrderDetail 订单详情
+// OrderCancel 订单详情
 
 // @Tags		WebApi
 // @Summary	订单详情
 // @accept		application/json
 // @Produce	application/json
-// @Param		data	query	orderReq.OrderDetail	true	"ID查询"
-
+// @Param		data	query	orderReq.OrderDetail	true	"订单号查询"
 // @Success 200 {object} orderResp.OrderDetailResp "成功"
-// @Failure 400	{string}	string	"{"msg":"获取失败"}"
 // @Router		/web/order/detail [get]
 func (wApi *WebApi) OrderDetail(c *gin.Context) {
 	var req orderReq.OrderDetail
@@ -389,13 +387,14 @@ func (wApi *WebApi) OrderCancel(c *gin.Context) {
 }
 
 // OrderCancel 登录Token
-//
-//	@Tags		WebApi
-//	@Summary	登录Token
-//	@accept		application/json
-//	@Produce	application/json
-//	@Success	200	{string}	string	"{"success":true,"data":{},"msg":"获取成功"}"
-//	@Router		/web/login [get]
+
+// @Tags		WebApi
+// @Summary	登录Token
+// @accept		application/json
+// @Produce	application/json
+// @Param		data	query	Login	true	"小程序授权Code"
+// @Success 200 {object} RespLogin "成功"
+// @Router		/web/login [get]
 func (wApi *WebApi) Login(c *gin.Context) {
 	var loginReq Login
 	err := c.ShouldBindJSON(&loginReq)
@@ -443,14 +442,18 @@ func (wApi *WebApi) Login(c *gin.Context) {
 		return
 	}
 	newJwt := utils.NewUserJWT()
-	if result, err := newJwt.GenerateToken(int(res.UserId)); err != nil {
+	result, err := newJwt.GenerateToken(int(res.UserId))
+	if err != nil {
 		global.GVA_LOG.Error("获取Token失败!", zap.Error(err))
 		response.FailWithMessage("获取Token失败", c)
 	} else {
-		response.OkWithData(gin.H{"x-token": result}, c)
+		response.OkWithData(&RespLogin{XToken: result}, c)
 	}
 }
 
+type RespLogin struct {
+	XToken string `json:"x-token"` //请求Token
+}
 type LoginResp struct {
 	AccessToken string `json:"accessToken"`
 	UserId      int64  `json:"userId"`
@@ -459,5 +462,5 @@ type LoginResp struct {
 }
 
 type Login struct {
-	Code string `json:"code"`
+	Code string `json:"code"` //授权Code
 }

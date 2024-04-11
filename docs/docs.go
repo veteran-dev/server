@@ -6009,11 +6009,19 @@ const docTemplate = `{
                     "WebApi"
                 ],
                 "summary": "登录Token",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "授权Code",
+                        "name": "code",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "成功",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/web.RespLogin"
                         }
                     }
                 }
@@ -6171,17 +6179,29 @@ const docTemplate = `{
         },
         "/web/order/detail": {
             "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebApi"
+                ],
+                "summary": "订单详情",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "订单号",
+                        "name": "orderSerial",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "成功",
                         "schema": {
                             "$ref": "#/definitions/response.OrderDetailResp"
-                        }
-                    },
-                    "400": {
-                        "description": "{\"msg\":\"获取失败\"}",
-                        "schema": {
-                            "type": "string"
                         }
                     }
                 }
@@ -8641,6 +8661,15 @@ const docTemplate = `{
             "properties": {
                 "config": {
                     "$ref": "#/definitions/config.Server"
+                }
+            }
+        },
+        "web.RespLogin": {
+            "type": "object",
+            "properties": {
+                "x-token": {
+                    "description": "请求Token",
+                    "type": "string"
                 }
             }
         }

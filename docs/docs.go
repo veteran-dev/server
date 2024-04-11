@@ -2521,8 +2521,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "首字母",
-                        "name": "alphabet",
+                        "name": "code",
                         "in": "query"
                     },
                     {
@@ -2548,15 +2547,15 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "type": "number",
-                        "description": "经纬度",
-                        "name": "latitude",
+                        "type": "string",
+                        "description": "首字母",
+                        "name": "initial",
                         "in": "query"
                     },
                     {
-                        "type": "number",
-                        "description": "经纬度",
-                        "name": "longitude",
+                        "type": "string",
+                        "description": "缩写字母",
+                        "name": "initials",
                         "in": "query"
                     },
                     {
@@ -2566,9 +2565,24 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
+                        "type": "integer",
+                        "name": "order",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "parent_id",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "城市名拼音",
                         "name": "pinyin",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "suffix",
                         "in": "query"
                     },
                     {
@@ -3561,7 +3575,7 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "type": "integer",
+                        "type": "string",
                         "description": "订单编号",
                         "name": "orderSerial",
                         "in": "query"
@@ -5802,6 +5816,289 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/web/car/detail": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebApi"
+                ],
+                "summary": "车型详情",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "成人",
+                        "name": "aldult",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "小孩",
+                        "name": "child",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一级父id",
+                        "name": "fromId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "一级父id",
+                        "name": "fromPid",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "行李",
+                        "name": "luggage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "出发时间",
+                        "name": "startTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "toId",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "toPid",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/web/car/list": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebApi"
+                ],
+                "summary": "获取车刑列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "成人",
+                        "name": "aldult",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "小孩",
+                        "name": "child",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "from",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "行李",
+                        "name": "luggage",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "出发时间",
+                        "name": "startTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "to",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/web/city/list": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebApi"
+                ],
+                "summary": "获取城市列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "parentID",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/web/login": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebApi"
+                ],
+                "summary": "登录Token",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/web/order/cancel": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebApi"
+                ],
+                "summary": "取消订单",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "cancelReason",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "orderSerial",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"取消成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/web/order/detail": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebApi"
+                ],
+                "summary": "订单详情",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "orderSerial",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/response.OrderDetailResp"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"msg\":\"获取失败\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/web/order/update": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更改成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -5873,8 +6170,7 @@ const docTemplate = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "alphabet": {
-                    "description": "首字母",
+                "code": {
                     "type": "string"
                 },
                 "createdAt": {
@@ -5891,20 +6187,29 @@ const docTemplate = `{
                     "description": "推荐",
                     "type": "boolean"
                 },
-                "latitude": {
-                    "description": "经纬度",
-                    "type": "number"
+                "initial": {
+                    "description": "首字母",
+                    "type": "string"
                 },
-                "longitude": {
-                    "description": "经纬度",
-                    "type": "number"
+                "initials": {
+                    "description": "缩写字母",
+                    "type": "string"
                 },
                 "name": {
                     "description": "城市名称",
                     "type": "string"
                 },
+                "order": {
+                    "type": "integer"
+                },
+                "parent_id": {
+                    "type": "integer"
+                },
                 "pinyin": {
                     "description": "城市名拼音",
+                    "type": "string"
+                },
+                "suffix": {
                     "type": "string"
                 },
                 "updatedAt": {
@@ -5936,6 +6241,9 @@ const docTemplate = `{
                 "car": {
                     "description": "车型ID",
                     "type": "integer"
+                },
+                "carCombination": {
+                    "$ref": "#/definitions/carCombination.CarCombination"
                 },
                 "createdAt": {
                     "description": "创建时间",
@@ -6565,7 +6873,7 @@ const docTemplate = `{
                     }
                 },
                 "email": {
-                    "$ref": "#/definitions/github_com_5asp_gin-vue-admin_server_config.Email"
+                    "$ref": "#/definitions/github_com_veteran-dev_server_config.Email"
                 },
                 "excel": {
                     "$ref": "#/definitions/config.Excel"
@@ -6849,7 +7157,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_5asp_gin-vue-admin_server_config.Email": {
+        "github_com_veteran-dev_server_config.Email": {
             "type": "object",
             "properties": {
                 "from": {
@@ -6921,7 +7229,7 @@ const docTemplate = `{
                 },
                 "orderSerial": {
                     "description": "订单编号",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "passenger": {
                     "description": "乘车人",
@@ -7311,6 +7619,17 @@ const docTemplate = `{
                 },
                 "user": {
                     "$ref": "#/definitions/system.SysUser"
+                }
+            }
+        },
+        "response.OrderDetailResp": {
+            "type": "object",
+            "properties": {
+                "car": {
+                    "$ref": "#/definitions/carCombination.CarCombination"
+                },
+                "order": {
+                    "$ref": "#/definitions/order.Order"
                 }
             }
         },

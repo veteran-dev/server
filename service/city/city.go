@@ -1,6 +1,7 @@
 package city
 
 import (
+	"fmt"
 	"sort"
 
 	"github.com/veteran-dev/server/global"
@@ -117,6 +118,7 @@ func (cdService *CityDataService) City(req cityReq.CityDataReq) (result interfac
 	// 创建db
 	db := global.GVA_DB.Model(&city.CityData{})
 	db = db.Where("parent_id = ?", req.ParentID)
+	fmt.Println("ParentID:", req.ParentID)
 	var cds []city.CityData
 	err = db.Debug().Find(&cds).Error
 	if len(cds) > 0 {

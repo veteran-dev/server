@@ -17,14 +17,14 @@ type CityDataApi struct {
 var cdService = service.ServiceGroupApp.CityServiceGroup.CityDataService
 
 // CreateCityData 创建城市数据
-// @Tags CityData
-// @Summary 创建城市数据
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body city.CityData true "创建城市数据"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
-// @Router /cd/createCityData [post]
+//	@Tags		CityData
+//	@Summary	创建城市数据
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		city.CityData	true	"创建城市数据"
+//	@Success	200		{string}	string			"{"success":true,"data":{},"msg":"创建成功"}"
+//	@Router		/cd/createCityData [post]
 func (cdApi *CityDataApi) CreateCityData(c *gin.Context) {
 	var cd city.CityData
 	err := c.ShouldBindJSON(&cd)
@@ -43,14 +43,14 @@ func (cdApi *CityDataApi) CreateCityData(c *gin.Context) {
 }
 
 // DeleteCityData 删除城市数据
-// @Tags CityData
-// @Summary 删除城市数据
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body city.CityData true "删除城市数据"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
-// @Router /cd/deleteCityData [delete]
+//	@Tags		CityData
+//	@Summary	删除城市数据
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		city.CityData	true	"删除城市数据"
+//	@Success	200		{string}	string			"{"success":true,"data":{},"msg":"删除成功"}"
+//	@Router		/cd/deleteCityData [delete]
 func (cdApi *CityDataApi) DeleteCityData(c *gin.Context) {
 	ID := c.Query("ID")
 	userID := utils.GetUserID(c)
@@ -63,13 +63,13 @@ func (cdApi *CityDataApi) DeleteCityData(c *gin.Context) {
 }
 
 // DeleteCityDataByIds 批量删除城市数据
-// @Tags CityData
-// @Summary 批量删除城市数据
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
-// @Router /cd/deleteCityDataByIds [delete]
+//	@Tags		CityData
+//	@Summary	批量删除城市数据
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{string}	string	"{"success":true,"data":{},"msg":"批量删除成功"}"
+//	@Router		/cd/deleteCityDataByIds [delete]
 func (cdApi *CityDataApi) DeleteCityDataByIds(c *gin.Context) {
 	IDs := c.QueryArray("IDs[]")
 	userID := utils.GetUserID(c)
@@ -82,14 +82,14 @@ func (cdApi *CityDataApi) DeleteCityDataByIds(c *gin.Context) {
 }
 
 // UpdateCityData 更新城市数据
-// @Tags CityData
-// @Summary 更新城市数据
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body city.CityData true "更新城市数据"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
-// @Router /cd/updateCityData [put]
+//	@Tags		CityData
+//	@Summary	更新城市数据
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		city.CityData	true	"更新城市数据"
+//	@Success	200		{string}	string			"{"success":true,"data":{},"msg":"更新成功"}"
+//	@Router		/cd/updateCityData [put]
 func (cdApi *CityDataApi) UpdateCityData(c *gin.Context) {
 	var cd city.CityData
 	err := c.ShouldBindJSON(&cd)
@@ -108,14 +108,14 @@ func (cdApi *CityDataApi) UpdateCityData(c *gin.Context) {
 }
 
 // FindCityData 用id查询城市数据
-// @Tags CityData
-// @Summary 用id查询城市数据
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data query city.CityData true "用id查询城市数据"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
-// @Router /cd/findCityData [get]
+//	@Tags		CityData
+//	@Summary	用id查询城市数据
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query		city.CityData	true	"用id查询城市数据"
+//	@Success	200		{string}	string			"{"success":true,"data":{},"msg":"查询成功"}"
+//	@Router		/cd/findCityData [get]
 func (cdApi *CityDataApi) FindCityData(c *gin.Context) {
 	ID := c.Query("ID")
 	if recd, err := cdService.GetCityData(ID); err != nil {
@@ -127,14 +127,14 @@ func (cdApi *CityDataApi) FindCityData(c *gin.Context) {
 }
 
 // GetCityDataList 分页获取城市数据列表
-// @Tags CityData
-// @Summary 分页获取城市数据列表
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data query cityReq.CityDataSearch true "分页获取城市数据列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /cd/getCityDataList [get]
+//	@Tags		CityData
+//	@Summary	分页获取城市数据列表
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query		cityReq.CityDataSearch	true	"分页获取城市数据列表"
+//	@Success	200		{string}	string					"{"success":true,"data":{},"msg":"获取成功"}"
+//	@Router		/cd/getCityDataList [get]
 func (cdApi *CityDataApi) GetCityDataList(c *gin.Context) {
 	var pageInfo cityReq.CityDataSearch
 	err := c.ShouldBindQuery(&pageInfo)
@@ -156,13 +156,13 @@ func (cdApi *CityDataApi) GetCityDataList(c *gin.Context) {
 }
 
 // GetCityList 获取城市数据列表键值对
-// @Tags GeneralData
-// @Summary 获取城市数据列表
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /general/cityList [get]
+//	@Tags		GeneralData
+//	@Summary	获取城市数据列表
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{string}	string	"{"success":true,"data":{},"msg":"获取成功"}"
+//	@Router		/general/cityList [get]
 func (cdApi *CityDataApi) GetCityList(c *gin.Context) {
 	if result, err := cdService.GetCityList(); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))

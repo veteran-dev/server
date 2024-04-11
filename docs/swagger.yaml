@@ -48,8 +48,7 @@ definitions:
       ID:
         description: 主键ID
         type: integer
-      alphabet:
-        description: 首字母
+      code:
         type: string
       createdAt:
         description: 创建时间
@@ -61,17 +60,23 @@ definitions:
       hot:
         description: 推荐
         type: boolean
-      latitude:
-        description: 经纬度
-        type: number
-      longitude:
-        description: 经纬度
-        type: number
+      initial:
+        description: 首字母
+        type: string
+      initials:
+        description: 缩写字母
+        type: string
       name:
         description: 城市名称
         type: string
+      order:
+        type: integer
+      parent_id:
+        type: integer
       pinyin:
         description: 城市名拼音
+        type: string
+      suffix:
         type: string
       updatedAt:
         description: 更新时间
@@ -90,6 +95,8 @@ definitions:
       car:
         description: 车型ID
         type: integer
+      carCombination:
+        $ref: '#/definitions/carCombination.CarCombination'
       createdAt:
         description: 创建时间
         type: string
@@ -533,7 +540,7 @@ definitions:
           $ref: '#/definitions/config.SpecializedDB'
         type: array
       email:
-        $ref: '#/definitions/github_com_5asp_gin-vue-admin_server_config.Email'
+        $ref: '#/definitions/github_com_veteran-dev_server_config.Email'
       excel:
         $ref: '#/definitions/config.Excel'
       hua-wei-obs:
@@ -730,7 +737,7 @@ definitions:
         description: 栈名
         type: string
     type: object
-  github_com_5asp_gin-vue-admin_server_config.Email:
+  github_com_veteran-dev_server_config.Email:
     properties:
       from:
         description: 发件人  你自己要发邮件的邮箱
@@ -783,7 +790,7 @@ definitions:
         type: integer
       orderSerial:
         description: 订单编号
-        type: integer
+        type: string
       passenger:
         description: 乘车人
         type: string
@@ -1057,6 +1064,13 @@ definitions:
         type: string
       user:
         $ref: '#/definitions/system.SysUser'
+    type: object
+  response.OrderDetailResp:
+    properties:
+      car:
+        $ref: '#/definitions/carCombination.CarCombination'
+      order:
+        $ref: '#/definitions/order.Order'
     type: object
   response.PageResult:
     properties:
@@ -3122,9 +3136,8 @@ paths:
         in: query
         name: ID
         type: integer
-      - description: 首字母
-        in: query
-        name: alphabet
+      - in: query
+        name: code
         type: string
       - description: 创建时间
         in: query
@@ -3140,21 +3153,30 @@ paths:
         in: query
         name: hot
         type: boolean
-      - description: 经纬度
+      - description: 首字母
         in: query
-        name: latitude
-        type: number
-      - description: 经纬度
+        name: initial
+        type: string
+      - description: 缩写字母
         in: query
-        name: longitude
-        type: number
+        name: initials
+        type: string
       - description: 城市名称
         in: query
         name: name
         type: string
+      - in: query
+        name: order
+        type: integer
+      - in: query
+        name: parent_id
+        type: integer
       - description: 城市名拼音
         in: query
         name: pinyin
+        type: string
+      - in: query
+        name: suffix
         type: string
       - description: 更新时间
         in: query
@@ -3734,7 +3756,7 @@ paths:
       - description: 订单编号
         in: query
         name: orderSerial
-        type: integer
+        type: string
       - description: 乘车人
         in: query
         name: passenger
@@ -5058,6 +5080,185 @@ paths:
       summary: 设置用户信息
       tags:
       - SysUser
+  /web/car/detail:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 成人
+        in: query
+        name: aldult
+        type: integer
+      - description: 小孩
+        in: query
+        name: child
+        type: integer
+      - description: 一级父id
+        in: query
+        name: fromId
+        type: integer
+      - description: 一级父id
+        in: query
+        name: fromPid
+        type: integer
+      - in: query
+        name: id
+        type: integer
+      - description: 行李
+        in: query
+        name: luggage
+        type: integer
+      - description: 出发时间
+        in: query
+        name: startTime
+        type: string
+      - in: query
+        name: toId
+        type: integer
+      - in: query
+        name: toPid
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      summary: 车型详情
+      tags:
+      - WebApi
+  /web/car/list:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 成人
+        in: query
+        name: aldult
+        type: integer
+      - description: 小孩
+        in: query
+        name: child
+        type: integer
+      - in: query
+        name: from
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 行李
+        in: query
+        name: luggage
+        type: integer
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 出发时间
+        in: query
+        name: startTime
+        type: string
+      - in: query
+        name: to
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      summary: 获取车刑列表
+      tags:
+      - WebApi
+  /web/city/list:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: parentID
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      summary: 获取城市列表
+      tags:
+      - WebApi
+  /web/login:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      summary: 登录Token
+      tags:
+      - WebApi
+  /web/order/cancel:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: cancelReason
+        type: integer
+      - in: query
+        name: orderSerial
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"取消成功"}'
+          schema:
+            type: string
+      summary: 取消订单
+      tags:
+      - WebApi
+  /web/order/detail:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: orderSerial
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/response.OrderDetailResp'
+        "400":
+          description: '{"msg":"获取失败"}'
+          schema:
+            type: string
+      summary: 订单详情
+      tags:
+      - WebApi
+  /web/order/update:
+    post:
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更改成功"}'
+          schema:
+            type: string
 securityDefinitions:
   ApiKeyAuth:
     in: header

@@ -15,7 +15,7 @@ type Order struct {
 	ToCity          *int       `json:"toCity" form:"toCity" gorm:"column:to_city;comment:抵达城市ID;"`                           //抵达城市ID
 	FromArea        string     `json:"fromArea" form:"fromArea" gorm:"column:from_area;comment:开始地点;"`                       //开始地点
 	ToArea          string     `json:"toArea" form:"toArea" gorm:"column:to_area;comment:抵达区域;"`                             //抵达区域
-	OrderSerial     *int       `json:"orderSerial" form:"orderSerial" gorm:"column:order_serial;comment:订单编号;"`              //订单编号
+	OrderSerial     string     `json:"orderSerial" form:"orderSerial" gorm:"column:order_serial;comment:订单编号;"`              //订单编号
 	Passenger       string     `json:"passenger" form:"passenger" gorm:"column:passenger;comment:乘车人;"`                      //乘车人
 	PassengerMobile string     `json:"passengerMobile" form:"passengerMobile" gorm:"column:passenger_mobile;comment:乘车人联系;"` //乘车人联系
 	Price           *int       `json:"price" form:"price" gorm:"column:price;comment:订单金额;"`                                 //订单金额

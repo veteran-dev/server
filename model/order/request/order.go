@@ -26,10 +26,12 @@ type OrderComplete struct {
 	Aldult          int64  `json:"aldult"`          //成人
 	Passenger       string `json:"passenger"`       //乘车人
 	PassengerMobile string `json:"passengerMobile"` //乘车人联系
-	CarID           int64  `json:"carId"`
-	Price           int64  `json:"price"` //价格
+	CarID           int64  `json:"carId"`           //车型组ID
+	Price           int64  `json:"price"`           //价格
 	Code            string `json:"code"`
 	ChannelCode     string `json:"channelCode"`
+	ToArea          string `json:"toArea"`
+	FromArea        string `json:"fromArea"`
 }
 
 type PayCode struct {
@@ -38,3 +40,16 @@ type PayCode struct {
 	ReturnUrl string `json:"returnUrl"`
 }
 
+type OrderDetail struct {
+	OrderSerial string `json:"orderSerial"`
+}
+
+type OrderUpdate struct {
+	Passenger       string `json:"passenger"`       //乘车人
+	PassengerMobile string `json:"passengerMobile"` //乘车人联系
+	OrderSerial     string `json:"orderSerial"`
+}
+type OrderCancelReq struct {
+	OrderSerial string `json:"orderSerial"`
+	CancelReson int    `json:"cancelReason"`
+}

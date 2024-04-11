@@ -17,14 +17,14 @@ type CityCarCombinationApi struct {
 var cccService = service.ServiceGroupApp.CityCarCombinationServiceGroup.CityCarCombinationService
 
 // CreateCityCarCombination 创建车型城市组合
-// @Tags CityCarCombination
-// @Summary 创建车型城市组合
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body cityCarCombination.CityCarCombination true "创建车型城市组合"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
-// @Router /ccc/createCityCarCombination [post]
+//	@Tags		CityCarCombination
+//	@Summary	创建车型城市组合
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		cityCarCombination.CityCarCombination	true	"创建车型城市组合"
+//	@Success	200		{string}	string									"{"success":true,"data":{},"msg":"创建成功"}"
+//	@Router		/ccc/createCityCarCombination [post]
 func (cccApi *CityCarCombinationApi) CreateCityCarCombination(c *gin.Context) {
 	var ccc cityCarCombination.CityCarCombination
 	err := c.ShouldBindJSON(&ccc)
@@ -43,14 +43,14 @@ func (cccApi *CityCarCombinationApi) CreateCityCarCombination(c *gin.Context) {
 }
 
 // DeleteCityCarCombination 删除车型城市组合
-// @Tags CityCarCombination
-// @Summary 删除车型城市组合
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body cityCarCombination.CityCarCombination true "删除车型城市组合"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
-// @Router /ccc/deleteCityCarCombination [delete]
+//	@Tags		CityCarCombination
+//	@Summary	删除车型城市组合
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		cityCarCombination.CityCarCombination	true	"删除车型城市组合"
+//	@Success	200		{string}	string									"{"success":true,"data":{},"msg":"删除成功"}"
+//	@Router		/ccc/deleteCityCarCombination [delete]
 func (cccApi *CityCarCombinationApi) DeleteCityCarCombination(c *gin.Context) {
 	ID := c.Query("ID")
 	userID := utils.GetUserID(c)
@@ -63,13 +63,13 @@ func (cccApi *CityCarCombinationApi) DeleteCityCarCombination(c *gin.Context) {
 }
 
 // DeleteCityCarCombinationByIds 批量删除车型城市组合
-// @Tags CityCarCombination
-// @Summary 批量删除车型城市组合
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
-// @Router /ccc/deleteCityCarCombinationByIds [delete]
+//	@Tags		CityCarCombination
+//	@Summary	批量删除车型城市组合
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{string}	string	"{"success":true,"data":{},"msg":"批量删除成功"}"
+//	@Router		/ccc/deleteCityCarCombinationByIds [delete]
 func (cccApi *CityCarCombinationApi) DeleteCityCarCombinationByIds(c *gin.Context) {
 	IDs := c.QueryArray("IDs[]")
 	userID := utils.GetUserID(c)
@@ -82,14 +82,14 @@ func (cccApi *CityCarCombinationApi) DeleteCityCarCombinationByIds(c *gin.Contex
 }
 
 // UpdateCityCarCombination 更新车型城市组合
-// @Tags CityCarCombination
-// @Summary 更新车型城市组合
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body cityCarCombination.CityCarCombination true "更新车型城市组合"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
-// @Router /ccc/updateCityCarCombination [put]
+//	@Tags		CityCarCombination
+//	@Summary	更新车型城市组合
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		cityCarCombination.CityCarCombination	true	"更新车型城市组合"
+//	@Success	200		{string}	string									"{"success":true,"data":{},"msg":"更新成功"}"
+//	@Router		/ccc/updateCityCarCombination [put]
 func (cccApi *CityCarCombinationApi) UpdateCityCarCombination(c *gin.Context) {
 	var ccc cityCarCombination.CityCarCombination
 	err := c.ShouldBindJSON(&ccc)
@@ -108,14 +108,14 @@ func (cccApi *CityCarCombinationApi) UpdateCityCarCombination(c *gin.Context) {
 }
 
 // FindCityCarCombination 用id查询车型城市组合
-// @Tags CityCarCombination
-// @Summary 用id查询车型城市组合
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data query cityCarCombination.CityCarCombination true "用id查询车型城市组合"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
-// @Router /ccc/findCityCarCombination [get]
+//	@Tags		CityCarCombination
+//	@Summary	用id查询车型城市组合
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query		cityCarCombination.CityCarCombination	true	"用id查询车型城市组合"
+//	@Success	200		{string}	string									"{"success":true,"data":{},"msg":"查询成功"}"
+//	@Router		/ccc/findCityCarCombination [get]
 func (cccApi *CityCarCombinationApi) FindCityCarCombination(c *gin.Context) {
 	ID := c.Query("ID")
 	if reccc, err := cccService.GetCityCarCombination(ID); err != nil {
@@ -127,14 +127,14 @@ func (cccApi *CityCarCombinationApi) FindCityCarCombination(c *gin.Context) {
 }
 
 // GetCityCarCombinationList 分页获取车型城市组合列表
-// @Tags CityCarCombination
-// @Summary 分页获取车型城市组合列表
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data query cityCarCombinationReq.CityCarCombinationSearch true "分页获取车型城市组合列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /ccc/getCityCarCombinationList [get]
+//	@Tags		CityCarCombination
+//	@Summary	分页获取车型城市组合列表
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query		cityCarCombinationReq.CityCarCombinationSearch	true	"分页获取车型城市组合列表"
+//	@Success	200		{string}	string											"{"success":true,"data":{},"msg":"获取成功"}"
+//	@Router		/ccc/getCityCarCombinationList [get]
 func (cccApi *CityCarCombinationApi) GetCityCarCombinationList(c *gin.Context) {
 	var pageInfo cityCarCombinationReq.CityCarCombinationSearch
 	err := c.ShouldBindQuery(&pageInfo)

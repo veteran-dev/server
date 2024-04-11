@@ -54,11 +54,31 @@ func (oService *OrderService) UpdateOrder(o order.Order) (err error) {
 	return err
 }
 
+// UpdateOrder 更新订单记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (oService *OrderService) UpdateOrderByOrderSerialStatus(order string, status, reson int) (err error) {
+	err = global.GVA_DB.Where("order_serial = ?", order).Updates(map[string]interface{}{"status": status, "cancel_reason": reson}).Error
+	return err
+}
+
 // GetOrder 根据ID获取订单记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (oService *OrderService) GetOrder(ID string) (o order.Order, err error) {
 	err = global.GVA_DB.Where("id = ?", ID).First(&o).Error
 	return
+}
+
+// GetOrder 根据ID获取订单记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (oService *OrderService) GetOrderByOrderSerial(ID string) (o order.Order, err error) {
+	err = global.GVA_DB.Where("order_serial = ?", ID).First(&o).Error
+	return
+}
+
+func (oService *OrderService) UpdateOrderByOrderSerial(order, user, mobile string) (err error) {
+	err = global.GVA_DB.Where("order_serial = ?", order).Updates(map[string]interface{}{"passenger": user, "passenger_mobile": mobile}).Error
+	return err
+
 }
 
 // GetOrderInfoList 分页获取订单记录

@@ -16,5 +16,5 @@ type CityDataSearch struct {
 }
 
 type CityDataReq struct {
-	ParentID int64 `json:"parantID"`
+	ParentID int64 `json:"parentID"`
 }

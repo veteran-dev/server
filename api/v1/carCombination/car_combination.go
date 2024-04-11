@@ -17,14 +17,14 @@ type CarCombinationApi struct {
 var carcService = service.ServiceGroupApp.CarCombinationServiceGroup.CarCombinationService
 
 // CreateCarCombination 创建车型组
-// @Tags CarCombination
-// @Summary 创建车型组
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body carCombination.CarCombination true "创建车型组"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"创建成功"}"
-// @Router /carc/createCarCombination [post]
+//	@Tags		CarCombination
+//	@Summary	创建车型组
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		carCombination.CarCombination	true	"创建车型组"
+//	@Success	200		{string}	string							"{"success":true,"data":{},"msg":"创建成功"}"
+//	@Router		/carc/createCarCombination [post]
 func (carcApi *CarCombinationApi) CreateCarCombination(c *gin.Context) {
 	var carc carCombination.CarCombination
 	err := c.ShouldBindJSON(&carc)
@@ -43,14 +43,14 @@ func (carcApi *CarCombinationApi) CreateCarCombination(c *gin.Context) {
 }
 
 // DeleteCarCombination 删除车型组
-// @Tags CarCombination
-// @Summary 删除车型组
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body carCombination.CarCombination true "删除车型组"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"删除成功"}"
-// @Router /carc/deleteCarCombination [delete]
+//	@Tags		CarCombination
+//	@Summary	删除车型组
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		carCombination.CarCombination	true	"删除车型组"
+//	@Success	200		{string}	string							"{"success":true,"data":{},"msg":"删除成功"}"
+//	@Router		/carc/deleteCarCombination [delete]
 func (carcApi *CarCombinationApi) DeleteCarCombination(c *gin.Context) {
 	ID := c.Query("ID")
 	userID := utils.GetUserID(c)
@@ -63,13 +63,13 @@ func (carcApi *CarCombinationApi) DeleteCarCombination(c *gin.Context) {
 }
 
 // DeleteCarCombinationByIds 批量删除车型组
-// @Tags CarCombination
-// @Summary 批量删除车型组
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"批量删除成功"}"
-// @Router /carc/deleteCarCombinationByIds [delete]
+//	@Tags		CarCombination
+//	@Summary	批量删除车型组
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{string}	string	"{"success":true,"data":{},"msg":"批量删除成功"}"
+//	@Router		/carc/deleteCarCombinationByIds [delete]
 func (carcApi *CarCombinationApi) DeleteCarCombinationByIds(c *gin.Context) {
 	IDs := c.QueryArray("IDs[]")
 	userID := utils.GetUserID(c)
@@ -82,14 +82,14 @@ func (carcApi *CarCombinationApi) DeleteCarCombinationByIds(c *gin.Context) {
 }
 
 // UpdateCarCombination 更新车型组
-// @Tags CarCombination
-// @Summary 更新车型组
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body carCombination.CarCombination true "更新车型组"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
-// @Router /carc/updateCarCombination [put]
+//	@Tags		CarCombination
+//	@Summary	更新车型组
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		carCombination.CarCombination	true	"更新车型组"
+//	@Success	200		{string}	string							"{"success":true,"data":{},"msg":"更新成功"}"
+//	@Router		/carc/updateCarCombination [put]
 func (carcApi *CarCombinationApi) UpdateCarCombination(c *gin.Context) {
 	var carc carCombination.CarCombination
 	err := c.ShouldBindJSON(&carc)
@@ -108,14 +108,14 @@ func (carcApi *CarCombinationApi) UpdateCarCombination(c *gin.Context) {
 }
 
 // FindCarCombination 用id查询车型组
-// @Tags CarCombination
-// @Summary 用id查询车型组
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data query carCombination.CarCombination true "用id查询车型组"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"查询成功"}"
-// @Router /carc/findCarCombination [get]
+//	@Tags		CarCombination
+//	@Summary	用id查询车型组
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query		carCombination.CarCombination	true	"用id查询车型组"
+//	@Success	200		{string}	string							"{"success":true,"data":{},"msg":"查询成功"}"
+//	@Router		/carc/findCarCombination [get]
 func (carcApi *CarCombinationApi) FindCarCombination(c *gin.Context) {
 	ID := c.Query("ID")
 	if recarc, err := carcService.GetCarCombination(ID); err != nil {
@@ -127,14 +127,14 @@ func (carcApi *CarCombinationApi) FindCarCombination(c *gin.Context) {
 }
 
 // GetCarCombinationList 分页获取车型组列表
-// @Tags CarCombination
-// @Summary 分页获取车型组列表
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data query carCombinationReq.CarCombinationSearch true "分页获取车型组列表"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /carc/getCarCombinationList [get]
+//	@Tags		CarCombination
+//	@Summary	分页获取车型组列表
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query		carCombinationReq.CarCombinationSearch	true	"分页获取车型组列表"
+//	@Success	200		{string}	string									"{"success":true,"data":{},"msg":"获取成功"}"
+//	@Router		/carc/getCarCombinationList [get]
 func (carcApi *CarCombinationApi) GetCarCombinationList(c *gin.Context) {
 	var pageInfo carCombinationReq.CarCombinationSearch
 	err := c.ShouldBindQuery(&pageInfo)
@@ -156,13 +156,13 @@ func (carcApi *CarCombinationApi) GetCarCombinationList(c *gin.Context) {
 }
 
 // GetCarList 获取车型组数据列表
-// @Tags GeneralData
-// @Summary 获取车型组数据列表
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /general/carList [get]
+//	@Tags		GeneralData
+//	@Summary	获取车型组数据列表
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{string}	string	"{"success":true,"data":{},"msg":"获取成功"}"
+//	@Router		/general/carList [get]
 func (carcApi *CarCombinationApi) GetCarList(c *gin.Context) {
 	if result, err := carcService.GetCarList(); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))

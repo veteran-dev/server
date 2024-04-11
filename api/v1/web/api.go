@@ -5,7 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"math/rand"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -14,6 +16,7 @@ import (
 	cityCarCombinationReq "github.com/veteran-dev/server/model/cityCarCombination/request"
 	carResp "github.com/veteran-dev/server/model/cityCarCombination/response"
 	"github.com/veteran-dev/server/model/common/response"
+	"github.com/veteran-dev/server/model/order"
 	orderReq "github.com/veteran-dev/server/model/order/request"
 	orderResp "github.com/veteran-dev/server/model/order/response"
 	"github.com/veteran-dev/server/service"
@@ -27,13 +30,14 @@ type WebApi struct {
 var cityService = service.ServiceGroupApp.CityServiceGroup.CityDataService
 
 // GetCityList Web获取城市列表
-// @Tags WebApi
-// @Summary 获取城市列表
-// @accept application/json
-// @Produce application/json
-// @Param data query cityReq.CityDataReq true "用id查询城市"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /web/city/list [get]
+//
+//	@Tags		WebApi
+//	@Summary	获取城市列表
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query		cityReq.CityDataReq	true	"用id查询城市"
+//	@Success	200		{string}	string				"{"success":true,"data":{},"msg":"获取成功"}"
+//	@Router		/web/city/list [get]
 func (wApi *WebApi) GetCityList(c *gin.Context) {
 	var req cityReq.CityDataReq
 	err := c.ShouldBindJSON(&req)
@@ -53,13 +57,14 @@ func (wApi *WebApi) GetCityList(c *gin.Context) {
 var carService = service.ServiceGroupApp.CityCarCombinationServiceGroup
 
 // GetCityList Web获取车刑列表
-// @Tags WebApi
-// @Summary 获取车刑列表
-// @accept application/json
-// @Produce application/json
-// @Param data query cityCarCombinationReq.GetCarReq true "用id查询订单"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /web/car/list [get]
+//
+//	@Tags		WebApi
+//	@Summary	获取车刑列表
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query		cityCarCombinationReq.GetCarListReq	true	"用id查询订单"
+//	@Success	200		{string}	string							"{"success":true,"data":{},"msg":"获取成功"}"
+//	@Router		/web/car/list [get]
 func (wApi *WebApi) GetCarList(c *gin.Context) {
 
 	var req cityCarCombinationReq.GetCarListReq
@@ -131,12 +136,15 @@ func Charge(timeStr string) int {
 }
 
 // CarDetail 车型详情
-// @Tags WebApi
-// @Summary 车型详情
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /web/car/detail [get]
+//
+//	@Tags		WebApi
+//	@Summary	车型详情
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query		cityCarCombinationReq.GetCarReq	true	"用id查询订单"
+//
+// @Success	200	{string}	string	"{"success":true,"data":{},"msg":"获取成功"}"
+// @Router		/web/car/detail [get]
 func (wApi *WebApi) CarDetail(c *gin.Context) {
 
 	var req cityCarCombinationReq.GetCarReq
@@ -177,103 +185,42 @@ func (wApi *WebApi) CarDetail(c *gin.Context) {
 	}
 }
 
-// CarDetail 价格预览
-// @Tags WebApi
-// @Summary 价格预览
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /web/price/preview [post]
-// func (wApi *WebApi) PricePreview(c *gin.Context) {
-// 	var req cityCarCombinationReq.PricePreviewReq
-// 	err := c.ShouldBindJSON(&req)
-// 	if err != nil {
-// 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
-// 		response.FailWithMessage("获取失败", c)
-// 	}
-
-// 	if result, err := carService.ModelDetail(req); err != nil {
-// 		global.GVA_LOG.Error("获取数据失败!", zap.Error(err))
-// 		response.FailWithMessage("获取数据失败", c)
-// 	} else {
-// 		data := carResp.CarDetail{
-// 			Title:        result.CarCombination.CombinationTitle,
-// 			Luggage:      int64(*result.CarCombination.Luggage),
-// 			LargeLuggage: int64(*result.CarCombination.LargeLuggage),
-// 			Brand:        result.CarCombination.ModelName,
-// 			ChildSeats:   int64(*result.CarCombination.ChildSeats),
-// 			Seats:        int64(*result.CarCombination.Seats),
-// 			Level:        result.CarCombination.Level,
-// 		}
-
-// 		response.OkWithData(gin.H{"data": data}, c)
-// 	}
-// }
-
-// CarDetail 价格预览
-// @Tags WebApi
-// @Summary 价格预览
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /web/price/preview [post]
-// func (wApi *WebApi) PriceRules(c *gin.Context) {
-// 	var req cityCarCombinationReq.PricePreviewReq
-// 	err := c.ShouldBindJSON(&req)
-// 	if err != nil {
-// 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
-// 		response.FailWithMessage("获取失败", c)
-// 	}
-
-// 	if result, err := carService.ModelDetail(req); err != nil {
-// 		global.GVA_LOG.Error("获取数据失败!", zap.Error(err))
-// 		response.FailWithMessage("获取数据失败", c)
-// 	} else {
-// 		data := carResp.CarDetail{
-// 			Title:        result.CarCombination.CombinationTitle,
-// 			Luggage:      int64(*result.CarCombination.Luggage),
-// 			LargeLuggage: int64(*result.CarCombination.LargeLuggage),
-// 			Brand:        result.CarCombination.ModelName,
-// 			ChildSeats:   int64(*result.CarCombination.ChildSeats),
-// 			Seats:        int64(*result.CarCombination.Seats),
-// 			Level:        result.CarCombination.Level,
-// 		}
-
-// 		response.OkWithData(gin.H{"data": data}, c)
-// 	}
-// }
-
 // CarQuote 获取报价
-// @Tags WebApi
-// @Summary 获取报价
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /web/car/quote [get]
-func (wApi *WebApi) CarQuote(c *gin.Context) {
+//
+//	@Tags		WebApi
+//	@Summary	获取报价
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{string}	string	"{"success":true,"data":{},"msg":"获取成功"}"
+//	@Router		/web/car/quote [get]
+// func (wApi *WebApi) CarQuote(c *gin.Context) {
 
-	var req cityCarCombinationReq.GetCarListReq
-	err := c.ShouldBindJSON(&req)
-	if err != nil {
-		global.GVA_LOG.Error("获取失败!", zap.Error(err))
-		response.FailWithMessage("获取失败", c)
-	}
+// 	var req cityCarCombinationReq.GetCarListReq
+// 	err := c.ShouldBindJSON(&req)
+// 	if err != nil {
+// 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+// 		response.FailWithMessage("获取失败", c)
+// 		return
+// 	}
 
-	if result, _, err := carService.GetModel(req); err != nil {
-		global.GVA_LOG.Error("获取数据失败!", zap.Error(err))
-		response.FailWithMessage("获取数据失败", c)
-	} else {
-		response.OkWithData(gin.H{"list": result}, c)
-	}
-}
+// 	if result, _, err := carService.GetModel(req); err != nil {
+// 		global.GVA_LOG.Error("获取数据失败!", zap.Error(err))
+// 		response.FailWithMessage("获取数据失败", c)
+// 	} else {
+// 		response.OkWithData(gin.H{"list": result}, c)
+// 	}
+// }
 
 // OrderComplete 提交订单
-// @Tags WebApi
-// @Summary 提交订单
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /web/order/complete [get]
+//
+//	@Tags		WebApi
+//	@Summary	提交订单
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query	orderReq.OrderComplete	true	"参数插入"
+//
+// @Success 200 {object} orderResp.OrderCompleteResp	"成功"
+// @Router		/web/order/complete [post]
 var orderService = service.ServiceGroupApp.OrderServiceGroup
 
 func (wApi *WebApi) OrderComplete(c *gin.Context) {
@@ -284,11 +231,46 @@ func (wApi *WebApi) OrderComplete(c *gin.Context) {
 		response.FailWithMessage("获取失败", c)
 	}
 
+	var fromCity, toCity, price, carModel int
+	fromCity = int(req.FromID)
+	toCity = int(req.ToID)
+	price = int(req.Price)
+	carModel = int(req.CarID)
+	orderSerial := generateOrderNumber()
+
+	// 定义时间字符串的格式
+	layout := "2006-01-02T15:04:05Z"
+
+	t, err := time.Parse(layout, req.StartTime)
+	if err != nil {
+		fmt.Println("转换失败:", err)
+		return
+	}
+
+	fmt.Println("转换后的时间:", t)
+	orderCreate := &order.Order{
+		Appointment:     &t, //出发时间
+		FromCity:        &fromCity,
+		ToCity:          &toCity,
+		ToArea:          req.ToArea,
+		FromArea:        req.FromArea,
+		OrderSerial:     orderSerial,
+		Passenger:       req.Passenger,
+		PassengerMobile: req.PassengerMobile,
+		Price:           &price,
+		CarModel:        &carModel,
+	}
+	if err := orderService.CreateOrder(orderCreate); err != nil {
+		global.GVA_LOG.Error("订单生成失败!", zap.Error(err))
+		response.FailWithMessage("订单生成失败", c)
+		return
+	}
+
 	url := "https://devcr.dachema.net/cmdcapp/api/aliPay/orderPay"
 	payReq := orderReq.PayCode{
 		OrderID:   time.Now().Unix(),
 		Code:      req.Code,
-		ReturnUrl: "/web/order/create",
+		ReturnUrl: "/web/order/detail",
 	}
 	jsonData, err := json.Marshal(payReq)
 	if err != nil {
@@ -317,96 +299,135 @@ func (wApi *WebApi) OrderComplete(c *gin.Context) {
 		global.GVA_LOG.Error("读取失败!", zap.Error(err))
 		return
 	}
-	var orderResp orderResp.OrderResp
-	json.Unmarshal(body, orderResp)
-	if orderResp.TradeNo != "" {
-		global.GVA_LOG.Error("获取USRID失败!", zap.Error(err))
-		response.FailWithMessage("获取USRID失败", c)
+	var orderData orderResp.OrderResp
+	json.Unmarshal(body, orderData)
+	if orderData.TradeNo != "" {
+		if err := orderService.UpdateOrderByOrderSerialStatus(orderSerial, 1, 0); err != nil {
+			global.GVA_LOG.Error("订单状态失败!", zap.Error(err))
+			response.FailWithMessage("订单生成失败", c)
+			return
+		}
+		global.GVA_LOG.Info("订单状态成功!")
+		response.OkWithData(&orderResp.OrderCompleteResp{OrderSerial: orderSerial}, c)
 		return
 	}
-
-	// orderService.CreateOrder()
+	global.GVA_LOG.Error("调用支付失败!", zap.Error(err))
+	response.FailWithMessage("调用支付失败", c)
 }
 
+func generateOrderNumber() string {
+	timestamp := time.Now().UnixNano() / int64(time.Millisecond)
+	random := rand.Intn(1000)
+	orderNumber := fmt.Sprintf("%d%d", timestamp, random)
+	return orderNumber
+}
+
+var carModelService = service.ServiceGroupApp.CarCombinationServiceGroup.CarCombinationService
+
 // OrderDetail 订单详情
-// @Tags WebApi
-// @Summary 订单详情
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /web/order/detail [get]
+//
+//	@Tags		WebApi
+//	@Summary	订单详情
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query	orderReq.OrderDetail	true	"ID查询"
+//
+// @Success 200 {object} orderResp.OrderDetailResp "成功"
+// @Failure 400	{string}	string	"{"msg":"获取失败"}"
+// @Router		/web/order/detail [get]
 func (wApi *WebApi) OrderDetail(c *gin.Context) {
+	var req orderReq.OrderDetail
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	}
+	orderData, err := orderService.GetOrderByOrderSerial(req.OrderSerial)
+	if err != nil {
+		global.GVA_LOG.Error("获取Order数据失败!", zap.Error(err))
+		response.FailWithMessage("获取Order数据失败", c)
+	}
 
-	// var req cityCarCombinationReq.GetCarReq
-	// err := c.ShouldBindJSON(&req)
-	// if err != nil {
-	// 	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	// 	response.FailWithMessage("获取失败", c)
-	// }
-
-	// if result, _, err := carService.GetModel(req); err != nil {
-	// 	global.GVA_LOG.Error("获取数据失败!", zap.Error(err))
-	// 	response.FailWithMessage("获取数据失败", c)
-	// } else {
-	// 	response.OkWithData(gin.H{"list": result}, c)
-	// }
+	carID := strconv.Itoa(*orderData.CarModel)
+	carinfo, err := carModelService.GetCarCombination(carID)
+	if err != nil {
+		global.GVA_LOG.Error("获取Car数据失败!", zap.Error(err))
+		response.FailWithMessage("获取Car数据失败", c)
+	}
+	global.GVA_LOG.Info("订单详情成功!")
+	response.OkWithData(&orderResp.OrderDetailResp{Car: carinfo, Order: orderData}, c)
+	return
 }
 
 // OrderUpdate 修改订单
-// @Tags WebApi
-// @Summary 修改订单
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /web/order/update [get]
+//
+//	@Tags		WebApi
+//	@Summary	修改订单
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query	orderReq.OrderUpdate	true	"查询"
+
+// @Success	200	{string}	string	"{"success":true,"data":{},"msg":"更改成功"}"
+// @Router		/web/order/update [post]
 func (wApi *WebApi) OrderUpdate(c *gin.Context) {
+	var req orderReq.OrderUpdate
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	}
+	if req.OrderSerial != "" {
+		global.GVA_LOG.Error("非法参数!", zap.Error(err))
+		response.FailWithMessage("非法参数", c)
+	}
 
-	// var req cityCarCombinationReq.GetCarReq
-	// err := c.ShouldBindJSON(&req)
-	// if err != nil {
-	// 	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	// 	response.FailWithMessage("获取失败", c)
-	// }
-
-	// if result, _, err := carService.GetModel(req); err != nil {
-	// 	global.GVA_LOG.Error("获取数据失败!", zap.Error(err))
-	// 	response.FailWithMessage("获取数据失败", c)
-	// } else {
-	// 	response.OkWithData(gin.H{"list": result}, c)
-	// }
+	if err := orderService.UpdateOrderByOrderSerial(req.OrderSerial, req.Passenger, req.PassengerMobile); err != nil {
+		global.GVA_LOG.Error("更改失败!", zap.Error(err))
+		response.FailWithMessage("更改失败", c)
+		return
+	}
+	response.OkWithMessage("更改成功", c)
 }
 
 // OrderCancel 取消订单
-// @Tags WebApi
-// @Summary 取消订单
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /web/order/cancel [get]
+//
+//	@Tags		WebApi
+//	@Summary	取消订单
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query	orderReq.OrderCancelReq	true	"插入数据"
+//	@Success	200	{string}	string	"{"success":true,"data":{},"msg":"取消成功"}"
+//	@Router		/web/order/cancel [get]
 func (wApi *WebApi) OrderCancel(c *gin.Context) {
+	var req orderReq.OrderCancelReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	}
+	if req.OrderSerial != "" {
+		global.GVA_LOG.Error("非法参数!", zap.Error(err))
+		response.FailWithMessage("非法参数", c)
+	}
 
-	// var req cityCarCombinationReq.GetCarReq
-	// err := c.ShouldBindJSON(&req)
-	// if err != nil {
-	// 	global.GVA_LOG.Error("获取失败!", zap.Error(err))
-	// 	response.FailWithMessage("获取失败", c)
-	// }
-
-	// if result, _, err := carService.GetModel(req); err != nil {
-	// 	global.GVA_LOG.Error("获取数据失败!", zap.Error(err))
-	// 	response.FailWithMessage("获取数据失败", c)
-	// } else {
-	// 	response.OkWithData(gin.H{"list": result}, c)
-	// }
+	if err := orderService.UpdateOrderByOrderSerialStatus(req.OrderSerial, 0, req.CancelReson); err != nil {
+		global.GVA_LOG.Error("订单状态取消失败!", zap.Error(err))
+		response.FailWithMessage("订单取消失败", c)
+		return
+	}
+	global.GVA_LOG.Info("订单状态更改成功!")
+	response.OkWithMessage("更改成功", c)
+	return
 }
 
 // OrderCancel 登录Token
-// @Tags WebApi
-// @Summary 登录Token
-// @accept application/json
-// @Produce application/json
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
-// @Router /web/login [get]
+//
+//	@Tags		WebApi
+//	@Summary	登录Token
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{string}	string	"{"success":true,"data":{},"msg":"获取成功"}"
+//	@Router		/web/login [get]
 func (wApi *WebApi) Login(c *gin.Context) {
 	var loginReq Login
 	err := c.ShouldBindJSON(&loginReq)

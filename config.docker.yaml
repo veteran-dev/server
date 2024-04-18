@@ -87,8 +87,8 @@ captcha:
 # 未初始化之前请勿手动修改数据库信息！！！如果一定要手动初始化请看（https://gin-vue-admin.com/docs/first_master）
 mysql:
   path: "maria-mariadb.db.svc.cluster.local"
+  config: charset=utf8mb4&parseTime=True&loc=Local
   port: "3306"
-  config: ""
   db-name: "nendb"
   username: "root"
   password: "yZPmO5ooSk"

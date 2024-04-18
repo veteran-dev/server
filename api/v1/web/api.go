@@ -376,7 +376,7 @@ func (wApi *WebApi) OrderComplete(c *gin.Context) {
 	}
 
 	// 创建一个请求体
-	resq, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
+	resq, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData)) //ei
 	if err != nil {
 		global.GVA_LOG.Error("创建请求失败!", zap.Error(err))
 		return

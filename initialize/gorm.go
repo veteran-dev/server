@@ -49,7 +49,7 @@ func RegisterTables() {
 		system.SysBaseMenuBtn{},
 		system.SysAuthorityBtn{},
 		system.SysAutoCode{},
-		system.SysExportTemplate{}, city.CityData{}, order.Order{}, carCombination.CarCombination{}, cityCarCombination.CityCarCombination{},
+		system.SysExportTemplate{}, city.City{}, order.Order{}, carCombination.CarCombination{}, cityCarCombination.CityCarCombination{},
 	)
 	if err != nil {
 		global.GVA_LOG.Error("register table failed", zap.Error(err))

@@ -62,7 +62,19 @@ system:
   iplimit-count: 15000
   #  IP限制一个小时
   iplimit-time: 3600
-
+  ditu-key: e1450be360f0a3d071631e15f000eb4c
+  poi: 
+      - "150202"
+      - "150203"
+      - "150105"
+      - "150501"
+  reason:
+      - "行程有变，暂时不需要用车"
+      - "订单信息有误"
+      - "选择了其他交通方式"
+      - "其他平台价格更低"
+      - "司机信息未更新，担心影响行程"
+  
 # captcha configuration
 captcha:
   key-long: 6

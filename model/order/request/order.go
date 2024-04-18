@@ -15,23 +15,21 @@ type OrderSearch struct {
 	Order string `json:"order" form:"order"`
 }
 
-type OrderComplete struct {
-	ToID            int64  `json:"toId"`
-	ToPID           int64  `json:"toPid"`
-	FromID          int64  `json:"fromId"`          //一级父id
-	FromPID         int64  `json:"fromPid"`         //一级父id
-	StartTime       string `json:"startTime"`       //出发时间
-	Luggage         int64  `json:"luggage"`         //行李
-	Child           int64  `json:"child"`           //小孩
-	Aldult          int64  `json:"aldult"`          //成人
+type OrderCompleteReq struct {
+	OrderSerial     string `json:"orderSerial"`     //订单号
 	Passenger       string `json:"passenger"`       //乘车人
 	PassengerMobile string `json:"passengerMobile"` //乘车人联系
-	CarID           int64  `json:"carId"`           //车型组ID
-	Price           int64  `json:"price"`           //价格
 	Code            string `json:"code"`
 	ChannelCode     string `json:"channelCode"`
-	ToArea          string `json:"toArea"`
-	FromArea        string `json:"fromArea"`
+}
+
+type OrderCreateReq struct {
+	StartTime    string `json:"startTime"`    //出发时间
+	ToCityName   string `json:"toCityName"`   //到达城市
+	FromCityName string `json:"fromCityName"` //起点城市
+	CarID        int64  `json:"carID"`        //车型组ID
+	FromLocation string `json:"fromLocation"` //起点定位
+	ToLocation   string `json:"toLocation"`   //到达定位
 }
 
 type PayCode struct {

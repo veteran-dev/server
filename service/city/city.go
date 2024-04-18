@@ -1,7 +1,6 @@
 package city
 
 import (
-	"fmt"
 	"sort"
 
 	"github.com/veteran-dev/server/global"
@@ -15,7 +14,7 @@ type CityDataService struct {
 
 // CreateCityData 创建城市数据记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (cdService *CityDataService) CreateCityData(cd *city.CityData) (err error) {
+func (cdService *CityDataService) CreateCityData(cd *city.City) (err error) {
 	err = global.GVA_DB.Create(cd).Error
 	return err
 }
@@ -24,10 +23,10 @@ func (cdService *CityDataService) CreateCityData(cd *city.CityData) (err error) 
 // Author [piexlmax](https://github.com/piexlmax)
 func (cdService *CityDataService) DeleteCityData(ID string, userID uint) (err error) {
 	err = global.GVA_DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Model(&city.CityData{}).Where("id = ?", ID).Update("deleted_by", userID).Error; err != nil {
+		if err := tx.Model(&city.City{}).Where("id = ?", ID).Update("deleted_by", userID).Error; err != nil {
 			return err
 		}
-		if err = tx.Delete(&city.CityData{}, "id = ?", ID).Error; err != nil {
+		if err = tx.Delete(&city.City{}, "id = ?", ID).Error; err != nil {
 			return err
 		}
 		return nil
@@ -39,10 +38,10 @@ func (cdService *CityDataService) DeleteCityData(ID string, userID uint) (err er
 // Author [piexlmax](https://github.com/piexlmax)
 func (cdService *CityDataService) DeleteCityDataByIds(IDs []string, deleted_by uint) (err error) {
 	err = global.GVA_DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Model(&city.CityData{}).Where("id in ?", IDs).Update("deleted_by", deleted_by).Error; err != nil {
+		if err := tx.Model(&city.City{}).Where("id in ?", IDs).Update("deleted_by", deleted_by).Error; err != nil {
 			return err
 		}
-		if err := tx.Where("id in ?", IDs).Delete(&city.CityData{}).Error; err != nil {
+		if err := tx.Where("id in ?", IDs).Delete(&city.City{}).Error; err != nil {
 			return err
 		}
 		return nil
@@ -52,26 +51,33 @@ func (cdService *CityDataService) DeleteCityDataByIds(IDs []string, deleted_by u
 
 // UpdateCityData 更新城市数据记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (cdService *CityDataService) UpdateCityData(cd city.CityData) (err error) {
+func (cdService *CityDataService) UpdateCityData(cd city.City) (err error) {
 	err = global.GVA_DB.Save(&cd).Error
 	return err
 }
 
 // GetCityData 根据ID获取城市数据记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (cdService *CityDataService) GetCityData(ID string) (cd city.CityData, err error) {
+func (cdService *CityDataService) GetCityData(ID string) (cd city.City, err error) {
 	err = global.GVA_DB.Where("id = ?", ID).First(&cd).Error
+	return
+}
+
+// GetCityData 根据Name获取城市数据记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (cdService *CityDataService) GetCityDataByNameAndPid(name []string, pid string) (list []city.City, err error) {
+	err = global.GVA_DB.Debug().Where("name IN ? and pid = ?", name, pid).Find(&list).Error
 	return
 }
 
 // GetCityDataInfoList 分页获取城市数据记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (cdService *CityDataService) GetCityDataInfoList(info cityReq.CityDataSearch) (list []city.CityData, total int64, err error) {
+func (cdService *CityDataService) GetCityDataInfoList(info cityReq.CityDataSearch) (list []city.City, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.GVA_DB.Model(&city.CityData{})
-	var cds []city.CityData
+	db := global.GVA_DB.Model(&city.City{})
+	var cds []city.City
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
@@ -102,8 +108,8 @@ func (cdService *CityDataService) GetCityDataInfoList(info cityReq.CityDataSearc
 
 func (cdService *CityDataService) GetCityList() (result map[uint]string, err error) {
 	// 创建db
-	db := global.GVA_DB.Model(&city.CityData{})
-	var cds []city.CityData
+	db := global.GVA_DB.Model(&city.City{})
+	var cds []city.City
 
 	err = db.Find(&cds).Error
 	if len(cds) > 0 {
@@ -114,35 +120,35 @@ func (cdService *CityDataService) GetCityList() (result map[uint]string, err err
 	}
 	return result, err
 }
-func (cdService *CityDataService) City(req cityReq.CityDataReq) (result interface{}, err error) {
+func (cdService *CityDataService) City() (result city.CityDataList, err error) {
 	// 创建db
-	db := global.GVA_DB.Model(&city.CityData{})
-	db = db.Where("parent_id = ?", req.ParentID)
-	fmt.Println("ParentID:", req.ParentID)
-	var cds []city.CityData
+	db := global.GVA_DB.Model(&city.City{})
+	var cds []city.City
 	err = db.Debug().Find(&cds).Error
 	if len(cds) > 0 {
 		cityDataListMap := make(map[string][]city.Cities)
 		alphabetList := make([]string, 0)
 		recommends := make([]city.Cities, 0)
 		for _, v := range cds {
-			if v.Initial != "" {
-				if _, ok := cityDataListMap[v.Initial]; !ok {
-					alphabetList = append(alphabetList, v.Initial)
+			if v.Letter != "" {
+				if _, ok := cityDataListMap[v.Letter]; !ok {
+					alphabetList = append(alphabetList, v.Letter)
 				}
-				if *v.Hot == true {
+				if v.Hot == 1 {
 					recommends = append(recommends, city.Cities{
-						ID:       int(v.ID),
-						Name:     v.Name,
-						Pinyin:   v.Pinyin,
-						ParentID: v.ParentID,
+						ID:        int(v.ID),
+						Name:      v.Name,
+						Letter:    v.Letter,
+						Latitude:  v.Lat,
+						Longitude: v.Lng,
 					})
 				}
-				cityDataListMap[v.Initial] = append(cityDataListMap[v.Initial], city.Cities{
-					ID:       int(v.ID),
-					Name:     v.Name,
-					Pinyin:   v.Pinyin,
-					ParentID: v.ParentID,
+				cityDataListMap[v.Letter] = append(cityDataListMap[v.Letter], city.Cities{
+					ID:        int(v.ID),
+					Name:      v.Name,
+					Letter:    v.Letter,
+					Latitude:  v.Lat,
+					Longitude: v.Lng,
 				})
 			}
 		}
@@ -165,29 +171,29 @@ func (cdService *CityDataService) City(req cityReq.CityDataReq) (result interfac
 
 		return cityDataListResult, nil
 	}
-	return nil, err
+	return city.CityDataList{}, err
 }
 
-func (cdService *CityDataService) GetParentCity(Pid int64) (cityName string) {
+// func (cdService *CityDataService) GetParentCity(Pid int64) (cityName string) {
 
-	db := global.GVA_DB.Model(&city.CityData{})
-	db = db.Where("parent_id = ?", 0)
-	var cds []city.CityData
-	db.Debug().Find(&cds)
-	cityMap := make(map[int64]string)
-	if len(cds) != 0 {
-		for _, v := range cds {
-			cityMap[int64(v.ID)] = v.Name
-		}
+// 	db := global.GVA_DB.Model(&city.CityData{})
+// 	db = db.Where("parent_id = ?", 0)
+// 	var cds []city.CityData
+// 	db.Debug().Find(&cds)
+// 	cityMap := make(map[int64]string)
+// 	if len(cds) != 0 {
+// 		for _, v := range cds {
+// 			cityMap[int64(v.ID)] = v.Name
+// 		}
 
-		if value, ok := cityMap[Pid]; ok {
-			return value
-		} else {
-			top := &city.CityData{}
-			db.Where("id = ?", Pid).First(top)
-			return
-		}
-	}
+// 		if value, ok := cityMap[Pid]; ok {
+// 			return value
+// 		} else {
+// 			top := &city.CityData{}
+// 			db.Where("id = ?", Pid).First(top)
+// 			return
+// 		}
+// 	}
 
-	return
-}
+// 	return
+// }

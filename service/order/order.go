@@ -75,8 +75,8 @@ func (oService *OrderService) GetOrderByOrderSerial(ID string) (o order.Order, e
 	return
 }
 
-func (oService *OrderService) UpdateOrderByOrderSerial(order, user, mobile string) (err error) {
-	err = global.GVA_DB.Where("order_serial = ?", order).Updates(map[string]interface{}{"passenger": user, "passenger_mobile": mobile}).Error
+func (oService *OrderService) UpdateOrderByOrderSerial(order, user, mobile string, status int) (err error) {
+	err = global.GVA_DB.Where("order_serial = ?", order).Updates(map[string]interface{}{"passenger": user, "passenger_mobile": mobile, "status": status}).Error
 	return err
 
 }
@@ -117,4 +117,8 @@ func (oService *OrderService) GetOrderInfoList(info orderReq.OrderSearch) (list 
 
 	err = db.Find(&os).Error
 	return os, total, err
+}
+
+func (oService *OrderService) ReasonList() (list []string) {
+	return global.GVA_CONFIG.System.Reason
 }

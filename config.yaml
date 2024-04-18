@@ -198,6 +198,20 @@ system:
     use-multipoint: false
     use-redis: false
     use-mongo: false
+    ditu-key: e1450be360f0a3d071631e15f000eb4c
+    poi: 
+        - "150202"
+        - "150203"
+        - "150105"
+        - "150501"
+    reason:
+        - "行程有变，暂时不需要用车"
+        - "订单信息有误"
+        - "选择了其他交通方式"
+        - "其他平台价格更低"
+        - "司机信息未更新，担心影响行程"
+  
+
 tencent-cos:
     bucket: xxxxx-10005608
     region: ap-shanghai

@@ -16,5 +16,21 @@ type CityDataSearch struct {
 }
 
 type CityDataReq struct {
-	ParentID int64 `json:"parentID"`
+}
+
+type CityLocalReq struct {
+	CityID   int64  `json:"cityID" form:"cityID"`
+	Address  string `json:"address" form:"address"`
+	PageSize int    `json:"pageSize"`
+	Page     int    `json:"page"`
+}
+
+type GaodeReq struct {
+	Key      string `json:"key"`
+	Keywords string `json:"keywords"`
+	Types    string `json:"types"`
+	City     string `json:"city"`
+	Children int    `json:"children"`
+	Offset   int    `json:"offset"`
+	Page     int    `json:"page"`
 }

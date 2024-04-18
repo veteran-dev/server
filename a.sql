@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `district` (
   `hot` tinyint DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7047 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7047 DEFAULT CHARSET=utf8mb4;
 
 -- 正在导出表  nendb.district 的数据：~3,567 rows (大约)
 INSERT INTO `district` (`id`, `name`, `parent_id`, `initial`, `initials`, `pinyin`, `suffix`, `code`, `order`, `hot`) VALUES

@@ -2384,326 +2384,6 @@
                 }
             }
         },
-        "/cd/createCityData": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CityData"
-                ],
-                "summary": "创建城市数据",
-                "parameters": [
-                    {
-                        "description": "创建城市数据",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/city.CityData"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/cd/deleteCityData": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CityData"
-                ],
-                "summary": "删除城市数据",
-                "parameters": [
-                    {
-                        "description": "删除城市数据",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/city.CityData"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/cd/deleteCityDataByIds": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CityData"
-                ],
-                "summary": "批量删除城市数据",
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/cd/findCityData": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CityData"
-                ],
-                "summary": "用id查询城市数据",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "ID",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "code",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "createdBy",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "deletedBy",
-                        "in": "query"
-                    },
-                    {
-                        "type": "boolean",
-                        "description": "推荐",
-                        "name": "hot",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "首字母",
-                        "name": "initial",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "缩写字母",
-                        "name": "initials",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "城市名称",
-                        "name": "name",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "order",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "parent_id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "城市名拼音",
-                        "name": "pinyin",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "suffix",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "updatedBy",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/cd/getCityDataList": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CityData"
-                ],
-                "summary": "分页获取城市数据列表",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "name": "endCreatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "order",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "sort",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "startCreatedAt",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/cd/updateCityData": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "CityData"
-                ],
-                "summary": "更新城市数据",
-                "parameters": [
-                    {
-                        "description": "更新城市数据",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/city.CityData"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
         "/email/emailTest": {
             "post": {
                 "security": [
@@ -5810,7 +5490,7 @@
             }
         },
         "/web/car/detail": {
-            "get": {
+            "post": {
                 "consumes": [
                     "application/json"
                 ],
@@ -5823,38 +5503,20 @@
                 "summary": "车型详情",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "成人",
-                        "name": "aldult",
+                        "type": "string",
+                        "description": "起点城市",
+                        "name": "fromCityName",
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "description": "小孩",
-                        "name": "child",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一级父id",
-                        "name": "fromId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一级父id",
-                        "name": "fromPid",
+                        "type": "string",
+                        "description": "起点定位",
+                        "name": "fromLocation",
                         "in": "query"
                     },
                     {
                         "type": "integer",
                         "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "行李",
-                        "name": "luggage",
                         "in": "query"
                     },
                     {
@@ -5864,21 +5526,23 @@
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "name": "toId",
+                        "type": "string",
+                        "description": "到达城市",
+                        "name": "toCityName",
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "name": "toPid",
+                        "type": "string",
+                        "description": "到达定位",
+                        "name": "toLocation",
                         "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "成功",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/response.CarDetailResp"
                         }
                     }
                 }
@@ -5911,13 +5575,20 @@
                     },
                     {
                         "type": "integer",
-                        "name": "from",
+                        "description": "起点区域ID",
+                        "name": "fromAreaID",
                         "in": "query"
                     },
                     {
                         "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
+                        "description": "起点城市ID",
+                        "name": "fromCityName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "起点定位",
+                        "name": "fromLocation",
                         "in": "query"
                     },
                     {
@@ -5928,13 +5599,13 @@
                     },
                     {
                         "type": "integer",
-                        "description": "页码",
+                        "description": "当前页面",
                         "name": "page",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "每页大小",
+                        "description": "偏移量",
                         "name": "pageSize",
                         "in": "query"
                     },
@@ -5946,15 +5617,31 @@
                     },
                     {
                         "type": "integer",
-                        "name": "to",
+                        "description": "到达区域ID",
+                        "name": "toAreaID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "到达城市ID",
+                        "name": "toCityName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "到达定位",
+                        "name": "toLocation",
                         "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "成功",
                         "schema": {
-                            "type": "string"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/response.Car"
+                            }
                         }
                     }
                 }
@@ -5972,18 +5659,58 @@
                     "WebApi"
                 ],
                 "summary": "获取城市列表",
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/city.CityDataList"
+                        }
+                    }
+                }
+            }
+        },
+        "/web/city/local": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebApi"
+                ],
+                "summary": "获取当前所在城市POI",
                 "parameters": [
                     {
+                        "type": "string",
+                        "name": "address",
+                        "in": "query"
+                    },
+                    {
                         "type": "integer",
-                        "name": "parentID",
+                        "name": "cityID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "pageSize",
                         "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "description": "成功",
                         "schema": {
-                            "type": "string"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/response.GetLocalResp"
+                            }
                         }
                     }
                 }
@@ -6069,26 +5796,8 @@
                 "summary": "提交订单",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "成人",
-                        "name": "aldult",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "车型组ID",
-                        "name": "carId",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
                         "name": "channelCode",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "小孩",
-                        "name": "child",
                         "in": "query"
                     },
                     {
@@ -6098,25 +5807,8 @@
                     },
                     {
                         "type": "string",
-                        "name": "fromArea",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一级父id",
-                        "name": "fromId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "一级父id",
-                        "name": "fromPid",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "行李",
-                        "name": "luggage",
+                        "description": "订单号",
+                        "name": "orderSerial",
                         "in": "query"
                     },
                     {
@@ -6130,11 +5822,47 @@
                         "description": "乘车人联系",
                         "name": "passengerMobile",
                         "in": "query"
-                    },
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/response.OrderCompleteResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/web/order/create": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebApi"
+                ],
+                "summary": "填写订单",
+                "parameters": [
                     {
                         "type": "integer",
-                        "description": "价格",
-                        "name": "price",
+                        "description": "车型组ID",
+                        "name": "carID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "起点城市",
+                        "name": "fromCityName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "起点定位",
+                        "name": "fromLocation",
                         "in": "query"
                     },
                     {
@@ -6145,17 +5873,14 @@
                     },
                     {
                         "type": "string",
-                        "name": "toArea",
+                        "description": "到达城市",
+                        "name": "toCityName",
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "name": "toId",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "name": "toPid",
+                        "type": "string",
+                        "description": "到达定位",
+                        "name": "toLocation",
                         "in": "query"
                     }
                 ],
@@ -6163,7 +5888,7 @@
                     "200": {
                         "description": "成功",
                         "schema": {
-                            "$ref": "#/definitions/response.OrderCompleteResp"
+                            "$ref": "#/definitions/response.OrderCreateResp"
                         }
                     }
                 }
@@ -6240,6 +5965,91 @@
                     }
                 }
             }
+        },
+        "/web/price/rules": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebApi"
+                ],
+                "summary": "计费规则",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "当前车型组ID",
+                        "name": "carModelID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "起点区域ID",
+                        "name": "fromAreaID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "起点城市",
+                        "name": "fromCityName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "出发时间",
+                        "name": "startTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "到达区域ID",
+                        "name": "toAreaID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "到达城市",
+                        "name": "toCityName",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/response.PriceResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/web/reason/list": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebApi"
+                ],
+                "summary": "取消原因",
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -6304,61 +6114,60 @@
                 }
             }
         },
-        "city.CityData": {
+        "city.Cities": {
             "type": "object",
             "properties": {
-                "ID": {
-                    "description": "主键ID",
+                "id": {
                     "type": "integer"
                 },
-                "code": {
+                "latitude": {
+                    "type": "number"
+                },
+                "letter": {
                     "type": "string"
                 },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "createdBy": {
-                    "type": "integer"
-                },
-                "deletedBy": {
-                    "type": "integer"
-                },
-                "hot": {
-                    "description": "推荐",
-                    "type": "boolean"
-                },
-                "initial": {
-                    "description": "首字母",
-                    "type": "string"
-                },
-                "initials": {
-                    "description": "缩写字母",
-                    "type": "string"
+                "longitude": {
+                    "type": "number"
                 },
                 "name": {
-                    "description": "城市名称",
                     "type": "string"
+                }
+            }
+        },
+        "city.CityDataList": {
+            "type": "object",
+            "properties": {
+                "alphabet": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
-                "order": {
-                    "type": "integer"
+                "cityList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/city.CityList"
+                    }
                 },
-                "parent_id": {
-                    "type": "integer"
+                "recommend": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/city.Cities"
+                    }
+                }
+            }
+        },
+        "city.CityList": {
+            "type": "object",
+            "properties": {
+                "cities": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/city.Cities"
+                    }
                 },
-                "pinyin": {
-                    "description": "城市名拼音",
+                "idx": {
                     "type": "string"
-                },
-                "suffix": {
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                },
-                "updatedBy": {
-                    "type": "integer"
                 }
             }
         },
@@ -7203,6 +7012,10 @@
                     "description": "数据库类型:mysql(默认)|sqlite|sqlserver|postgresql",
                     "type": "string"
                 },
+                "ditu-key": {
+                    "description": "环境值",
+                    "type": "string"
+                },
                 "env": {
                     "description": "环境值",
                     "type": "string"
@@ -7216,6 +7029,20 @@
                 "oss-type": {
                     "description": "Oss类型",
                     "type": "string"
+                },
+                "poi": {
+                    "description": "环境值",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "reason": {
+                    "description": "环境值",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "router-prefix": {
                     "type": "string"
@@ -7732,6 +7559,133 @@
                 }
             }
         },
+        "response.Car": {
+            "type": "object",
+            "properties": {
+                "brand": {
+                    "description": "车型",
+                    "type": "string"
+                },
+                "fromAreaID": {
+                    "description": "起点区域ID",
+                    "type": "integer"
+                },
+                "fromCityName": {
+                    "description": "起点城市",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "车型ID",
+                    "type": "integer"
+                },
+                "level": {
+                    "description": "级别",
+                    "type": "string"
+                },
+                "luggage": {
+                    "description": "行李数",
+                    "type": "integer"
+                },
+                "price": {
+                    "description": "单价根据时间段计算变动的价格",
+                    "type": "integer"
+                },
+                "seats": {
+                    "description": "座位数",
+                    "type": "integer"
+                },
+                "startTime": {
+                    "description": "出发时间",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "商务级别",
+                    "type": "string"
+                },
+                "toAreaID": {
+                    "description": "到达区域ID",
+                    "type": "integer"
+                },
+                "toCityName": {
+                    "description": "到达城市",
+                    "type": "string"
+                }
+            }
+        },
+        "response.CarDetail": {
+            "type": "object",
+            "properties": {
+                "brand": {
+                    "description": "车型",
+                    "type": "string"
+                },
+                "childSeats": {
+                    "description": "儿童座椅数",
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "largeLuggage": {
+                    "description": "24寸以上行李数",
+                    "type": "integer"
+                },
+                "level": {
+                    "type": "string"
+                },
+                "luggage": {
+                    "description": "行李数",
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "seats": {
+                    "description": "座位数",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "商务级别",
+                    "type": "string"
+                }
+            }
+        },
+        "response.CarDetailResp": {
+            "type": "object",
+            "properties": {
+                "detail": {
+                    "$ref": "#/definitions/response.CarDetail"
+                },
+                "fromAreaID": {
+                    "description": "起点区域ID",
+                    "type": "integer"
+                },
+                "fromCityName": {
+                    "description": "起点城市",
+                    "type": "string"
+                },
+                "fromLocation": {
+                    "description": "起点定位",
+                    "type": "string"
+                },
+                "startTime": {
+                    "description": "出发时间",
+                    "type": "string"
+                },
+                "toAreaID": {
+                    "description": "到达区域ID",
+                    "type": "integer"
+                },
+                "toCityName": {
+                    "description": "到达城市",
+                    "type": "string"
+                },
+                "toLocation": {
+                    "description": "起点定位",
+                    "type": "string"
+                }
+            }
+        },
         "response.Email": {
             "type": "object",
             "properties": {
@@ -7745,6 +7699,26 @@
                 },
                 "to": {
                     "description": "邮件发送给谁",
+                    "type": "string"
+                }
+            }
+        },
+        "response.GetLocalResp": {
+            "type": "object",
+            "properties": {
+                "cityID": {
+                    "type": "integer"
+                },
+                "cityName": {
+                    "type": "string"
+                },
+                "poi": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/response.Poi"
+                    }
+                },
+                "type": {
                     "type": "string"
                 }
             }
@@ -7771,11 +7745,56 @@
                 }
             }
         },
+        "response.OrderCreateResp": {
+            "type": "object",
+            "properties": {
+                "cancelAt": {
+                    "description": "取消截止日期",
+                    "type": "string"
+                },
+                "car": {
+                    "description": "车型组",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/cityCarCombination.CityCarCombination"
+                        }
+                    ]
+                },
+                "fromCityName": {
+                    "description": "起点城市",
+                    "type": "string"
+                },
+                "fromLocation": {
+                    "description": "起点定位",
+                    "type": "string"
+                },
+                "orderSerial": {
+                    "description": "订单编号",
+                    "type": "string"
+                },
+                "price": {
+                    "description": "总价",
+                    "type": "integer"
+                },
+                "startTime": {
+                    "description": "出发时间",
+                    "type": "string"
+                },
+                "toCityName": {
+                    "description": "到达城市",
+                    "type": "string"
+                },
+                "toLocation": {
+                    "description": "到达定位",
+                    "type": "string"
+                }
+            }
+        },
         "response.OrderDetailResp": {
             "type": "object",
             "properties": {
                 "car": {
-                    "$ref": "#/definitions/carCombination.CarCombination"
+                    "$ref": "#/definitions/cityCarCombination.CityCarCombination"
                 },
                 "order": {
                     "$ref": "#/definitions/order.Order"
@@ -7797,6 +7816,20 @@
                 }
             }
         },
+        "response.Poi": {
+            "type": "object",
+            "properties": {
+                "areaID": {
+                    "type": "integer"
+                },
+                "areaName": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                }
+            }
+        },
         "response.PolicyPathResponse": {
             "type": "object",
             "properties": {
@@ -7805,6 +7838,35 @@
                     "items": {
                         "$ref": "#/definitions/request.CasbinInfo"
                     }
+                }
+            }
+        },
+        "response.PriceResp": {
+            "type": "object",
+            "properties": {
+                "basePrice": {
+                    "description": "基础价格",
+                    "type": "integer"
+                },
+                "fromCityName": {
+                    "description": "到达城市",
+                    "type": "string"
+                },
+                "startAt": {
+                    "description": "出发时间",
+                    "type": "string"
+                },
+                "subPrice": {
+                    "description": "加价",
+                    "type": "integer"
+                },
+                "toCityName": {
+                    "description": "出发城市",
+                    "type": "string"
+                },
+                "totalPrice": {
+                    "description": "总价",
+                    "type": "integer"
                 }
             }
         },

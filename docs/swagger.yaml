@@ -43,46 +43,42 @@ definitions:
     required:
     - combinationTitle
     type: object
-  city.CityData:
+  city.Cities:
     properties:
-      ID:
-        description: 主键ID
+      id:
         type: integer
-      code:
+      latitude:
+        type: number
+      letter:
         type: string
-      createdAt:
-        description: 创建时间
-        type: string
-      createdBy:
-        type: integer
-      deletedBy:
-        type: integer
-      hot:
-        description: 推荐
-        type: boolean
-      initial:
-        description: 首字母
-        type: string
-      initials:
-        description: 缩写字母
-        type: string
+      longitude:
+        type: number
       name:
-        description: 城市名称
         type: string
-      order:
-        type: integer
-      parent_id:
-        type: integer
-      pinyin:
-        description: 城市名拼音
+    type: object
+  city.CityDataList:
+    properties:
+      alphabet:
+        items:
+          type: string
+        type: array
+      cityList:
+        items:
+          $ref: '#/definitions/city.CityList'
+        type: array
+      recommend:
+        items:
+          $ref: '#/definitions/city.Cities'
+        type: array
+    type: object
+  city.CityList:
+    properties:
+      cities:
+        items:
+          $ref: '#/definitions/city.Cities'
+        type: array
+      idx:
         type: string
-      suffix:
-        type: string
-      updatedAt:
-        description: 更新时间
-        type: string
-      updatedBy:
-        type: integer
     type: object
   cityCarCombination.CityCarCombination:
     properties:
@@ -670,6 +666,9 @@ definitions:
       db-type:
         description: 数据库类型:mysql(默认)|sqlite|sqlserver|postgresql
         type: string
+      ditu-key:
+        description: 环境值
+        type: string
       env:
         description: 环境值
         type: string
@@ -680,6 +679,16 @@ definitions:
       oss-type:
         description: Oss类型
         type: string
+      poi:
+        description: 环境值
+        items:
+          type: string
+        type: array
+      reason:
+        description: 环境值
+        items:
+          type: string
+        type: array
       router-prefix:
         type: string
       use-mongo:
@@ -1044,6 +1053,98 @@ definitions:
         description: 每页大小
         type: integer
     type: object
+  response.Car:
+    properties:
+      brand:
+        description: 车型
+        type: string
+      fromAreaID:
+        description: 起点区域ID
+        type: integer
+      fromCityName:
+        description: 起点城市
+        type: string
+      id:
+        description: 车型ID
+        type: integer
+      level:
+        description: 级别
+        type: string
+      luggage:
+        description: 行李数
+        type: integer
+      price:
+        description: 单价根据时间段计算变动的价格
+        type: integer
+      seats:
+        description: 座位数
+        type: integer
+      startTime:
+        description: 出发时间
+        type: string
+      title:
+        description: 商务级别
+        type: string
+      toAreaID:
+        description: 到达区域ID
+        type: integer
+      toCityName:
+        description: 到达城市
+        type: string
+    type: object
+  response.CarDetail:
+    properties:
+      brand:
+        description: 车型
+        type: string
+      childSeats:
+        description: 儿童座椅数
+        type: integer
+      id:
+        type: integer
+      largeLuggage:
+        description: 24寸以上行李数
+        type: integer
+      level:
+        type: string
+      luggage:
+        description: 行李数
+        type: integer
+      price:
+        type: integer
+      seats:
+        description: 座位数
+        type: integer
+      title:
+        description: 商务级别
+        type: string
+    type: object
+  response.CarDetailResp:
+    properties:
+      detail:
+        $ref: '#/definitions/response.CarDetail'
+      fromAreaID:
+        description: 起点区域ID
+        type: integer
+      fromCityName:
+        description: 起点城市
+        type: string
+      fromLocation:
+        description: 起点定位
+        type: string
+      startTime:
+        description: 出发时间
+        type: string
+      toAreaID:
+        description: 到达区域ID
+        type: integer
+      toCityName:
+        description: 到达城市
+        type: string
+      toLocation:
+        description: 起点定位
+        type: string
+    type: object
   response.Email:
     properties:
       body:
@@ -1054,6 +1155,19 @@ definitions:
         type: string
       to:
         description: 邮件发送给谁
+        type: string
+    type: object
+  response.GetLocalResp:
+    properties:
+      cityID:
+        type: integer
+      cityName:
+        type: string
+      poi:
+        items:
+          $ref: '#/definitions/response.Poi'
+        type: array
+      type:
         type: string
     type: object
   response.LoginResponse:
@@ -1070,10 +1184,41 @@ definitions:
       order_serial:
         type: string
     type: object
+  response.OrderCreateResp:
+    properties:
+      cancelAt:
+        description: 取消截止日期
+        type: string
+      car:
+        allOf:
+        - $ref: '#/definitions/cityCarCombination.CityCarCombination'
+        description: 车型组
+      fromCityName:
+        description: 起点城市
+        type: string
+      fromLocation:
+        description: 起点定位
+        type: string
+      orderSerial:
+        description: 订单编号
+        type: string
+      price:
+        description: 总价
+        type: integer
+      startTime:
+        description: 出发时间
+        type: string
+      toCityName:
+        description: 到达城市
+        type: string
+      toLocation:
+        description: 到达定位
+        type: string
+    type: object
   response.OrderDetailResp:
     properties:
       car:
-        $ref: '#/definitions/carCombination.CarCombination'
+        $ref: '#/definitions/cityCarCombination.CityCarCombination'
       order:
         $ref: '#/definitions/order.Order'
     type: object
@@ -1087,12 +1232,42 @@ definitions:
       total:
         type: integer
     type: object
+  response.Poi:
+    properties:
+      areaID:
+        type: integer
+      areaName:
+        type: string
+      location:
+        type: string
+    type: object
   response.PolicyPathResponse:
     properties:
       paths:
         items:
           $ref: '#/definitions/request.CasbinInfo'
         type: array
+    type: object
+  response.PriceResp:
+    properties:
+      basePrice:
+        description: 基础价格
+        type: integer
+      fromCityName:
+        description: 到达城市
+        type: string
+      startAt:
+        description: 出发时间
+        type: string
+      subPrice:
+        description: 加价
+        type: integer
+      toCityName:
+        description: 出发城市
+        type: string
+      totalPrice:
+        description: 总价
+        type: integer
     type: object
   response.Response:
     properties:
@@ -3076,202 +3251,6 @@ paths:
       summary: 更新车型城市组合
       tags:
       - CityCarCombination
-  /cd/createCityData:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建城市数据
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/city.CityData'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"创建成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建城市数据
-      tags:
-      - CityData
-  /cd/deleteCityData:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 删除城市数据
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/city.CityData'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 删除城市数据
-      tags:
-      - CityData
-  /cd/deleteCityDataByIds:
-    delete:
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 批量删除城市数据
-      tags:
-      - CityData
-  /cd/findCityData:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: 主键ID
-        in: query
-        name: ID
-        type: integer
-      - in: query
-        name: code
-        type: string
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - in: query
-        name: createdBy
-        type: integer
-      - in: query
-        name: deletedBy
-        type: integer
-      - description: 推荐
-        in: query
-        name: hot
-        type: boolean
-      - description: 首字母
-        in: query
-        name: initial
-        type: string
-      - description: 缩写字母
-        in: query
-        name: initials
-        type: string
-      - description: 城市名称
-        in: query
-        name: name
-        type: string
-      - in: query
-        name: order
-        type: integer
-      - in: query
-        name: parent_id
-        type: integer
-      - description: 城市名拼音
-        in: query
-        name: pinyin
-        type: string
-      - in: query
-        name: suffix
-        type: string
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      - in: query
-        name: updatedBy
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询城市数据
-      tags:
-      - CityData
-  /cd/getCityDataList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: endCreatedAt
-        type: string
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - in: query
-        name: order
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: sort
-        type: string
-      - in: query
-        name: startCreatedAt
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取城市数据列表
-      tags:
-      - CityData
-  /cd/updateCityData:
-    put:
-      consumes:
-      - application/json
-      parameters:
-      - description: 更新城市数据
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/city.CityData'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"更新成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 更新城市数据
-      tags:
-      - CityData
   /email/emailTest:
     post:
       produces:
@@ -5092,50 +5071,40 @@ paths:
       tags:
       - SysUser
   /web/car/detail:
-    get:
+    post:
       consumes:
       - application/json
       parameters:
-      - description: 成人
+      - description: 起点城市
         in: query
-        name: aldult
-        type: integer
-      - description: 小孩
+        name: fromCityName
+        type: string
+      - description: 起点定位
         in: query
-        name: child
-        type: integer
-      - description: 一级父id
-        in: query
-        name: fromId
-        type: integer
-      - description: 一级父id
-        in: query
-        name: fromPid
-        type: integer
+        name: fromLocation
+        type: string
       - in: query
         name: id
-        type: integer
-      - description: 行李
-        in: query
-        name: luggage
         type: integer
       - description: 出发时间
         in: query
         name: startTime
         type: string
-      - in: query
-        name: toId
-        type: integer
-      - in: query
-        name: toPid
-        type: integer
+      - description: 到达城市
+        in: query
+        name: toCityName
+        type: string
+      - description: 到达定位
+        in: query
+        name: toLocation
+        type: string
       produces:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 成功
           schema:
-            type: string
+            $ref: '#/definitions/response.CarDetailResp'
       summary: 车型详情
       tags:
       - WebApi
@@ -5152,22 +5121,27 @@ paths:
         in: query
         name: child
         type: integer
-      - in: query
-        name: from
-        type: integer
-      - description: 关键字
+      - description: 起点区域ID
         in: query
-        name: keyword
+        name: fromAreaID
+        type: integer
+      - description: 起点城市ID
+        in: query
+        name: fromCityName
+        type: string
+      - description: 起点定位
+        in: query
+        name: fromLocation
         type: string
       - description: 行李
         in: query
         name: luggage
         type: integer
-      - description: 页码
+      - description: 当前页面
         in: query
         name: page
         type: integer
-      - description: 每页大小
+      - description: 偏移量
         in: query
         name: pageSize
         type: integer
@@ -5175,16 +5149,27 @@ paths:
         in: query
         name: startTime
         type: string
-      - in: query
-        name: to
+      - description: 到达区域ID
+        in: query
+        name: toAreaID
         type: integer
+      - description: 到达城市ID
+        in: query
+        name: toCityName
+        type: string
+      - description: 到达定位
+        in: query
+        name: toLocation
+        type: string
       produces:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 成功
           schema:
-            type: string
+            items:
+              $ref: '#/definitions/response.Car'
+            type: array
       summary: 获取车型列表
       tags:
       - WebApi
@@ -5192,18 +5177,43 @@ paths:
     post:
       consumes:
       - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/city.CityDataList'
+      summary: 获取城市列表
+      tags:
+      - WebApi
+  /web/city/local:
+    post:
+      consumes:
+      - application/json
       parameters:
       - in: query
-        name: parentID
+        name: address
+        type: string
+      - in: query
+        name: cityID
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: pageSize
         type: integer
       produces:
       - application/json
       responses:
         "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          description: 成功
           schema:
-            type: string
-      summary: 获取城市列表
+            items:
+              $ref: '#/definitions/response.GetLocalResp'
+            type: array
+      summary: 获取当前所在城市POI
       tags:
       - WebApi
   /web/login:
@@ -5253,39 +5263,16 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: 成人
-        in: query
-        name: aldult
-        type: integer
-      - description: 车型组ID
-        in: query
-        name: carId
-        type: integer
       - in: query
         name: channelCode
         type: string
-      - description: 小孩
-        in: query
-        name: child
-        type: integer
       - in: query
         name: code
         type: string
-      - in: query
-        name: fromArea
+      - description: 订单号
+        in: query
+        name: orderSerial
         type: string
-      - description: 一级父id
-        in: query
-        name: fromId
-        type: integer
-      - description: 一级父id
-        in: query
-        name: fromPid
-        type: integer
-      - description: 行李
-        in: query
-        name: luggage
-        type: integer
       - description: 乘车人
         in: query
         name: passenger
@@ -5294,23 +5281,6 @@ paths:
         in: query
         name: passengerMobile
         type: string
-      - description: 价格
-        in: query
-        name: price
-        type: integer
-      - description: 出发时间
-        in: query
-        name: startTime
-        type: string
-      - in: query
-        name: toArea
-        type: string
-      - in: query
-        name: toId
-        type: integer
-      - in: query
-        name: toPid
-        type: integer
       produces:
       - application/json
       responses:
@@ -5319,6 +5289,45 @@ paths:
           schema:
             $ref: '#/definitions/response.OrderCompleteResp'
       summary: 提交订单
+      tags:
+      - WebApi
+  /web/order/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 车型组ID
+        in: query
+        name: carID
+        type: integer
+      - description: 起点城市
+        in: query
+        name: fromCityName
+        type: string
+      - description: 起点定位
+        in: query
+        name: fromLocation
+        type: string
+      - description: 出发时间
+        in: query
+        name: startTime
+        type: string
+      - description: 到达城市
+        in: query
+        name: toCityName
+        type: string
+      - description: 到达定位
+        in: query
+        name: toLocation
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/response.OrderCreateResp'
+      summary: 填写订单
       tags:
       - WebApi
   /web/order/detail:
@@ -5365,6 +5374,61 @@ paths:
           schema:
             type: string
       summary: 修改订单
+      tags:
+      - WebApi
+  /web/price/rules:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 当前车型组ID
+        in: query
+        name: carModelID
+        type: integer
+      - description: 起点区域ID
+        in: query
+        name: fromAreaID
+        type: integer
+      - description: 起点城市
+        in: query
+        name: fromCityName
+        type: string
+      - description: 出发时间
+        in: query
+        name: startTime
+        type: string
+      - description: 到达区域ID
+        in: query
+        name: toAreaID
+        type: integer
+      - description: 到达城市
+        in: query
+        name: toCityName
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/response.PriceResp'
+      summary: 计费规则
+      tags:
+      - WebApi
+  /web/reason/list:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            items:
+              type: string
+            type: array
+      summary: 取消原因
       tags:
       - WebApi
 securityDefinitions:

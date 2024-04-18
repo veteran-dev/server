@@ -367,7 +367,7 @@ func (wApi *WebApi) OrderComplete(c *gin.Context) {
 	payReq := orderReq.PayCode{
 		OrderID:   time.Now().Unix(),
 		Code:      req.Code,
-		ReturnUrl: "http:api.h5doc.com/web/order/detail",
+		ReturnUrl: "http://api.h5doc.com/web/order/detail",
 	}
 	jsonData, err := json.Marshal(payReq)
 	if err != nil {

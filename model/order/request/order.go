@@ -19,8 +19,8 @@ type OrderCompleteReq struct {
 	OrderSerial     string `json:"orderSerial"`     //订单号
 	Passenger       string `json:"passenger"`       //乘车人
 	PassengerMobile string `json:"passengerMobile"` //乘车人联系
-	Code            string `json:"code"`
-	ChannelCode     string `json:"channelCode"`
+	Code            string `json:"code"`            //支付码
+	ChannelCode     string `json:"channelCode"`     //通道码
 }
 
 type OrderCreateReq struct {

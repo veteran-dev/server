@@ -28,7 +28,7 @@ type OrderCreateResp struct {
 }
 
 type OrderCompleteResp struct {
-	OrderSerial string `json:"order_serial"`
+	OrderSerial string `json:"orderSerial"`
 }
 
 type OrderDetailResp struct {

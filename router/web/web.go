@@ -20,7 +20,7 @@ func (s *WebRouter) InitWebRouter(Router *gin.RouterGroup) {
 	lRouter := Router.Group("web")
 	var lApi = v1.ApiGroupApp.WebApiGroup.WebApi
 	{
-		lRouter.GET("login", lApi.Login)
+		lRouter.POST("login", lApi.Login)
 	}
 
 	gRouter := Router.Group("web").
@@ -40,6 +40,6 @@ func (s *WebRouter) InitWebRouter(Router *gin.RouterGroup) {
 		gRouter.POST("order/detail", wApi.OrderDetail)     //订单详情
 		gRouter.POST("order/update", wApi.OrderUpdate)     //订单修改
 		gRouter.POST("order/cancel", wApi.OrderCancel)     //订单取消
-		gRouter.GET("reason/list", wApi.ReasonList)        //取消原因
+		gRouter.POST("reason/list", wApi.ReasonList)       //取消原因
 	}
 }

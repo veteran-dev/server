@@ -44,7 +44,7 @@ func (uService *UserService) GetUser(ID string) (u user.User, err error) {
 	return
 }
 
-// GetUser 根据ID获取用户记录
+// GetUser 根据UserID获取用户记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (uService *UserService) GetUserByUserID(ID string) (u user.User, err error) {
 	err = global.GVA_DB.Where("user_id = ?", ID).First(&u).Error

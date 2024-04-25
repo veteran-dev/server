@@ -56,9 +56,9 @@ func (uService *UserService) GetUserByUserID(ID string) (u user.User, err error)
 func (uService *UserService) FindOrCreateUser(u *user.User) (err error) {
 	find, _ := uService.GetUserByUserID(u.UserId)
 	if find.UserId == "" {
-		err = global.GVA_DB.Where("user_id = ?", u.UserId).Update("token", u.Token).Error
-	} else {
 		err = global.GVA_DB.Create(u).Error
+	} else {
+		err = global.GVA_DB.Where("user_id = ?", u.UserId).Update("token", u.Token).Error
 	}
 	return
 }

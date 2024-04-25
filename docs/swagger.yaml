@@ -59,17 +59,33 @@ definitions:
   city.CityDataList:
     properties:
       alphabet:
+        description: 字母索引
         items:
           type: string
         type: array
       cityList:
+        description: 城市字母索引城市
         items:
           $ref: '#/definitions/city.CityList'
         type: array
-      recommend:
+      currentCity:
+        allOf:
+        - $ref: '#/definitions/city.Cities'
+        description: 当前根据IP定位城市
+      historyCities:
+        description: 历史选择城市
         items:
           $ref: '#/definitions/city.Cities'
         type: array
+      recommend:
+        description: 热门城市
+        items:
+          $ref: '#/definitions/city.Cities'
+        type: array
+      searchCity:
+        allOf:
+        - $ref: '#/definitions/city.Cities'
+        description: 搜索到的城市
     type: object
   city.CityList:
     properties:
@@ -663,6 +679,9 @@ definitions:
       addr:
         description: 端口值
         type: integer
+      channel-code:
+        description: 环境值
+        type: string
       db-type:
         description: 数据库类型:mysql(默认)|sqlite|sqlserver|postgresql
         type: string
@@ -1157,7 +1176,7 @@ definitions:
         description: 邮件发送给谁
         type: string
     type: object
-  response.GetLocalResp:
+  response.GetLocal:
     properties:
       cityID:
         type: integer
@@ -1170,6 +1189,17 @@ definitions:
       type:
         type: string
     type: object
+  response.GetLocalResp:
+    properties:
+      historyPoi:
+        items:
+          $ref: '#/definitions/response.GetLocal'
+        type: array
+      locals:
+        items:
+          $ref: '#/definitions/response.GetLocal'
+        type: array
+    type: object
   response.LoginResponse:
     properties:
       expiresAt:
@@ -1181,7 +1211,7 @@ definitions:
     type: object
   response.OrderCompleteResp:
     properties:
-      order_serial:
+      orderSerial:
         type: string
     type: object
   response.OrderCreateResp:
@@ -1234,6 +1264,8 @@ definitions:
     type: object
   response.Poi:
     properties:
+      address:
+        type: string
       areaID:
         type: integer
       areaName:
@@ -1863,6 +1895,56 @@ definitions:
     properties:
       config:
         $ref: '#/definitions/config.Server'
+    type: object
+  user.User:
+    properties:
+      ID:
+        description: 主键ID
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      token:
+        description: 凭证
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+      userHistory:
+        items:
+          $ref: '#/definitions/user.UserHistory'
+        type: array
+      userId:
+        description: 用户ID
+        type: string
+    required:
+    - token
+    - userId
+    type: object
+  user.UserHistory:
+    properties:
+      ID:
+        description: 主键ID
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      historyData:
+        description: 历史数据
+        type: string
+      historyType:
+        description: 历史类型
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        description: 用户ID
+        type: integer
+    required:
+    - historyData
+    - historyType
+    - userId
     type: object
   web.RespLogin:
     properties:
@@ -4792,6 +4874,329 @@ paths:
       summary: 设置配置文件内容
       tags:
       - System
+  /u/createUser:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建用户
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建用户
+      tags:
+      - User
+  /u/deleteUser:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除用户
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除用户
+      tags:
+      - User
+  /u/deleteUserByIds:
+    delete:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除用户
+      tags:
+      - User
+  /u/findUser:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 主键ID
+        in: query
+        name: ID
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 凭证
+        in: query
+        name: token
+        required: true
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - description: 用户ID
+        in: query
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询用户
+      tags:
+      - User
+  /u/getUserList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取用户列表
+      tags:
+      - User
+  /u/updateUser:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新用户
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新用户
+      tags:
+      - User
+  /uh/createUserHistory:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建用户历史
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.UserHistory'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"创建成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建用户历史
+      tags:
+      - UserHistory
+  /uh/deleteUserHistory:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除用户历史
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.UserHistory'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除用户历史
+      tags:
+      - UserHistory
+  /uh/deleteUserHistoryByIds:
+    delete:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除用户历史
+      tags:
+      - UserHistory
+  /uh/findUserHistory:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 主键ID
+        in: query
+        name: ID
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 历史数据
+        in: query
+        name: historyData
+        required: true
+        type: string
+      - description: 历史类型
+        in: query
+        name: historyType
+        required: true
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - description: 用户ID
+        in: query
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询用户历史
+      tags:
+      - UserHistory
+  /uh/getUserHistoryList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: endCreatedAt
+        type: string
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: startCreatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取用户历史列表
+      tags:
+      - UserHistory
+  /uh/updateUserHistory:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新用户历史
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user.UserHistory'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新用户历史
+      tags:
+      - UserHistory
   /user/SetSelfInfo:
     put:
       consumes:
@@ -5125,7 +5530,7 @@ paths:
         in: query
         name: fromAreaID
         type: integer
-      - description: 起点城市ID
+      - description: 起点城市
         in: query
         name: fromCityName
         type: string
@@ -5153,7 +5558,7 @@ paths:
         in: query
         name: toAreaID
         type: integer
-      - description: 到达城市ID
+      - description: 到达城市
         in: query
         name: toCityName
         type: string
@@ -5177,6 +5582,11 @@ paths:
     post:
       consumes:
       - application/json
+      parameters:
+      - description: 搜索城市关键词
+        in: query
+        name: keyword
+        type: string
       produces:
       - application/json
       responses:
@@ -5217,7 +5627,7 @@ paths:
       tags:
       - WebApi
   /web/login:
-    get:
+    post:
       consumes:
       - application/json
       parameters:
@@ -5263,10 +5673,12 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
+      - description: 通道码
+        in: query
         name: channelCode
         type: string
-      - in: query
+      - description: 支付码
+        in: query
         name: code
         type: string
       - description: 订单号
@@ -5416,7 +5828,7 @@ paths:
       tags:
       - WebApi
   /web/reason/list:
-    get:
+    post:
       consumes:
       - application/json
       produces:

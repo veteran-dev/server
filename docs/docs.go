@@ -5004,6 +5004,531 @@ const docTemplate = `{
                 }
             }
         },
+        "/u/createUser": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "创建用户",
+                "parameters": [
+                    {
+                        "description": "创建用户",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/u/deleteUser": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "删除用户",
+                "parameters": [
+                    {
+                        "description": "删除用户",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/u/deleteUserByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "批量删除用户",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/u/findUser": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "用id查询用户",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "ID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "凭证",
+                        "name": "token",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "用户ID",
+                        "name": "userId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/u/getUserList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "分页获取用户列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/u/updateUser": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "更新用户",
+                "parameters": [
+                    {
+                        "description": "更新用户",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/uh/createUserHistory": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserHistory"
+                ],
+                "summary": "创建用户历史",
+                "parameters": [
+                    {
+                        "description": "创建用户历史",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.UserHistory"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"创建成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/uh/deleteUserHistory": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserHistory"
+                ],
+                "summary": "删除用户历史",
+                "parameters": [
+                    {
+                        "description": "删除用户历史",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.UserHistory"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/uh/deleteUserHistoryByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserHistory"
+                ],
+                "summary": "批量删除用户历史",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/uh/findUserHistory": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserHistory"
+                ],
+                "summary": "用id查询用户历史",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "ID",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "历史数据",
+                        "name": "historyData",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "历史类型",
+                        "name": "historyType",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "用户ID",
+                        "name": "userId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/uh/getUserHistoryList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserHistory"
+                ],
+                "summary": "分页获取用户历史列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "endCreatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "startCreatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/uh/updateUserHistory": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserHistory"
+                ],
+                "summary": "更新用户历史",
+                "parameters": [
+                    {
+                        "description": "更新用户历史",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.UserHistory"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/user/SetSelfInfo": {
             "put": {
                 "security": [
@@ -5589,7 +6114,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "起点城市ID",
+                        "description": "起点城市",
                         "name": "fromCityName",
                         "in": "query"
                     },
@@ -5631,7 +6156,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "到达城市ID",
+                        "description": "到达城市",
                         "name": "toCityName",
                         "in": "query"
                     },
@@ -5667,6 +6192,14 @@ const docTemplate = `{
                     "WebApi"
                 ],
                 "summary": "获取城市列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "搜索城市关键词",
+                        "name": "keyword",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "成功",
@@ -5725,7 +6258,7 @@ const docTemplate = `{
             }
         },
         "/web/login": {
-            "get": {
+            "post": {
                 "consumes": [
                     "application/json"
                 ],
@@ -5805,11 +6338,13 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "通道码",
                         "name": "channelCode",
                         "in": "query"
                     },
                     {
                         "type": "string",
+                        "description": "支付码",
                         "name": "code",
                         "in": "query"
                     },
@@ -6035,7 +6570,7 @@ const docTemplate = `{
             }
         },
         "/web/reason/list": {
-            "get": {
+            "post": {
                 "consumes": [
                     "application/json"
                 ],
@@ -6146,22 +6681,48 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "alphabet": {
+                    "description": "字母索引",
                     "type": "array",
                     "items": {
                         "type": "string"
                     }
                 },
                 "cityList": {
+                    "description": "城市字母索引城市",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/city.CityList"
                     }
                 },
-                "recommend": {
+                "currentCity": {
+                    "description": "当前根据IP定位城市",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/city.Cities"
+                        }
+                    ]
+                },
+                "historyCities": {
+                    "description": "历史选择城市",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/city.Cities"
                     }
+                },
+                "recommend": {
+                    "description": "热门城市",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/city.Cities"
+                    }
+                },
+                "searchCity": {
+                    "description": "搜索到的城市",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/city.Cities"
+                        }
+                    ]
                 }
             }
         },
@@ -7016,6 +7577,10 @@ const docTemplate = `{
                     "description": "端口值",
                     "type": "integer"
                 },
+                "channel-code": {
+                    "description": "环境值",
+                    "type": "string"
+                },
                 "db-type": {
                     "description": "数据库类型:mysql(默认)|sqlite|sqlserver|postgresql",
                     "type": "string"
@@ -7711,7 +8276,7 @@ const docTemplate = `{
                 }
             }
         },
-        "response.GetLocalResp": {
+        "response.GetLocal": {
             "type": "object",
             "properties": {
                 "cityID": {
@@ -7728,6 +8293,23 @@ const docTemplate = `{
                 },
                 "type": {
                     "type": "string"
+                }
+            }
+        },
+        "response.GetLocalResp": {
+            "type": "object",
+            "properties": {
+                "historyPoi": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/response.GetLocal"
+                    }
+                },
+                "locals": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/response.GetLocal"
+                    }
                 }
             }
         },
@@ -7748,7 +8330,7 @@ const docTemplate = `{
         "response.OrderCompleteResp": {
             "type": "object",
             "properties": {
-                "order_serial": {
+                "orderSerial": {
                     "type": "string"
                 }
             }
@@ -7827,6 +8409,9 @@ const docTemplate = `{
         "response.Poi": {
             "type": "object",
             "properties": {
+                "address": {
+                    "type": "string"
+                },
                 "areaID": {
                     "type": "integer"
                 },
@@ -8723,6 +9308,75 @@ const docTemplate = `{
             "properties": {
                 "config": {
                     "$ref": "#/definitions/config.Server"
+                }
+            }
+        },
+        "user.User": {
+            "type": "object",
+            "required": [
+                "token",
+                "userId"
+            ],
+            "properties": {
+                "ID": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "token": {
+                    "description": "凭证",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userHistory": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/user.UserHistory"
+                    }
+                },
+                "userId": {
+                    "description": "用户ID",
+                    "type": "string"
+                }
+            }
+        },
+        "user.UserHistory": {
+            "type": "object",
+            "required": [
+                "historyData",
+                "historyType",
+                "userId"
+            ],
+            "properties": {
+                "ID": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "historyData": {
+                    "description": "历史数据",
+                    "type": "string"
+                },
+                "historyType": {
+                    "description": "历史类型",
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "用户ID",
+                    "type": "integer"
                 }
             }
         },

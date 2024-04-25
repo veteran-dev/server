@@ -11,6 +11,11 @@ type GaodeResp struct {
 }
 
 type GetLocalResp struct {
+	HistoryPoi []GetLocal `json:"historyPoi"`
+	Locals     []GetLocal `json:"locals"`
+}
+
+type GetLocal struct {
 	Type     string `json:"type"`
 	CityID   int64  `json:"cityID"`
 	CityName string `json:"cityName"`
@@ -21,4 +26,5 @@ type Poi struct {
 	AreaID   int64  `json:"areaID"`
 	AreaName string `json:"areaName"`
 	Location string `json:"location"`
+	Address  string `json:"address"`
 }

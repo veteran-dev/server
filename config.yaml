@@ -199,6 +199,7 @@ system:
     use-redis: false
     use-mongo: false
     ditu-key: e1450be360f0a3d071631e15f000eb4c
+    channel-code: CmdcAli
     poi: 
         - "150202"
         - "150203"

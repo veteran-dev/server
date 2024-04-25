@@ -3,6 +3,7 @@ package web
 import (
 	"github.com/gin-gonic/gin"
 	v1 "github.com/veteran-dev/server/api/v1"
+	"github.com/veteran-dev/server/middleware"
 )
 
 type WebRouter struct {
@@ -22,13 +23,13 @@ func (s *WebRouter) InitWebRouter(Router *gin.RouterGroup) {
 		lRouter.GET("login", lApi.Login)
 	}
 
-	// gRouter := Router.Group("web").
-	// 	Use(middleware.UserJWT())
-	gRouter := Router.Group("web")
+	gRouter := Router.Group("web").
+		Use(middleware.UserJWT())
+	// gRouter := Router.Group("web")
 
 	var wApi = v1.ApiGroupApp.WebApiGroup.WebApi
 	{
-
+		// TODO  关键词搜索
 		gRouter.POST("city/list", wApi.GetCityList)        // 城市列表
 		gRouter.POST("city/local", wApi.GetLocal)          // 获取当前城市的POI
 		gRouter.POST("car/list", wApi.GetCarList)          // 选车

@@ -13,6 +13,7 @@ import (
 
 	"github.com/veteran-dev/server/model/carCombination"
 	"github.com/veteran-dev/server/model/cityCarCombination"
+	"github.com/veteran-dev/server/model/user"
 )
 
 func Gorm() *gorm.DB {
@@ -49,7 +50,7 @@ func RegisterTables() {
 		system.SysBaseMenuBtn{},
 		system.SysAuthorityBtn{},
 		system.SysAutoCode{},
-		system.SysExportTemplate{}, city.City{}, order.Order{}, carCombination.CarCombination{}, cityCarCombination.CityCarCombination{},
+		system.SysExportTemplate{}, city.City{}, order.Order{}, carCombination.CarCombination{}, cityCarCombination.CityCarCombination{}, user.User{}, user.UserHistory{},
 	)
 	if err != nil {
 		global.GVA_LOG.Error("register table failed", zap.Error(err))

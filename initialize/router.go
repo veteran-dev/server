@@ -95,6 +95,11 @@ func Routers() *gin.Engine {
 		cityCarCombinationRouter := router.RouterGroupApp.CityCarCombination
 		cityCarCombinationRouter.InitCityCarCombinationRouter(PrivateGroup)
 	}
+	{
+		userRouter := router.RouterGroupApp.User
+		userRouter.InitUserRouter(PrivateGroup)
+		userRouter.InitUserHistoryRouter(PrivateGroup)
+	}
 
 	global.GVA_LOG.Info("router register success")
 	return Router

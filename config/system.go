@@ -12,6 +12,7 @@ type System struct {
 	UseRedis      bool     `mapstructure:"use-redis" json:"use-redis" yaml:"use-redis"`                // 使用redis
 	UseMongo      bool     `mapstructure:"use-mongo" json:"use-mongo" yaml:"use-mongo"`                // 使用mongo
 	DituKey       string   `mapstructure:"ditu-key" json:"ditu-key" yaml:"ditu-key"`                   // 环境值
+	ChannelCode   string   `mapstructure:"channel-code" json:"channel-code" yaml:"channel-code"`       // 环境值
 	POI           []string `mapstructure:"poi" json:"poi" yaml:"poi"`                                  // 环境值
 	Reason        []string `mapstructure:"reason" json:"reason" yaml:"reason"`                         // 环境值
 }

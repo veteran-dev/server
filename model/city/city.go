@@ -21,9 +21,12 @@ func (City) TableName() string {
 }
 
 type CityDataList struct {
-	Alphabet  []string   `json:"alphabet"`
-	Recommend []Cities   `json:"recommend"`
-	CityList  []CityList `json:"cityList"`
+	Alphabet      []string   `json:"alphabet"`      //字母索引
+	Recommend     []Cities   `json:"recommend"`     //热门城市
+	HistoryCities []Cities   `json:"historyCities"` //历史选择城市
+	CityList      []CityList `json:"cityList"`      //城市字母索引城市
+	CurrentCity   Cities     `json:"currentCity"`   //当前根据IP定位城市
+	SearchCity    Cities     `json:"searchCity"`    //搜索到的城市
 }
 
 type CityList struct {

@@ -14,10 +14,10 @@ type CityCarCombinationSearch struct {
 }
 
 type GetCarListReq struct {
-	FromCityName string `json:"fromCityName"` //起点城市ID
+	FromCityName string `json:"fromCityName"` //起点城市
 	FromAreaID   int64  `json:"fromAreaID"`   //起点区域ID
 	FromLocation string `json:"fromLocation"` //起点定位
-	ToCityName   string `json:"toCityName"`   //到达城市ID
+	ToCityName   string `json:"toCityName"`   //到达城市
 	ToAreaID     int64  `json:"toAreaID"`     //到达区域ID
 	ToLocation   string `json:"toLocation"`   //到达定位
 	StartTime    string `json:"startTime"`    //出发时间

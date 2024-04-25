@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"math/rand"
 	"net/http"
 	"net/url"
@@ -26,6 +27,7 @@ import (
 	orderResp "github.com/veteran-dev/server/model/order/response"
 	priceReq "github.com/veteran-dev/server/model/price/request"
 	priceResp "github.com/veteran-dev/server/model/price/response"
+	"github.com/veteran-dev/server/model/user"
 	"github.com/veteran-dev/server/service"
 	"github.com/veteran-dev/server/utils"
 	"go.uber.org/zap"
@@ -37,6 +39,7 @@ type WebApi struct {
 var cityService = service.ServiceGroupApp.CityServiceGroup.CityDataService
 var orderService = service.ServiceGroupApp.OrderServiceGroup
 var carService = service.ServiceGroupApp.CityCarCombinationServiceGroup
+var userService = service.ServiceGroupApp.UserServiceGroup
 
 // GetCityList Web获取城市列表
 
@@ -44,9 +47,17 @@ var carService = service.ServiceGroupApp.CityCarCombinationServiceGroup
 // @Summary	获取城市列表
 // @accept		application/json
 // @Produce	application/json
+// @Param		data	query		cityReq.CityListReq	true	"用关键词查询城市"
 // @Success 200 {object} city.CityDataList "成功"
 // @Router		/web/city/list [post]
 func (wApi *WebApi) GetCityList(c *gin.Context) {
+	var req cityReq.CityListReq
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+		return
+	}
 	result, err := cityService.City()
 	if err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
@@ -117,16 +128,17 @@ func (wApi *WebApi) GetLocal(c *gin.Context) {
 					AreaName: v.AreaName,
 				})
 			}
-			var data []cityResp.GetLocalResp
+			var data []cityResp.GetLocal
 			for k, v := range cityMap {
-				data = append(data, cityResp.GetLocalResp{
+				data = append(data, cityResp.GetLocal{
 					CityID:   int64(result.ID),
 					CityName: result.Name,
 					Type:     k,
 					Poi:      v,
 				})
 			}
-			response.OkWithData(response.PageResult{List: data, Total: locals[0].Count, Page: req.Page, PageSize: req.PageSize}, c)
+
+			response.OkWithData(response.PageResult{List: &cityResp.GetLocalResp{Locals: data}, Total: locals[0].Count, Page: req.Page, PageSize: req.PageSize}, c)
 			return
 		}
 
@@ -181,7 +193,6 @@ func GetLocals(cityName string, req *cityReq.CityLocalReq, poi []string) (area [
 	params.Set("city", gaodeReq.City)
 	params.Set("offset", strconv.Itoa(gaodeReq.Offset))
 	params.Set("page", strconv.Itoa(gaodeReq.Page))
-	//如果参数中有中文参数,这个方法会进行URLEncode
 	Url.RawQuery = params.Encode()
 	urlPath := Url.String()
 	resp, err := http.Get(urlPath)
@@ -469,7 +480,7 @@ func (wApi *WebApi) OrderCreate(c *gin.Context) {
 			Price:       pricePtr,
 		})
 		if createResult != nil {
-			response.OkWithData(orderResp.OrderCreateResp{
+			response.OkWithData(&orderResp.OrderCreateResp{
 				StartTime:    req.StartTime,
 				CancelAt:     cancelAt,
 				ToCityName:   req.ToCityName,
@@ -478,6 +489,7 @@ func (wApi *WebApi) OrderCreate(c *gin.Context) {
 				ToLocation:   req.ToLocation,
 				Car:          carModel,
 				Price:        price,
+				OrderSerial:  orderSerial,
 			}, c)
 			return
 		}
@@ -601,7 +613,7 @@ func (wApi *WebApi) PriceRules(c *gin.Context) {
 
 func ConvertToAt(str string) (at string, err error) {
 	// 定义日期时间字符串的格式
-	inputFormat := "01-02 15:04:05"
+	inputFormat := "2006-01-02 15:04"
 	outputFormat := "15:04"
 	// 解析日期时间字符串
 	dateTime, err := time.Parse(inputFormat, str)
@@ -614,7 +626,7 @@ func ConvertToAt(str string) (at string, err error) {
 }
 
 func ConvertBack(str string) (back string, err error) {
-	format := "2006-01-02 15:04:05"
+	format := "2006-01-02 15:04"
 
 	// 解析日期时间字符串
 	dateTime, err := time.Parse(format, str)
@@ -689,15 +701,21 @@ func (wApi *WebApi) Login(c *gin.Context) {
 		return
 	}
 
-	url := "https://devcr.dachema.net/cmdcapp/api/auth/loginAliSmallByCode"
+	baseURL := "https://devcr.dachema.net/cmdcapp/api/auth/loginAliSmallByCode"
+	urlParams := url.Values{}
+	urlParams.Set("channelCode", "CmdcAli")
+	requestURL, _ := url.Parse(baseURL)
+	requestURL.RawQuery = urlParams.Encode()
+
 	jsonData, err := json.Marshal(loginReq)
 	if err != nil {
 		global.GVA_LOG.Error("JSON编码失败!", zap.Error(err))
 		return
 	}
-
+	global.GVA_LOG.Error("创建请求失败!", zap.Error(err))
+	log.Print(requestURL.String())
 	// 创建一个请求体
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
+	req, err := http.NewRequest("POST", requestURL.String(), bytes.NewBuffer(jsonData))
 	if err != nil {
 		global.GVA_LOG.Error("创建请求失败!", zap.Error(err))
 		return
@@ -716,18 +734,24 @@ func (wApi *WebApi) Login(c *gin.Context) {
 		global.GVA_LOG.Error("读取失败!", zap.Error(err))
 		return
 	}
-	global.GVA_LOG.Debug("打印登录请求返回")
-	fmt.Println(body)
-	global.GVA_LOG.Debug("-------------===Login---==============")
 	var res RemoteAck
-	json.Unmarshal(body, res)
-	if res.Data.UserId == 0 {
-		global.GVA_LOG.Error("获取USRID失败!", zap.Error(err))
-		response.FailWithMessage("获取USRID失败", c)
+	json.Unmarshal(body, &res)
+	log.Print(res)
+	if !res.Success {
+		global.GVA_LOG.Error("数据格式解析失败!", zap.Error(err))
+		response.FailWithMessage("数据格式非法", c)
 		return
 	}
+	userData := &user.User{}
+	err = userService.FindOrCreateUser(userData)
+	if err != nil {
+		global.GVA_LOG.Error("登录失败!", zap.Error(err))
+		response.FailWithMessage("登录失败", c)
+		return
+	}
+
 	newJwt := utils.NewUserJWT()
-	result, err := newJwt.GenerateToken(int(res.Data.UserId))
+	result, err := newJwt.GenerateToken(int(userData.ID))
 	if err != nil {
 		global.GVA_LOG.Error("获取Token失败!", zap.Error(err))
 		response.FailWithMessage("获取Token失败", c)
@@ -739,12 +763,6 @@ func (wApi *WebApi) Login(c *gin.Context) {
 type RespLogin struct {
 	XToken string `json:"x-token"` //请求Token
 }
-type RemoteAckResp struct {
-	AccessToken string `json:"accessToken"`
-	UserId      int64  `json:"userId"`
-	IsNewUser   bool   `json:"isNewUser"`
-	Expires     int64  `json:"expires"` //分钟
-}
 
 type Login struct {
 	Code string `json:"code"` //授权Code
@@ -752,6 +770,13 @@ type Login struct {
 type RemoteAck struct {
 	Data    RemoteAckResp `json:"data"`
 	Success bool          `json:"success"`
-	Code    int           `json:"code"`
+	Code    int64         `json:"code"`
 	Message string        `json:"message"`
+}
+
+type RemoteAckResp struct {
+	AccessToken string `json:"accessToken"`
+	UserID      int64  `json:"userId"`
+	IsNewUser   bool   `json:"isNewUser"`
+	Expires     int64  `json:"expires"`
 }

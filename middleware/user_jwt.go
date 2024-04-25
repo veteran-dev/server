@@ -28,7 +28,9 @@ func UserJWT() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
+		c.Set("UserID", claims.ID)
 		c.Next()
+
 		if claims.ID <= 0 {
 			response.FailWithDetailed(gin.H{"reload": true}, "非法访问", c)
 			c.Abort()

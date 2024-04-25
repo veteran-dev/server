@@ -44,10 +44,17 @@ func (uService *UserService) GetUser(ID string) (u user.User, err error) {
 	return
 }
 
+// GetUser 根据ID获取用户记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (uService *UserService) GetUserByUserID(ID string) (u user.User, err error) {
+	err = global.GVA_DB.Where("user_id = ?", ID).First(&u).Error
+	return
+}
+
 // FindOrCreate 创建或者更新Token
 // Author [piexlmax](https://github.com/piexlmax)
 func (uService *UserService) FindOrCreateUser(u *user.User) (err error) {
-	find, _ := uService.GetUser(u.UserId)
+	find, _ := uService.GetUserByUserID(u.UserId)
 	if find.UserId == "" {
 		err = global.GVA_DB.Where("user_id = ?", u.UserId).Update("token", u.Token).Error
 	} else {

@@ -742,7 +742,11 @@ func (wApi *WebApi) Login(c *gin.Context) {
 		response.FailWithMessage("数据格式非法", c)
 		return
 	}
-	userData := &user.User{}
+	userID := strconv.Itoa(int(res.Data.UserID))
+	userData := &user.User{
+		Token:  res.Data.AccessToken,
+		UserId: userID,
+	}
 	err = userService.FindOrCreateUser(userData)
 	if err != nil {
 		global.GVA_LOG.Error("登录失败!", zap.Error(err))

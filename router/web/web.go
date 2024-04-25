@@ -3,7 +3,6 @@ package web
 import (
 	"github.com/gin-gonic/gin"
 	v1 "github.com/veteran-dev/server/api/v1"
-	"github.com/veteran-dev/server/middleware"
 )
 
 type WebRouter struct {
@@ -23,9 +22,9 @@ func (s *WebRouter) InitWebRouter(Router *gin.RouterGroup) {
 		lRouter.POST("login", lApi.Login)
 	}
 
-	gRouter := Router.Group("web").
-		Use(middleware.UserJWT())
-	// gRouter := Router.Group("web")
+	// gRouter := Router.Group("web").
+	// 	Use(middleware.UserJWT())
+	gRouter := Router.Group("web")
 
 	var wApi = v1.ApiGroupApp.WebApiGroup.WebApi
 	{

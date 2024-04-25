@@ -15,7 +15,7 @@ func ClearToken(c *gin.Context) {
 	if err != nil {
 		host = c.Request.Host
 	}
-	c.SetCookie("x-token", "", -1, "/", host, true, false)
+	c.SetCookie("Authorization", "", -1, "/", host, true, false)
 }
 
 func SetToken(c *gin.Context, token string, maxAge int) {
@@ -24,13 +24,13 @@ func SetToken(c *gin.Context, token string, maxAge int) {
 	if err != nil {
 		host = c.Request.Host
 	}
-	c.SetCookie("x-token", token, maxAge, "/", host, true, false)
+	c.SetCookie("Authorization", token, maxAge, "/", host, true, false)
 }
 
 func GetToken(c *gin.Context) string {
-	token, _ := c.Cookie("x-token")
+	token, _ := c.Cookie("Authorization")
 	if token == "" {
-		token = c.Request.Header.Get("x-token")
+		token = c.Request.Header.Get("Authorization")
 	}
 	return token
 }
@@ -40,7 +40,7 @@ func GetClaims(c *gin.Context) (*systemReq.CustomClaims, error) {
 	j := NewJWT()
 	claims, err := j.ParseToken(token)
 	if err != nil {
-		global.GVA_LOG.Error("从Gin的Context中获取从jwt解析信息失败, 请检查请求头是否存在x-token且claims是否为规定结构")
+		global.GVA_LOG.Error("从Gin的Context中获取从jwt解析信息失败, 请检查请求头是否存在Authorization且claims是否为规定结构")
 	}
 	return claims, err
 }

@@ -514,7 +514,7 @@ func generateOrderNumber() string {
 // @Produce	application/json
 // @Param		data	query	orderReq.OrderDetail	true	"订单号查询"
 // @Success 200 {object} orderResp.OrderDetailResp "成功"
-// @Router		/web/order/detail [get]
+// @Router		/web/order/detail [post]
 func (wApi *WebApi) OrderDetail(c *gin.Context) {
 	var req orderReq.OrderDetail
 	err := c.ShouldBindJSON(&req)

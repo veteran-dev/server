@@ -16,6 +16,7 @@ func UserJWT() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
+		token = token[len("Bearer "):]
 		j := utils.NewUserJWT()
 		claims, err := j.ParseToken(token)
 		if err != nil {

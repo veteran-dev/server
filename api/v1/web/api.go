@@ -678,7 +678,7 @@ func (wApi *WebApi) OrderCancel(c *gin.Context) {
 // @accept		application/json
 // @Produce	application/json
 // @Success 200 {object} []string "成功"
-// @Router		/web/reason/list [get]
+// @Router		/web/reason/list [post]
 func (wApi *WebApi) ReasonList(c *gin.Context) {
 	result := orderService.ReasonList()
 	response.OkWithData(result, c)
@@ -691,7 +691,7 @@ func (wApi *WebApi) ReasonList(c *gin.Context) {
 // @Produce	application/json
 // @Param		data	query	Login	true	"小程序授权Code"
 // @Success 200 {object} RespLogin "成功"
-// @Router		/web/login [get]
+// @Router		/web/login [post]
 func (wApi *WebApi) Login(c *gin.Context) {
 	var loginReq Login
 	err := c.ShouldBindJSON(&loginReq)

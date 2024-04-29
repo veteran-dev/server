@@ -21,5 +21,5 @@ COPY --from=0 /go/src/github.com/veteran-dev/server/resource ./resource/
 COPY --from=0 /go/src/github.com/veteran-dev/server/uploads ./uploads/
 COPY --from=0 /go/src/github.com/veteran-dev/server/config.docker.yaml ./
 
-EXPOSE 80
+EXPOSE 8000
 ENTRYPOINT ./server -c config.docker.yaml

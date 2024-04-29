@@ -6273,7 +6273,10 @@ const docTemplate = `{
                     "200": {
                         "description": "成功",
                         "schema": {
-                            "$ref": "#/definitions/city.City"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/city.City"
+                            }
                         }
                     }
                 }

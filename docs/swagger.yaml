@@ -5654,7 +5654,9 @@ paths:
         "200":
           description: 成功
           schema:
-            $ref: '#/definitions/city.City'
+            items:
+              $ref: '#/definitions/city.City'
+            type: array
       summary: 用关键词查询城市，不传参数则展示当前城市位置
       tags:
       - WebApi

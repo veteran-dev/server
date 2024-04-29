@@ -6192,14 +6192,6 @@ const docTemplate = `{
                     "WebApi"
                 ],
                 "summary": "获取城市列表",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "搜索城市关键词",
-                        "name": "keyword",
-                        "in": "query"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "成功",
@@ -6252,6 +6244,36 @@ const docTemplate = `{
                             "items": {
                                 "$ref": "#/definitions/response.GetLocalResp"
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/web/city/search": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebApi"
+                ],
+                "summary": "获取城市列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "搜索城市关键词",
+                        "name": "keyword",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/city.City"
                         }
                     }
                 }
@@ -6438,7 +6460,7 @@ const docTemplate = `{
             }
         },
         "/web/order/detail": {
-            "get": {
+            "post": {
                 "consumes": [
                     "application/json"
                 ],
@@ -6677,6 +6699,43 @@ const docTemplate = `{
                 }
             }
         },
+        "city.City": {
+            "type": "object",
+            "properties": {
+                "ID": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "hot": {
+                    "type": "integer"
+                },
+                "lat": {
+                    "type": "number"
+                },
+                "letter": {
+                    "description": "首字母",
+                    "type": "string"
+                },
+                "lng": {
+                    "type": "number"
+                },
+                "name": {
+                    "description": "城市名称",
+                    "type": "string"
+                },
+                "pid": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
+                }
+            }
+        },
         "city.CityDataList": {
             "type": "object",
             "properties": {
@@ -6715,14 +6774,6 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/city.Cities"
                     }
-                },
-                "searchCity": {
-                    "description": "搜索到的城市",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/city.Cities"
-                        }
-                    ]
                 }
             }
         },

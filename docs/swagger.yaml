@@ -56,6 +56,32 @@ definitions:
       name:
         type: string
     type: object
+  city.City:
+    properties:
+      ID:
+        description: 主键ID
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      hot:
+        type: integer
+      lat:
+        type: number
+      letter:
+        description: 首字母
+        type: string
+      lng:
+        type: number
+      name:
+        description: 城市名称
+        type: string
+      pid:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
   city.CityDataList:
     properties:
       alphabet:
@@ -82,10 +108,6 @@ definitions:
         items:
           $ref: '#/definitions/city.Cities'
         type: array
-      searchCity:
-        allOf:
-        - $ref: '#/definitions/city.Cities'
-        description: 搜索到的城市
     type: object
   city.CityList:
     properties:
@@ -5582,11 +5604,6 @@ paths:
     post:
       consumes:
       - application/json
-      parameters:
-      - description: 搜索城市关键词
-        in: query
-        name: keyword
-        type: string
       produces:
       - application/json
       responses:
@@ -5624,6 +5641,25 @@ paths:
               $ref: '#/definitions/response.GetLocalResp'
             type: array
       summary: 获取当前所在城市POI
+      tags:
+      - WebApi
+  /web/city/search:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 搜索城市关键词
+        in: query
+        name: keyword
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/city.City'
+      summary: 获取城市列表
       tags:
       - WebApi
   /web/login:
@@ -5743,7 +5779,7 @@ paths:
       tags:
       - WebApi
   /web/order/detail:
-    get:
+    post:
       consumes:
       - application/json
       parameters:

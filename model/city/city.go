@@ -26,7 +26,6 @@ type CityDataList struct {
 	HistoryCities []Cities   `json:"historyCities"` //历史选择城市
 	CityList      []CityList `json:"cityList"`      //城市字母索引城市
 	CurrentCity   Cities     `json:"currentCity"`   //当前根据IP定位城市
-	SearchCity    Cities     `json:"searchCity"`    //搜索到的城市
 }
 
 type CityList struct {

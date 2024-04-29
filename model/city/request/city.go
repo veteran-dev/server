@@ -35,6 +35,6 @@ type GaodeReq struct {
 	Page     int    `json:"page"`
 }
 
-type CityListReq struct {
+type CitySearchReq struct {
 	Keyword string `json:"keyword"` //搜索城市关键词
 }

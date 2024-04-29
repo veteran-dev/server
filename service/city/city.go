@@ -1,8 +1,12 @@
 package city
 
 import (
+	"fmt"
+	"log"
 	"sort"
+	"strings"
 
+	"github.com/lionsoul2014/ip2region/binding/golang/xdb"
 	"github.com/veteran-dev/server/global"
 	"github.com/veteran-dev/server/model/city"
 	cityReq "github.com/veteran-dev/server/model/city/request"
@@ -120,6 +124,41 @@ func (cdService *CityDataService) GetCityList() (result map[uint]string, err err
 	}
 	return result, err
 }
+
+func (cdService *CityDataService) SearchCity(clientIP string, req cityReq.CitySearchReq) (result city.City, err error) {
+	var keyword string
+	if req.Keyword == "" {
+		keyword = getCity(clientIP)
+		// keyword = getCity("101.226.168.228")
+	} else {
+		keyword = req.Keyword
+	}
+	log.Print(keyword)
+	db := global.GVA_DB.Model(&city.City{})
+	if keyword != "" {
+		db.Where("name LIKE ?", "%"+keyword+"%")
+	}
+
+	err = db.First(&result).Error
+	return result, err
+}
+
+func getCity(clientIP string) (city string) {
+	searcher, err := xdb.NewWithFileOnly(global.GVA_CONFIG.Local.Path + "/ip2region.xdb")
+	if err != nil {
+		fmt.Printf("failed to create searcher: %s\n", err.Error())
+		return
+	}
+	defer searcher.Close()
+	region, err := searcher.SearchByStr(clientIP)
+	if err != nil {
+		fmt.Printf("failed to SearchIP(%s): %s\n", clientIP, err)
+		return
+	}
+	result := strings.Split(region, "|")
+	return result[3]
+}
+
 func (cdService *CityDataService) City() (result city.CityDataList, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&city.City{})
@@ -162,7 +201,6 @@ func (cdService *CityDataService) City() (result city.CityDataList, err error) {
 				Cities: cityDataListMap[alphabet],
 			})
 		}
-
 		cityDataListResult := city.CityDataList{
 			Alphabet:  alphabetList,
 			Recommend: recommends,
@@ -173,27 +211,3 @@ func (cdService *CityDataService) City() (result city.CityDataList, err error) {
 	}
 	return city.CityDataList{}, err
 }
-
-// func (cdService *CityDataService) GetParentCity(Pid int64) (cityName string) {
-
-// 	db := global.GVA_DB.Model(&city.CityData{})
-// 	db = db.Where("parent_id = ?", 0)
-// 	var cds []city.CityData
-// 	db.Debug().Find(&cds)
-// 	cityMap := make(map[int64]string)
-// 	if len(cds) != 0 {
-// 		for _, v := range cds {
-// 			cityMap[int64(v.ID)] = v.Name
-// 		}
-
-// 		if value, ok := cityMap[Pid]; ok {
-// 			return value
-// 		} else {
-// 			top := &city.CityData{}
-// 			db.Where("id = ?", Pid).First(top)
-// 			return
-// 		}
-// 	}
-
-// 	return
-// }

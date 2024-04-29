@@ -47,18 +47,38 @@ var userService = service.ServiceGroupApp.UserServiceGroup
 // @Summary	获取城市列表
 // @accept		application/json
 // @Produce	application/json
-// @Param		data	query		cityReq.CityListReq	true	"用关键词查询城市"
 // @Success 200 {object} city.CityDataList "成功"
 // @Router		/web/city/list [post]
 func (wApi *WebApi) GetCityList(c *gin.Context) {
-	var req cityReq.CityListReq
+	result, err := cityService.City()
+	if err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithData(result, c)
+	}
+}
+
+// SearchCityItem Web搜索城市
+
+// @Tags		WebApi
+// @Summary	获取城市列表
+// @accept		application/json
+// @Produce	application/json
+// @Param		data	query		cityReq.CitySearchReq	true	"用关键词查询城市，不传参数则展示当前城市位置"
+// @Success 200 {object} city.City "成功"
+// @Router		/web/city/search [post]
+func (wApi *WebApi) SearchCityItem(c *gin.Context) {
+	var req cityReq.CitySearchReq
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 		return
 	}
-	result, err := cityService.City()
+
+	clientIP := c.ClientIP()
+	result, err := cityService.SearchCity(clientIP, req)
 	if err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
@@ -712,7 +732,6 @@ func (wApi *WebApi) Login(c *gin.Context) {
 		global.GVA_LOG.Error("JSON编码失败!", zap.Error(err))
 		return
 	}
-	global.GVA_LOG.Error("创建请求失败!", zap.Error(err))
 	log.Print(requestURL.String())
 	// 创建一个请求体
 	req, err := http.NewRequest("POST", requestURL.String(), bytes.NewBuffer(jsonData))

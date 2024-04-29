@@ -65,8 +65,8 @@ func (wApi *WebApi) GetCityList(c *gin.Context) {
 // @Summary	用关键词查询城市，不传参数则展示当前城市位置
 // @accept		application/json
 // @Produce	application/json
-// @Param		data	query		cityReq.CitySearchReq	true	"用关键词查询城市，不传参数则展示当前城市位置"
-// @Success 200 {object} city.City "成功"
+// @Param		data	query		cityReq.CitySearchReq	true	"用关键词查询城市"
+// @Success 200 {object} []city.City "成功"
 // @Router		/web/city/search [post]
 func (wApi *WebApi) SearchCityItem(c *gin.Context) {
 	var req cityReq.CitySearchReq
@@ -77,8 +77,7 @@ func (wApi *WebApi) SearchCityItem(c *gin.Context) {
 		return
 	}
 
-	clientIP := c.RemoteIP()
-	result, err := cityService.SearchCity(clientIP, req)
+	result, err := cityService.SearchCity(req)
 	if err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)

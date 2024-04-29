@@ -12,6 +12,7 @@ import (
 
 	"go.uber.org/zap"
 
+	"github.com/smartwalle/alipay/v3"
 	"github.com/veteran-dev/server/config"
 
 	"github.com/redis/go-redis/v9"
@@ -33,6 +34,7 @@ var (
 
 	BlackCache local_cache.Cache
 	lock       sync.RWMutex
+	GVA_AliPay *alipay.Client
 )
 
 // GetGlobalDBByDBName 通过名称获取db list中的db

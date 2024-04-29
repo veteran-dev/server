@@ -15,7 +15,7 @@ type OrderSearch struct {
 	Order string `json:"order" form:"order"`
 }
 
-type OrderCompleteReq struct {
+type OrderPayReq struct {
 	OrderSerial     string `json:"orderSerial"`     //订单号
 	Passenger       string `json:"passenger"`       //乘车人
 	PassengerMobile string `json:"passengerMobile"` //乘车人联系

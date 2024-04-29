@@ -29,17 +29,17 @@ func (s *WebRouter) InitWebRouter(Router *gin.RouterGroup) {
 	var wApi = v1.ApiGroupApp.WebApiGroup.WebApi
 	{
 		// TODO  关键词搜索
-		gRouter.POST("city/list", wApi.GetCityList)        // 城市列表
-		gRouter.POST("city/search", wApi.SearchCityItem)   // 检索城市
-		gRouter.POST("city/local", wApi.GetLocal)          // 获取当前城市的POI
-		gRouter.POST("car/list", wApi.GetCarList)          // 选车
-		gRouter.POST("car/detail", wApi.CarDetail)         //车型组详情
-		gRouter.POST("price/rules", wApi.PriceRules)       // 资费规则
-		gRouter.POST("order/complete", wApi.OrderComplete) //下单
-		gRouter.POST("order/create", wApi.OrderCreate)     //下单
-		gRouter.POST("order/detail", wApi.OrderDetail)     //订单详情
-		gRouter.POST("order/update", wApi.OrderUpdate)     //订单修改
-		gRouter.POST("order/cancel", wApi.OrderCancel)     //订单取消
-		gRouter.POST("reason/list", wApi.ReasonList)       //取消原因
+		gRouter.POST("city/list", wApi.GetCityList)      // 城市列表
+		gRouter.POST("city/search", wApi.SearchCityItem) // 检索城市
+		gRouter.POST("city/local", wApi.GetLocal)        // 获取当前城市的POI
+		gRouter.POST("car/list", wApi.GetCarList)        // 选车
+		gRouter.POST("car/detail", wApi.CarDetail)       //车型组详情
+		gRouter.POST("price/rules", wApi.PriceRules)     // 资费规则
+		gRouter.POST("order/pay", wApi.OrderPay)         //发起支付
+		gRouter.POST("order/create", wApi.OrderCreate)   //下单
+		gRouter.POST("order/detail", wApi.OrderDetail)   //订单详情
+		gRouter.POST("order/update", wApi.OrderUpdate)   //订单修改
+		gRouter.POST("order/cancel", wApi.OrderCancel)   //订单取消
+		gRouter.POST("reason/list", wApi.ReasonList)     //取消原因
 	}
 }

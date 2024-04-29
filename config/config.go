@@ -2,6 +2,7 @@ package config
 
 type Server struct {
 	JWT     JWT     `mapstructure:"jwt" json:"jwt" yaml:"jwt"`
+	Alipay  Alipay  `mapstructure:"alipay" json:"alipay" yaml:"alipay"` //支付宝支付
 	Zap     Zap     `mapstructure:"zap" json:"zap" yaml:"zap"`
 	Redis   Redis   `mapstructure:"redis" json:"redis" yaml:"redis"`
 	Mongo   Mongo   `mapstructure:"mongo" json:"mongo" yaml:"mongo"`

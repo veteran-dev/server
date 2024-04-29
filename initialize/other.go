@@ -1,6 +1,7 @@
 package initialize
 
 import (
+	"github.com/smartwalle/alipay/v3"
 	"github.com/songzhibin97/gkit/cache/local_cache"
 
 	"github.com/veteran-dev/server/global"
@@ -20,4 +21,23 @@ func OtherInit() {
 	global.BlackCache = local_cache.NewCache(
 		local_cache.SetDefaultExpire(dr),
 	)
+
+	global.GVA_AliPay, err = alipay.New(global.GVA_CONFIG.Alipay.AppID, global.GVA_CONFIG.Alipay.PrivateKey, false)
+
+	if err != nil {
+		panic(err)
+	}
+
+	// 加载证书
+	if err = global.GVA_AliPay.LoadAppCertPublicKeyFromFile(global.GVA_CONFIG.Alipay.AppPublicCert); err != nil {
+		panic(err)
+	}
+	if err = global.GVA_AliPay.LoadAliPayRootCertFromFile(global.GVA_CONFIG.Alipay.AlipayRootCert); err != nil {
+		panic(err)
+
+	}
+	if err = global.GVA_AliPay.LoadAlipayCertPublicKeyFromFile(global.GVA_CONFIG.Alipay.AlipayPublicCert); err != nil {
+		panic(err)
+	}
+
 }

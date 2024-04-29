@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/smartwalle/alipay/v3"
 	"github.com/veteran-dev/server/global"
 	"github.com/veteran-dev/server/model/city"
 	cityReq "github.com/veteran-dev/server/model/city/request"
@@ -122,6 +123,7 @@ func (wApi *WebApi) GetLocal(c *gin.Context) {
 		if err != nil {
 			global.GVA_LOG.Error("获取城市失败!", zap.Error(err))
 			response.FailWithMessage("获取城市失败", c)
+			return
 		}
 		if len(locals) > 0 {
 			areaNames := []string{}
@@ -376,66 +378,58 @@ func (wApi *WebApi) CarDetail(c *gin.Context) {
 	}
 }
 
-// OrderCancel 提交订单
+// OrderCancel 发起支付
 
 // @Tags		WebApi
-// @Summary	提交订单
+// @Summary	发起支付
 // @accept		application/json
 // @Produce	application/json
-// @Param		data	query	orderReq.OrderCompleteReq	true	"插入数据"
-// @Success 200 {object} orderResp.OrderCompleteResp "成功"
-// @Router		/web/order/complete [post]
-func (wApi *WebApi) OrderComplete(c *gin.Context) {
-	var req orderReq.OrderCompleteReq
+// @Param		data	query	orderReq.OrderPayReq	true	"发起支付"
+// @Router		/web/order/pay [post]
+func (wApi *WebApi) OrderPay(c *gin.Context) {
+	var req orderReq.OrderPayReq
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	}
 
-	url := "https://devcr.dachema.net/cmdcapp/api/aliPay/orderPay"
-	payReq := orderReq.PayCode{
-		OrderID:   time.Now().Unix(),
-		Code:      req.Code,
-		ReturnUrl: "http://api.h5doc.com/web/order/detail",
-	}
-	jsonData, err := json.Marshal(payReq)
-	if err != nil {
-		global.GVA_LOG.Error("JSON编码失败!", zap.Error(err))
+	orderData, err := orderService.GetOrderByOrderSerial(req.OrderSerial)
+	if err != nil && orderData.OrderSerial == "" {
+		global.GVA_LOG.Error("获取Order数据失败!", zap.Error(err))
+		response.FailWithMessage("获取Order数据失败", c)
 		return
 	}
 
-	// 创建一个请求体
-	resq, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData)) //ei
-	if err != nil {
-		global.GVA_LOG.Error("创建请求失败!", zap.Error(err))
+	if float64(*orderData.Price) < 0.01 || float64(*orderData.Price) > 100000000 {
+		err = errors.New("当前金额不足以发起支付")
+		global.GVA_LOG.Error("当前金额不足以发起支付!", zap.Error(err))
+		response.FailWithMessage("当前金额不足以发起支付", c)
 		return
 	}
-	resq.Header.Set("Content-Type", "application/json")
-	resq.Header.Set("channelCode", req.ChannelCode)
-	client := &http.Client{}
-	resp, err := client.Do(resq)
-	if err != nil {
-		global.GVA_LOG.Error("请求发送失败!", zap.Error(err))
-		return
-	}
-	defer resp.Body.Close()
+	var pricePtr *int
+	pricePtr = orderData.Price
+	price := *pricePtr
+	var p = alipay.TradeCreate{}
+	p.OpAppId = global.GVA_CONFIG.Alipay.AppID //op_app_id 小程序应用ID
+	p.OutTradeNo = orderData.OrderSerial
+	p.Subject = "打车吗:" + p.OutTradeNo
+	p.ProductCode = "JSAPI_PAY"
+	p.TotalAmount = strconv.Itoa(price)
 
-	body, err := io.ReadAll(resp.Body)
+	result, err := global.GVA_AliPay.TradeCreate(p)
 	if err != nil {
-		global.GVA_LOG.Error("读取失败!", zap.Error(err))
+		log.Println(err)
+		c.JSON(http.StatusOK, "系统错误")
 		return
 	}
-	var orderData orderResp.OrderResp
-	json.Unmarshal(body, orderData)
-	if orderData.TradeNo != "" {
+	if result.Code.IsSuccess() && result.SubCode == "ACQ.TRADE_HAS_SUCCESS" {
 		if err := orderService.UpdateOrderByOrderSerial(req.OrderSerial, req.Passenger, req.PassengerMobile, 1); err != nil {
-			global.GVA_LOG.Error("订单状态失败!", zap.Error(err))
-			response.FailWithMessage("订单生成失败", c)
+			global.GVA_LOG.Error("订单状态更改失败!", zap.Error(err))
+			response.FailWithMessage("订单更改失败", c)
 			return
 		}
-		global.GVA_LOG.Info("订单状态成功!")
-		response.OkWithData(&orderResp.OrderCompleteResp{OrderSerial: req.OrderSerial}, c)
+		response.Ok(c)
 		return
 	}
 	global.GVA_LOG.Error("调用支付失败!", zap.Error(err))

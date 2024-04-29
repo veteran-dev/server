@@ -419,8 +419,8 @@ func (wApi *WebApi) OrderPay(c *gin.Context) {
 
 	result, err := global.GVA_AliPay.TradeCreate(p)
 	if err != nil {
-		log.Println(err)
-		c.JSON(http.StatusOK, "系统错误")
+		global.GVA_LOG.Error("订单状态更改失败!", zap.Error(err))
+		response.FailWithMessage("系统错误", c)
 		return
 	}
 	if result.Code.IsSuccess() && result.SubCode == "ACQ.TRADE_HAS_SUCCESS" {

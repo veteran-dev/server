@@ -29,14 +29,7 @@ func OtherInit() {
 	}
 
 	// 加载证书
-	if err = global.GVA_AliPay.LoadAppCertPublicKeyFromFile(global.GVA_CONFIG.Alipay.AppPublicCert); err != nil {
-		panic(err)
-	}
-	if err = global.GVA_AliPay.LoadAliPayRootCertFromFile(global.GVA_CONFIG.Alipay.AlipayRootCert); err != nil {
-		panic(err)
-
-	}
-	if err = global.GVA_AliPay.LoadAlipayCertPublicKeyFromFile(global.GVA_CONFIG.Alipay.AlipayPublicCert); err != nil {
+	if err = global.GVA_AliPay.LoadAliPayPublicKey(global.GVA_CONFIG.Alipay.AliPublicKey); err != nil {
 		panic(err)
 	}
 

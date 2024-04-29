@@ -77,7 +77,7 @@ func (wApi *WebApi) SearchCityItem(c *gin.Context) {
 		return
 	}
 
-	clientIP := c.ClientIP()
+	clientIP := c.RemoteIP()
 	result, err := cityService.SearchCity(clientIP, req)
 	if err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))

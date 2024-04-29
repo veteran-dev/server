@@ -94,10 +94,6 @@ definitions:
         items:
           $ref: '#/definitions/city.CityList'
         type: array
-      currentCity:
-        allOf:
-        - $ref: '#/definitions/city.Cities'
-        description: 当前根据IP定位城市
       historyCities:
         description: 历史选择城市
         items:
@@ -5659,7 +5655,7 @@ paths:
           description: 成功
           schema:
             $ref: '#/definitions/city.City'
-      summary: 获取城市列表
+      summary: 用关键词查询城市，不传参数则展示当前城市位置
       tags:
       - WebApi
   /web/login:

@@ -6260,7 +6260,7 @@ const docTemplate = `{
                 "tags": [
                     "WebApi"
                 ],
-                "summary": "获取城市列表",
+                "summary": "用关键词查询城市，不传参数则展示当前城市位置",
                 "parameters": [
                     {
                         "type": "string",
@@ -6752,14 +6752,6 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/city.CityList"
                     }
-                },
-                "currentCity": {
-                    "description": "当前根据IP定位城市",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/city.Cities"
-                        }
-                    ]
                 },
                 "historyCities": {
                     "description": "历史选择城市",

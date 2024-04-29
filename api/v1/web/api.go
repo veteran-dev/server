@@ -59,10 +59,10 @@ func (wApi *WebApi) GetCityList(c *gin.Context) {
 	}
 }
 
-// SearchCityItem Web搜索城市
+// SearchCityItem Web关键词查询城市
 
 // @Tags		WebApi
-// @Summary	获取城市列表
+// @Summary	用关键词查询城市，不传参数则展示当前城市位置
 // @accept		application/json
 // @Produce	application/json
 // @Param		data	query		cityReq.CitySearchReq	true	"用关键词查询城市，不传参数则展示当前城市位置"

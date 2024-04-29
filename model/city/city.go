@@ -25,7 +25,6 @@ type CityDataList struct {
 	Recommend     []Cities   `json:"recommend"`     //热门城市
 	HistoryCities []Cities   `json:"historyCities"` //历史选择城市
 	CityList      []CityList `json:"cityList"`      //城市字母索引城市
-	CurrentCity   Cities     `json:"currentCity"`   //当前根据IP定位城市
 }
 
 type CityList struct {

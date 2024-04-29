@@ -67,7 +67,7 @@ func (wApi *WebApi) GetCityList(c *gin.Context) {
 // @accept		application/json
 // @Produce	application/json
 // @Param		data	query		cityReq.CitySearchReq	true	"用关键词查询城市"
-// @Success 200 {object} []city.City "成功"
+// @Success 200 {object} []city.Cities "成功"
 // @Router		/web/city/search [post]
 func (wApi *WebApi) SearchCityItem(c *gin.Context) {
 	var req cityReq.CitySearchReq
@@ -77,13 +77,25 @@ func (wApi *WebApi) SearchCityItem(c *gin.Context) {
 		response.FailWithMessage("获取失败", c)
 		return
 	}
-
 	result, err := cityService.SearchCity(req)
 	if err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
-		response.OkWithData(result, c)
+		var cityData []city.Cities
+		if len(result) > 0 {
+			for _, v := range result {
+				cityData = append(cityData, city.Cities{
+					ID:        int(v.ID),
+					Name:      v.Name,
+					Letter:    v.Letter,
+					Latitude:  v.Lat,
+					Longitude: v.Lng,
+				})
+			}
+		}
+
+		response.OkWithData(cityData, c)
 	}
 }
 

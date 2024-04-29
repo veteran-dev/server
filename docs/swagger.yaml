@@ -56,32 +56,6 @@ definitions:
       name:
         type: string
     type: object
-  city.City:
-    properties:
-      ID:
-        description: 主键ID
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      hot:
-        type: integer
-      lat:
-        type: number
-      letter:
-        description: 首字母
-        type: string
-      lng:
-        type: number
-      name:
-        description: 城市名称
-        type: string
-      pid:
-        type: integer
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
   city.CityDataList:
     properties:
       alphabet:
@@ -153,6 +127,15 @@ definitions:
     - car
     - from
     - to
+    type: object
+  config.Alipay:
+    properties:
+      ali-public-key:
+        type: string
+      appid:
+        type: string
+      private-key:
+        type: string
     type: object
   config.AliyunOSS:
     properties:
@@ -551,6 +534,10 @@ definitions:
     type: object
   config.Server:
     properties:
+      alipay:
+        allOf:
+        - $ref: '#/definitions/config.Alipay'
+        description: 支付宝支付
       aliyun-oss:
         $ref: '#/definitions/config.AliyunOSS'
       autocode:
@@ -1226,11 +1213,6 @@ definitions:
         type: string
       user:
         $ref: '#/definitions/system.SysUser'
-    type: object
-  response.OrderCompleteResp:
-    properties:
-      orderSerial:
-        type: string
     type: object
   response.OrderCreateResp:
     properties:
@@ -5655,7 +5637,7 @@ paths:
           description: 成功
           schema:
             items:
-              $ref: '#/definitions/city.City'
+              $ref: '#/definitions/city.Cities'
             type: array
       summary: 用关键词查询城市，不传参数则展示当前城市位置
       tags:
@@ -5700,41 +5682,6 @@ paths:
           schema:
             type: string
       summary: 取消订单
-      tags:
-      - WebApi
-  /web/order/complete:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 通道码
-        in: query
-        name: channelCode
-        type: string
-      - description: 支付码
-        in: query
-        name: code
-        type: string
-      - description: 订单号
-        in: query
-        name: orderSerial
-        type: string
-      - description: 乘车人
-        in: query
-        name: passenger
-        type: string
-      - description: 乘车人联系
-        in: query
-        name: passengerMobile
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 成功
-          schema:
-            $ref: '#/definitions/response.OrderCompleteResp'
-      summary: 提交订单
       tags:
       - WebApi
   /web/order/create:
@@ -5793,6 +5740,37 @@ paths:
           schema:
             $ref: '#/definitions/response.OrderDetailResp'
       summary: 订单详情
+      tags:
+      - WebApi
+  /web/order/pay:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 通道码
+        in: query
+        name: channelCode
+        type: string
+      - description: 支付码
+        in: query
+        name: code
+        type: string
+      - description: 订单号
+        in: query
+        name: orderSerial
+        type: string
+      - description: 乘车人
+        in: query
+        name: passenger
+        type: string
+      - description: 乘车人联系
+        in: query
+        name: passengerMobile
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: 发起支付
       tags:
       - WebApi
   /web/order/update:

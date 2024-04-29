@@ -6275,7 +6275,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/city.City"
+                                "$ref": "#/definitions/city.Cities"
                             }
                         }
                     }
@@ -6343,60 +6343,6 @@ const docTemplate = `{
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"取消成功\"}",
                         "schema": {
                             "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/web/order/complete": {
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "WebApi"
-                ],
-                "summary": "提交订单",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "通道码",
-                        "name": "channelCode",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "支付码",
-                        "name": "code",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "订单号",
-                        "name": "orderSerial",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "乘车人",
-                        "name": "passenger",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "乘车人联系",
-                        "name": "passengerMobile",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功",
-                        "schema": {
-                            "$ref": "#/definitions/response.OrderCompleteResp"
                         }
                     }
                 }
@@ -6490,6 +6436,53 @@ const docTemplate = `{
                         }
                     }
                 }
+            }
+        },
+        "/web/order/pay": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebApi"
+                ],
+                "summary": "发起支付",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "通道码",
+                        "name": "channelCode",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "支付码",
+                        "name": "code",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "订单号",
+                        "name": "orderSerial",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "乘车人",
+                        "name": "passenger",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "乘车人联系",
+                        "name": "passengerMobile",
+                        "in": "query"
+                    }
+                ],
+                "responses": {}
             }
         },
         "/web/order/update": {
@@ -6702,43 +6695,6 @@ const docTemplate = `{
                 }
             }
         },
-        "city.City": {
-            "type": "object",
-            "properties": {
-                "ID": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "hot": {
-                    "type": "integer"
-                },
-                "lat": {
-                    "type": "number"
-                },
-                "letter": {
-                    "description": "首字母",
-                    "type": "string"
-                },
-                "lng": {
-                    "type": "number"
-                },
-                "name": {
-                    "description": "城市名称",
-                    "type": "string"
-                },
-                "pid": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                }
-            }
-        },
         "city.CityDataList": {
             "type": "object",
             "properties": {
@@ -6838,6 +6794,20 @@ const docTemplate = `{
                 },
                 "updatedBy": {
                     "type": "integer"
+                }
+            }
+        },
+        "config.Alipay": {
+            "type": "object",
+            "properties": {
+                "ali-public-key": {
+                    "type": "string"
+                },
+                "appid": {
+                    "type": "string"
+                },
+                "private-key": {
+                    "type": "string"
                 }
             }
         },
@@ -7406,6 +7376,14 @@ const docTemplate = `{
         "config.Server": {
             "type": "object",
             "properties": {
+                "alipay": {
+                    "description": "支付宝支付",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.Alipay"
+                        }
+                    ]
+                },
                 "aliyun-oss": {
                     "$ref": "#/definitions/config.AliyunOSS"
                 },
@@ -8370,14 +8348,6 @@ const docTemplate = `{
                 },
                 "user": {
                     "$ref": "#/definitions/system.SysUser"
-                }
-            }
-        },
-        "response.OrderCompleteResp": {
-            "type": "object",
-            "properties": {
-                "orderSerial": {
-                    "type": "string"
                 }
             }
         },

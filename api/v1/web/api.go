@@ -419,6 +419,7 @@ func (wApi *WebApi) OrderPay(c *gin.Context) {
 		response.FailWithMessage("当前金额不足以发起支付", c)
 		return
 	}
+
 	var pricePtr *int
 	pricePtr = orderData.Price
 	price := *pricePtr
@@ -429,6 +430,18 @@ func (wApi *WebApi) OrderPay(c *gin.Context) {
 	p.ProductCode = "JSAPI_PAY"
 	p.TotalAmount = strconv.Itoa(price)
 
+	userInfo, err := global.GVA_AliPay.SystemOauthToken(alipay.SystemOauthToken{
+		GrantType: "authorization_code",
+		Code:      req.Code,
+	})
+
+	if err != nil {
+		global.GVA_LOG.Error("获取买家信息失败!", zap.Error(err))
+		response.FailWithMessage("获取买家信息失败！", c)
+		return
+	}
+
+	p.BuyerId = userInfo.UserId
 	result, err := global.GVA_AliPay.TradeCreate(p)
 	if err != nil {
 		global.GVA_LOG.Error("订单状态更改失败!", zap.Error(err))
@@ -575,8 +588,8 @@ func (wApi *WebApi) OrderDetail(c *gin.Context) {
 	citys, _ := cityService.GetCityList()
 	fromID := strconv.Itoa(*(orderData.FromCity))
 	toID := strconv.Itoa(*(orderData.ToCity))
-	fromCity, _ := cityService.GetCityData(toID)
-	toCity, _ := cityService.GetCityData(fromID)
+	toCity, _ := cityService.GetCityData(toID)
+	fromCity, _ := cityService.GetCityData(fromID)
 
 	var charge int64
 	var cancelAt string

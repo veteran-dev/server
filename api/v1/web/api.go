@@ -315,7 +315,7 @@ func (wApi *WebApi) GetCarList(c *gin.Context) {
 }
 
 func Charge(timeStr string) int64 {
-	t, err := time.ParseInLocation("01-02 15:04:05", timeStr, time.Local)
+	t, err := time.ParseInLocation("2006-01-02 15:04", timeStr, time.Local)
 	if err != nil {
 		global.GVA_LOG.Error("解析时间失败!", zap.Error(err))
 		return 0
@@ -485,8 +485,12 @@ func (wApi *WebApi) OrderCreate(c *gin.Context) {
 			global.GVA_LOG.Error("时间格式有误!", zap.Error(err))
 			response.FailWithMessage("时间格式有误,2006-01-02 15:04:05", c)
 		}
-		inputFormat := "01-02 15:04:05"
-		startTime, _ := time.Parse(inputFormat, req.StartTime)
+
+		inputFormat := "2006-01-02 15:04"
+		t, err := time.Parse(inputFormat, req.StartTime)
+		startTime := t.Format("01-02 15:04")
+		log.Print(startTime)
+		log.Print(err)
 		orderSerial := generateOrderNumber()
 		carID := int(carModel.ID)
 		price := charge + int64(*carModel.BasePrice)
@@ -495,7 +499,7 @@ func (wApi *WebApi) OrderCreate(c *gin.Context) {
 		priceConv := int(price)
 		pricePtr = &priceConv
 		createResult := orderService.CreateOrder(&order.Order{
-			Appointment: &startTime,
+			Appointment: startTime,
 			FromCity:    carModel.From,
 			ToCity:      carModel.To,
 			FromArea:    req.FromLocation,
@@ -504,7 +508,8 @@ func (wApi *WebApi) OrderCreate(c *gin.Context) {
 			CarModel:    ptr,
 			Price:       pricePtr,
 		})
-		if createResult != nil {
+
+		if createResult == nil {
 			response.OkWithData(&orderResp.OrderCreateResp{
 				StartTime:    req.StartTime,
 				CancelAt:     cancelAt,
@@ -518,6 +523,8 @@ func (wApi *WebApi) OrderCreate(c *gin.Context) {
 			}, c)
 			return
 		}
+		global.GVA_LOG.Error("创建订单失败!", zap.Error(createResult))
+
 	}
 	global.GVA_LOG.Error("创建订单失败!", zap.Error(err))
 	response.FailWithMessage("创建订单失败", c)

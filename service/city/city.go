@@ -2,6 +2,7 @@ package city
 
 import (
 	"sort"
+	"strconv"
 
 	"github.com/veteran-dev/server/global"
 	"github.com/veteran-dev/server/model/city"
@@ -63,6 +64,18 @@ func (cdService *CityDataService) GetCityData(ID string) (cd city.City, err erro
 	return
 }
 
+// GetCityData 根据ID获取城市数据记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (cdService *CityDataService) GetCityDataByPID(ID string) (parent city.City, err error) {
+	var child city.City
+	err = global.GVA_DB.Where("id = ?", ID).First(&child).Error
+	if err != nil {
+		return
+	}
+	err = global.GVA_DB.Where("id = ?", strconv.Itoa(child.Pid)).First(&parent).Error
+	return parent, err
+}
+
 // GetCityData 根据Name获取城市数据记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (cdService *CityDataService) GetCityDataByNameAndPid(name []string, pid string) (list []city.City, err error) {
@@ -111,7 +124,7 @@ func (cdService *CityDataService) GetCityList() (result map[uint]string, err err
 	db := global.GVA_DB.Model(&city.City{})
 	var cds []city.City
 
-	err = db.Find(&cds).Error
+	err = db.Where("pid = 0").Find(&cds).Error
 	if len(cds) > 0 {
 		result = make(map[uint]string)
 		for _, v := range cds {

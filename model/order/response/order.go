@@ -2,7 +2,6 @@ package response
 
 import (
 	"github.com/veteran-dev/server/model/cityCarCombination"
-	"github.com/veteran-dev/server/model/order"
 )
 
 // 调用url的
@@ -33,7 +32,25 @@ type OrderCompleteResp struct {
 
 type OrderDetailResp struct {
 	Car   cityCarCombination.CityCarCombination `json:"car"`
-	Order order.Order                           `json:"order"`
+	Order Order                                 `json:"order"`
+}
+
+type Order struct {
+	Appointment     string `json:"appointment"`     //预约时间
+	StartTime       string `json:"startTime"`       //出发时间
+	FromCity        string `json:"fromCity"`        //开始城市id
+	ToCity          string `json:"toCity"`          //抵达城市ID
+	FromArea        string `json:"fromArea"`        //开始地点
+	ToArea          string `json:"toArea"`          //抵达区域
+	OrderSerial     string `json:"orderSerial"`     //订单编号
+	Passenger       string `json:"passenger"`       //乘车人
+	PassengerMobile string `json:"passengerMobile"` //乘车人联系
+	TotalPrice      *int   `json:"totalPrice"`      //订单金额
+	SubPrice        *int   `json:"subPrice"`        //订单金额
+	CarModel        *int   `json:"carModel"`        //车型组
+	Status          *int   `json:"status"`          //订单状态
+	CancelReason    *int   `json:"cancelReason"`    //取消原因
+	CancelAt        string `json:"cancelAt"`        //取消截止日期
 }
 
 type ReasonResp struct {

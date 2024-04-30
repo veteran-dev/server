@@ -435,6 +435,10 @@ func (wApi *WebApi) OrderPay(c *gin.Context) {
 		response.FailWithMessage("系统错误", c)
 		return
 	}
+	log.Print("-------------------")
+	log.Print(result)
+	log.Print("-------------------")
+
 	if result.Code.IsSuccess() && result.SubCode == "ACQ.TRADE_HAS_SUCCESS" {
 		if err := orderService.UpdateOrderByOrderSerial(req.OrderSerial, req.Passenger, req.PassengerMobile, 1); err != nil {
 			global.GVA_LOG.Error("订单状态更改失败!", zap.Error(err))
@@ -486,11 +490,11 @@ func (wApi *WebApi) OrderCreate(c *gin.Context) {
 			response.FailWithMessage("时间格式有误,2006-01-02 15:04:05", c)
 		}
 
-		inputFormat := "2006-01-02 15:04"
-		t, err := time.Parse(inputFormat, req.StartTime)
-		startTime := t.Format("01-02 15:04")
-		log.Print(startTime)
-		log.Print(err)
+		// inputFormat := "2006-01-02 15:04"
+		// t, err := time.Parse(inputFormat, req.StartTime)
+		// startTime := t.Format("01-02 15:04")
+		// log.Print(startTime)
+		// log.Print(err)
 		orderSerial := generateOrderNumber()
 		carID := int(carModel.ID)
 		price := charge + int64(*carModel.BasePrice)
@@ -499,7 +503,7 @@ func (wApi *WebApi) OrderCreate(c *gin.Context) {
 		priceConv := int(price)
 		pricePtr = &priceConv
 		createResult := orderService.CreateOrder(&order.Order{
-			Appointment: startTime,
+			Appointment: req.StartTime,
 			FromCity:    carModel.From,
 			ToCity:      carModel.To,
 			FromArea:    req.FromLocation,
@@ -553,19 +557,63 @@ func (wApi *WebApi) OrderDetail(c *gin.Context) {
 	if err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
+		return
 	}
 	orderData, err := orderService.GetOrderByOrderSerial(req.OrderSerial)
 	if err != nil {
 		global.GVA_LOG.Error("获取Order数据失败!", zap.Error(err))
 		response.FailWithMessage("获取Order数据失败", c)
+		return
 	}
+
 	carinfo, err := carService.ModelDetail(int64(*orderData.CarModel))
 	if err != nil {
 		global.GVA_LOG.Error("获取Car数据失败!", zap.Error(err))
 		response.FailWithMessage("获取Car数据失败", c)
+		return
 	}
+	citys, _ := cityService.GetCityList()
+	fromID := strconv.Itoa(*(orderData.FromCity))
+	toID := strconv.Itoa(*(orderData.ToCity))
+	fromCity, _ := cityService.GetCityData(toID)
+	toCity, _ := cityService.GetCityData(fromID)
+
+	var charge int64
+	var cancelAt string
+	charge = Charge(orderData.Appointment)
+	cancelAt, _ = ConvertBack(orderData.Appointment)
+	var pricePtr *int
+	priceConv := int(charge)
+	pricePtr = &priceConv
+	inputFormat := "2006-01-02 15:04"
+	t, err := time.Parse(inputFormat, orderData.Appointment)
+	startTime := t.Format("01-02 15:04")
+	if err != nil {
+		global.GVA_LOG.Error("时间格式有误!", zap.Error(err))
+		response.FailWithMessage("时间格式有误,2006-01-02 15:04:05", c)
+		return
+	}
+
+	data := orderResp.Order{
+		Appointment:     orderData.Appointment,
+		FromArea:        orderData.FromArea,
+		ToArea:          orderData.ToArea,
+		OrderSerial:     orderData.OrderSerial,
+		Passenger:       orderData.Passenger,
+		PassengerMobile: orderData.PassengerMobile,
+		CancelReason:    orderData.CancelReason,
+		TotalPrice:      orderData.Price,
+		Status:          orderData.Status,
+		ToCity:          citys[uint(toCity.Pid)],
+		FromCity:        citys[uint(fromCity.Pid)],
+		SubPrice:        pricePtr,
+		CancelAt:        cancelAt,
+		StartTime:       startTime,
+		CarModel:        orderData.CarModel,
+	}
+
 	global.GVA_LOG.Info("订单详情成功!")
-	response.OkWithData(&orderResp.OrderDetailResp{Car: carinfo, Order: orderData}, c)
+	response.OkWithData(&orderResp.OrderDetailResp{Car: carinfo, Order: data}, c)
 	return
 }
 
